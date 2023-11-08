@@ -1,34 +1,25 @@
 {
 	"schemaVersion": 1,
-	"id": "deepslate-deco",
+	"id": "deepslate-dungeons",
 	"version": "${version}",
-	"name": "Deepslate Deco",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Deepslate Dungeons",
+	"description": "Replaces cobblestone in dungeons with cobbled deepslate below y = 0!",
 	"authors": [
-		"Me!"
+		"axialeaa"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/axialeaa/DeepslateDeco",
+		"issues": "https://github.com/axialeaa/DeepslateDeco/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "LGPLv3",
 	"icon": "assets/deepslate-deco/icon.png",
 	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"com.axialeaa.deepslatedeco.DeepslateDeco"
-		]
-	},
 	"mixins": [
 		"deepslate-deco.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.14.24",
-		"minecraft": "~1.20.2",
-		"java": ">=17",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
+		"minecraft": "~1.20.1",
+		"java": ">=17"
 	}
 }
