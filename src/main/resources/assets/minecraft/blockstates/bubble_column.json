@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "drag=true": {
+      "model": "blocky-bubbles:block/bubble_column_down"
+    },
+    "drag=false": {
+      "model": "blocky-bubbles:block/bubble_column_up"
+    }
+  }
+}

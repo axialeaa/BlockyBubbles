@@ -1,25 +1,34 @@
 {
 	"schemaVersion": 1,
-	"id": "deepslate-dungeons",
+	"id": "blockybubbles",
 	"version": "${version}",
-	"name": "Deepslate Dungeons",
-	"description": "Replaces cobblestone in dungeons with cobbled deepslate below y = 0!",
+	"name": "Blocky Bubbles",
+	"description": "Bubble columns can render as a block, like Fast Bubbles in Bedrock Edition!",
 	"authors": [
 		"axialeaa"
 	],
 	"contact": {
-		"sources": "https://github.com/axialeaa/DeepslateDeco",
-		"issues": "https://github.com/axialeaa/DeepslateDeco/issues"
+		"sources": "https://github.com/axialeaa/BlockyBubbles",
+		"issues": "https://github.com/axialeaa/BlockyBubbles/issues"
 	},
 	"license": "LGPLv3",
-	"icon": "assets/deepslate-deco/icon.png",
-	"environment": "*",
+	"icon": "assets/blocky-bubbles/icon.png",
+	"environment": "client",
 	"mixins": [
-		"deepslate-deco.mixins.json"
+		"blocky-bubbles.mixins.json"
 	],
+	"entrypoints": {
+		"client": [
+			"com.axialeaa.blockybubbles.BlockyBubbles"
+		]
+	},
 	"depends": {
 		"fabricloader": ">=0.14.24",
 		"minecraft": "~1.20.1",
-		"java": ">=17"
+		"java": ">=17",
+		"fabric": "*"
+	},
+	"suggests": {
+		"sodium": "*"
 	}
 }

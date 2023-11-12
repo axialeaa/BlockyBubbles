@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.axialeaa.blockybubbles.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "AbstractBlockMixin",
+    "BubbleColumnBlockMixin",
+    "sodium.SodiumGameOptionPagesMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
