@@ -47,14 +47,15 @@ public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 	}
 
 	/**
-	 * @return whether the "Bubble Columns" setting is fancy or higher.
+	 * @return whether the "Bubble Columns" setting (or the vanilla graphics setting if sodium is not loaded) is fancy or higher.
 	 */
 	@Unique
 	public boolean settingIsFancy() {
 		MinecraftClient client = MinecraftClient.getInstance();
 		GraphicsMode graphicsMode = client.options.getGraphicsMode().getValue();
-		BlockyBubblesGameOptions data = BlockyBubbles.blockyBubblesOpts.getData();
-		return data.bubblesQuality.isFancy(graphicsMode);
+		BlockyBubblesGameOptions optionData = BlockyBubbles.blockyBubblesOpts.getData();
+
+		return optionData.bubblesQuality.isFancy(graphicsMode);
 	}
 
 }
