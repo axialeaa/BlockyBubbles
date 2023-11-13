@@ -5,6 +5,7 @@
   "client": [
     "AbstractBlockMixin",
     "BubbleColumnBlockMixin",
+    "RenderLayersMixin",
     "sodium.SodiumGameOptionPagesMixin"
   ],
   "injectors": {

@@ -21,6 +21,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 
 	/**
+	 * @return whether the "Bubble Columns" setting is fancy or higher.
+	 */
+	@Unique
+	public boolean settingIsFancy() {
+		MinecraftClient client = MinecraftClient.getInstance();
+		GraphicsMode graphicsMode = client.options.getGraphicsMode().getValue();
+		BlockyBubblesGameOptions optionData = BlockyBubbles.blockyBubblesOpts.getData();
+
+		return optionData.bubblesQuality.isFancy(graphicsMode);
+	}
+
+	/**
 	 * Makes sure the "Bubble Columns" setting is fancy or higher before creating a bubble particle.
 	 */
 	@WrapWithCondition(method = "randomDisplayTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addImportantParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
@@ -44,18 +56,6 @@ public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 		boolean shouldCull = stateFrom.getBlock() instanceof BubbleColumnBlock || stateFrom.isSideInvisible(stateFrom, direction.getOpposite());
 		if (!settingIsFancy() && shouldCull)
 			cir.setReturnValue(true);
-	}
-
-	/**
-	 * @return whether the "Bubble Columns" setting (or the vanilla graphics setting if sodium is not loaded) is fancy or higher.
-	 */
-	@Unique
-	public boolean settingIsFancy() {
-		MinecraftClient client = MinecraftClient.getInstance();
-		GraphicsMode graphicsMode = client.options.getGraphicsMode().getValue();
-		BlockyBubblesGameOptions optionData = BlockyBubbles.blockyBubblesOpts.getData();
-
-		return optionData.bubblesQuality.isFancy(graphicsMode);
 	}
 
 }

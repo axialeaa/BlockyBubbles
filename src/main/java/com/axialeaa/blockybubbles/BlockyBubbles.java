@@ -2,15 +2,11 @@ package com.axialeaa.blockybubbles;
 
 import com.axialeaa.blockybubbles.config.BlockyBubblesGameOptions;
 import com.axialeaa.blockybubbles.config.BlockyBubblesOptionsStorage;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.render.RenderLayer;
 
 import java.util.logging.Logger;
 
-public class BlockyBubbles implements ClientModInitializer {
+public class BlockyBubbles {
 
     private static BlockyBubblesGameOptions CONFIG;
     private static Logger LOGGER;
@@ -30,19 +26,9 @@ public class BlockyBubbles implements ClientModInitializer {
     }
 
     public static Logger logger() {
-        if (LOGGER == null) {
+        if (LOGGER == null)
             LOGGER = Logger.getLogger(MOD_NAME);
-        }
-
         return LOGGER;
-    }
-
-    /**
-     * Defines the bubble column render layer, allowing it to show up when the "Bubble Columns" setting is set to fast.
-     */
-    @Override
-    public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BUBBLE_COLUMN, RenderLayer.getCutoutMipped());
     }
 
 }

@@ -61,8 +61,7 @@ public class BlockyBubblesGameOptions {
     public SodiumGameOptions.GraphicsQuality bubblesQuality;
 
     public BlockyBubblesGameOptions() {
-        this.bubblesQuality = SodiumGameOptions.GraphicsQuality.FAST;
-        // Set to fast by default, since that's the reason players would download this mod in the first place.
+        this.bubblesQuality = SodiumGameOptions.GraphicsQuality.DEFAULT;
     }
 
 }

@@ -19,7 +19,7 @@ repositories {
 		}
 	}
 	maven { url = "https://maven.isxander.dev/releases" }
-	maven { url 'https://maven.fallenbreath.me/releases' }
+	maven { url = "https://maven.fallenbreath.me/releases" }
 }
 
 dependencies {
@@ -27,13 +27,11 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "maven.modrinth:sodium:${project.sodium_version}"
+	modImplementation("maven.modrinth:sodium:mc1.20.2-0.5.3")
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.2.0")))
-	modImplementation 'me.fallenbreath:conditional-mixin:0.4.1'
-	include "me.fallenbreath:conditional-mixin:0.4.1"
 	
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
