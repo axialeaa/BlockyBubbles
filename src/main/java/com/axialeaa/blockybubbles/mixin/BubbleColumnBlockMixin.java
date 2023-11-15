@@ -21,7 +21,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BubbleColumnBlockMixin extends AbstractBlockMixin {
 
 	/**
-	 * @return whether the "Bubble Columns" setting is fancy or higher.
+	 * @return whether the "Bubble Columns" setting is fancy or higher if sodium is installed, otherwise if the global graphics setting is fancy or higher.
+	 * @implNote {@link ClassToMakeSodiumBloodyWork} only gets loaded when the if statement succeeds, so no errors are thrown when sodium is not installed.
 	 */
 	@Unique
 	private static boolean settingIsFancy() {
