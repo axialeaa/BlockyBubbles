@@ -1,9 +1,9 @@
 package com.axialeaa.blockybubbles.mixin;
 
-import com.axialeaa.blockybubbles.BlockyBubbles;
-import com.axialeaa.blockybubbles.config.BlockyBubblesGameOptions;
+import com.axialeaa.blockybubbles.util.ClassToMakeSodiumBloodyWork;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BubbleColumnBlock;
@@ -18,18 +18,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BubbleColumnBlock.class)
-public class BubbleColumnBlockMixin extends AbstractBlockMixin {
+public abstract class BubbleColumnBlockMixin extends AbstractBlockMixin {
 
 	/**
 	 * @return whether the "Bubble Columns" setting is fancy or higher.
 	 */
 	@Unique
-	public boolean settingIsFancy() {
+	private static boolean settingIsFancy() {
 		MinecraftClient client = MinecraftClient.getInstance();
 		GraphicsMode graphicsMode = client.options.getGraphicsMode().getValue();
-		BlockyBubblesGameOptions optionData = BlockyBubbles.blockyBubblesOpts.getData();
 
-		return optionData.bubblesQuality.isFancy(graphicsMode);
+		if (FabricLoader.getInstance().isModLoaded("sodium"))
+			return ClassToMakeSodiumBloodyWork.sodiumIsFancy(graphicsMode);
+		return graphicsMode.getId() > GraphicsMode.FAST.getId();
 	}
 
 	/**
@@ -51,8 +52,7 @@ public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 	/**
 	 * Culls the faces of the bubble column model according to the type of block next to them.
 	 */
-	@Override
-	public void implIsSideInvisible(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {
+	public void isSideInvisibleImpl(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {
 		boolean shouldCull = stateFrom.getBlock() instanceof BubbleColumnBlock || stateFrom.isSideInvisible(stateFrom, direction.getOpposite());
 		if (!settingIsFancy() && shouldCull)
 			cir.setReturnValue(true);

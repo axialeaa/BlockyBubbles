@@ -31,7 +31,7 @@ public class BlockyBubblesGameOptions {
                 config = GSON.fromJson(reader, BlockyBubblesGameOptions.class);
             }
             catch (Exception e) {
-                BlockyBubbles.logger().warning("Falling back to defaults as the config could not be parsed.");
+                BlockyBubbles.LOGGER.warning("Falling back to defaults as the config could not be parsed.");
                 config = new BlockyBubblesGameOptions();
             }
         else config = new BlockyBubblesGameOptions();

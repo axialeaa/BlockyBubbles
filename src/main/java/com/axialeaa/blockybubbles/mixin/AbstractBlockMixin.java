@@ -15,6 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class AbstractBlockMixin {
 
     @Inject(method = "isSideInvisible", at = @At("HEAD"), cancellable = true)
-    public void implIsSideInvisible(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {}
+    public void isSideInvisibleImpl(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {}
 
 }
