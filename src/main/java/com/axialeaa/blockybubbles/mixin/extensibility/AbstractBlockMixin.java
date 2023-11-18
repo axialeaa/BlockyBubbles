@@ -1,4 +1,4 @@
-package com.axialeaa.blockybubbles.mixin;
+package com.axialeaa.blockybubbles.mixin.extensibility;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;

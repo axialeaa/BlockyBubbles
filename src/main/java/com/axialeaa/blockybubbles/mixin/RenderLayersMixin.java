@@ -23,7 +23,7 @@ public class RenderLayersMixin {
      */
     @Inject(method = "<clinit>*", at = @At("RETURN"))
     private static void addBubbleColumn(CallbackInfo info) {
-        BLOCKS.put(Blocks.BUBBLE_COLUMN, RenderLayer.getCutoutMipped());
+        BLOCKS.put(Blocks.BUBBLE_COLUMN, RenderLayer.getCutout());
     }
 
 }

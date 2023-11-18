@@ -1,6 +1,6 @@
 package com.axialeaa.blockybubbles.mixin.sodium;
 
-import com.axialeaa.blockybubbles.util.ClassToMakeSodiumBloodyWork;
+import com.axialeaa.blockybubbles.compat.SodiumCompat;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptionPages;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
@@ -23,7 +23,7 @@ public abstract class SodiumGameOptionPagesMixin {
     @Inject(method = "quality", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/gui/options/OptionGroup;createBuilder()Lme/jellysquid/mods/sodium/client/gui/options/OptionGroup$Builder;", ordinal = 2, shift = At.Shift.AFTER), remap = false)
     private static void addOption(CallbackInfoReturnable<OptionPage> cir, @Local(ordinal = 0) List<OptionGroup> groups) {
         groups.add(OptionGroup.createBuilder()
-            .add(OptionImpl.createBuilder(SodiumGameOptions.GraphicsQuality.class, ClassToMakeSodiumBloodyWork.blockyBubblesOpts)
+            .add(OptionImpl.createBuilder(SodiumGameOptions.GraphicsQuality.class, SodiumCompat.blockyBubblesOpts)
                 .setName(Text.translatable("blocky-bubbles.options.bubblesQuality.name"))
                 .setTooltip(Text.translatable("blocky-bubbles.options.bubblesQuality.tooltip"))
                 .setControl(option -> new CyclingControl<>(option, SodiumGameOptions.GraphicsQuality.class))

@@ -14,6 +14,14 @@
 	"license": "LGPLv3",
 	"icon": "assets/blocky-bubbles/icon.png",
 	"environment": "client",
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.github_releases": "https://github.com/axialeaa/BlockyBubbles/releases",
+				"modmenu.modrinth": "https://modrinth.com/mod/blocky-bubbles"
+			}
+		}
+	},
 	"mixins": [
 		"blocky-bubbles.mixins.json"
 	],
@@ -21,5 +29,8 @@
 		"fabricloader": ">=0.14.24",
 		"minecraft": "~1.20.1",
 		"java": ">=17"
+	},
+	"suggests": {
+		"sodium": "*"
 	}
 }

@@ -1,6 +1,7 @@
 package com.axialeaa.blockybubbles.mixin;
 
-import com.axialeaa.blockybubbles.util.ClassToMakeSodiumBloodyWork;
+import com.axialeaa.blockybubbles.compat.SodiumCompat;
+import com.axialeaa.blockybubbles.mixin.extensibility.AbstractBlockMixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import net.fabricmc.loader.api.FabricLoader;
@@ -21,8 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BubbleColumnBlockMixin extends AbstractBlockMixin {
 
 	/**
-	 * @return whether the "Bubble Columns" setting is fancy or higher if sodium is installed, otherwise if the global graphics setting is fancy or higher.
-	 * @implNote {@link ClassToMakeSodiumBloodyWork} only gets loaded when the if statement succeeds, so no errors are thrown when sodium is not installed.
+	 * @return if the "Bubble Columns" setting is fancy or higher when sodium is installed, otherwise if the global graphics setting is fancy or higher.
+	 * @implNote {@link SodiumCompat} only gets loaded when the if statement succeeds, so no errors are thrown when sodium is not installed.
 	 */
 	@Unique
 	private static boolean settingIsFancy() {
@@ -30,7 +31,7 @@ public abstract class BubbleColumnBlockMixin extends AbstractBlockMixin {
 		GraphicsMode graphicsMode = client.options.getGraphicsMode().getValue();
 
 		if (FabricLoader.getInstance().isModLoaded("sodium"))
-			return ClassToMakeSodiumBloodyWork.sodiumIsFancy(graphicsMode);
+			return SodiumCompat.sodiumIsFancy(graphicsMode);
 		return graphicsMode.getId() > GraphicsMode.FAST.getId();
 	}
 
@@ -52,10 +53,11 @@ public abstract class BubbleColumnBlockMixin extends AbstractBlockMixin {
 
 	/**
 	 * Culls the faces of the bubble column model according to the type of block next to them.
+	 * @implNote Bedrock Edition culls the top face when there is any block above, regardless of collision box shape or visibility. This is also what is done here, though some culling specification is provided in the block model instead.
 	 */
+	@Override
 	public void isSideInvisibleImpl(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-		boolean shouldCull = stateFrom.getBlock() instanceof BubbleColumnBlock || stateFrom.isSideInvisible(stateFrom, direction.getOpposite());
-		if (!settingIsFancy() && shouldCull)
+		if (!settingIsFancy() && !stateFrom.isAir())
 			cir.setReturnValue(true);
 	}
 

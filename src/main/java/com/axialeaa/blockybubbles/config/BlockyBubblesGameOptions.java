@@ -13,15 +13,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 
+/**
+ * Mostly copied from <a href="https://github.com/FlashyReese/sodium-extra-fabric/blob/1.20.x/dev/src/main/java/me/flashyreese/mods/sodiumextra/client/gui/SodiumExtraGameOptions.java">Sodium Extra's game options class</a>, with a few exceptions.
+ */
 public class BlockyBubblesGameOptions {
 
+    private File file;
     private static final Gson GSON = new GsonBuilder()
         .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
         .setPrettyPrinting()
         .excludeFieldsWithModifiers(Modifier.PRIVATE)
         .create();
-    private File file;
 
     public static BlockyBubblesGameOptions load(File file) {
         BlockyBubblesGameOptions config;
@@ -30,7 +33,7 @@ public class BlockyBubblesGameOptions {
             try (FileReader reader = new FileReader(file)) {
                 config = GSON.fromJson(reader, BlockyBubblesGameOptions.class);
             }
-            catch (Exception e) {
+            catch (Exception exception) {
                 BlockyBubbles.LOGGER.warning("Falling back to defaults as the config could not be parsed.");
                 config = new BlockyBubblesGameOptions();
             }
@@ -43,18 +46,18 @@ public class BlockyBubblesGameOptions {
     }
 
     public void writeChanges() {
-        File dir = this.file.getParentFile();
+        File parentFile = this.file.getParentFile();
 
-        if (!dir.exists())
-            if (!dir.mkdirs())
-                throw new RuntimeException("Could not create parent directories.");
-        else if (!dir.isDirectory())
-            throw new RuntimeException(dir + " is not a directory.");
+        if (!parentFile.exists())
+            if (!parentFile.mkdirs())
+                throw new RuntimeException("Oops! Could not create parent directories.");
+        else if (!parentFile.isDirectory())
+            throw new RuntimeException("Oops! " + parentFile + " is not a directory.");
 
-        try (FileWriter writer = new FileWriter(this.file)) {
-            GSON.toJson(this, writer);
-        } catch (IOException e) {
-            throw new RuntimeException("Configuration file could not be saved.", e);
+        try (FileWriter fileWriter = new FileWriter(this.file)) {
+            GSON.toJson(this, fileWriter);
+        } catch (IOException exception) {
+            throw new RuntimeException("Oops! Configuration file could not be saved.", exception);
         }
     }
 

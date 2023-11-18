@@ -1,4 +1,4 @@
-package com.axialeaa.blockybubbles.util;
+package com.axialeaa.blockybubbles.compat;
 
 import com.axialeaa.blockybubbles.config.BlockyBubblesOptionsStorage;
 import net.minecraft.client.option.GraphicsMode;
@@ -7,7 +7,7 @@ import net.minecraft.client.option.GraphicsMode;
  * aaaaaaaaaaaaaaaaa
  * @author axia
  */
-public class ClassToMakeSodiumBloodyWork {
+public class SodiumCompat {
 
     public static final BlockyBubblesOptionsStorage blockyBubblesOpts = new BlockyBubblesOptionsStorage();
 
