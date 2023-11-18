@@ -1,4 +1,4 @@
-# Hi there! Thank you for checking out Simple Hollow Logs!
+# Hi there! Thank you for checking out Blocky Bubbles!
 <img align="right" width="130" src="src/main/resources/assets/blocky-bubbles/icon.png">
 
 Blocky Bubbles is a client-side [Fabric](https://fabricmc.net) mod that attempts to add the fast bubble columns feature from Bedrock Edition!
