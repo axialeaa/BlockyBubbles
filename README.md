@@ -1,5 +1,5 @@
 # Hi there! Thank you for checking out Blocky Bubbles!
-<img align="right" width="120" src="src/main/resources/assets/blocky-bubbles/icon.png">
+<img align="right" width="130" src="src/main/resources/assets/blocky-bubbles/icon.png">
 
 [![GitHub downloads](https://img.shields.io/github/downloads/axialeaa/BlockyBubbles/total?label=Github%20downloads&logo=github&style=for-the-badge)](https://github.com/axialeaa/BlockyBubbles/releases)
 [![Modrinth downloads](https://img.shields.io/modrinth/dt/blocky-bubbles?label=Modrinth%20downloads&logo=modrinth&style=for-the-badge)](https://modrinth.com/mod/blocky-bubbles)
