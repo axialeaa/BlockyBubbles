@@ -1,10 +1,11 @@
-package com.axialeaa.blockybubbles.config;
+package com.axialeaa.blockybubbles.sodium;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
+import me.jellysquid.mods.sodium.client.gui.options.storage.OptionStorage;
 import net.minecraft.util.Identifier;
 
 import java.io.File;
@@ -16,7 +17,10 @@ import java.lang.reflect.Modifier;
 /**
  * Mostly copied from <a href="https://github.com/FlashyReese/sodium-extra-fabric/blob/1.20.x/dev/src/main/java/me/flashyreese/mods/sodiumextra/client/gui/SodiumExtraGameOptions.java">Sodium Extra's game options class</a>, with a few exceptions.
  */
-public class BlockyBubblesGameOptions {
+public class SodiumConfig {
+
+    public SodiumGameOptions.GraphicsQuality bubblesQuality;
+    public SodiumCompat.CullingAwareness cullingAwareness;
 
     private File file;
     private static final Gson GSON = new GsonBuilder()
@@ -26,26 +30,32 @@ public class BlockyBubblesGameOptions {
         .excludeFieldsWithModifiers(Modifier.PRIVATE)
         .create();
 
-    public static BlockyBubblesGameOptions load(File file) {
-        BlockyBubblesGameOptions config;
+    public static final SodiumConfig.Storage blockyBubblesOptions = new SodiumConfig.Storage();
+
+    public static SodiumConfig getOptionData() {
+        return SodiumConfig.blockyBubblesOptions.getData();
+    }
+
+    public static SodiumConfig loadFromFile(File file) {
+        SodiumConfig config;
 
         if (file.exists())
             try (FileReader reader = new FileReader(file)) {
-                config = GSON.fromJson(reader, BlockyBubblesGameOptions.class);
+                config = GSON.fromJson(reader, SodiumConfig.class);
             }
             catch (Exception exception) {
-                BlockyBubbles.LOGGER.warning("Falling back to defaults as the config could not be parsed.");
-                config = new BlockyBubblesGameOptions();
+                BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.");
+                config = new SodiumConfig();
             }
-        else config = new BlockyBubblesGameOptions();
+        else config = new SodiumConfig();
 
         config.file = file;
-        config.writeChanges();
+        config.writeToFile();
 
         return config;
     }
 
-    public void writeChanges() {
+    public void writeToFile() {
         File parentFile = this.file.getParentFile();
 
         if (!parentFile.exists())
@@ -56,15 +66,31 @@ public class BlockyBubblesGameOptions {
 
         try (FileWriter fileWriter = new FileWriter(this.file)) {
             GSON.toJson(this, fileWriter);
-        } catch (IOException exception) {
+        }
+        catch (IOException exception) {
             throw new RuntimeException("Oops! Configuration file could not be saved.", exception);
         }
     }
 
-    public SodiumGameOptions.GraphicsQuality bubblesQuality;
-
-    public BlockyBubblesGameOptions() {
+    public SodiumConfig() {
         this.bubblesQuality = SodiumGameOptions.GraphicsQuality.DEFAULT;
+        this.cullingAwareness = SodiumCompat.CullingAwareness.NON_AIR;
+    }
+
+    public static class Storage implements OptionStorage<SodiumConfig> {
+
+        private final SodiumConfig options = BlockyBubbles.options();
+
+        @Override
+        public SodiumConfig getData() {
+            return this.options;
+        }
+
+        @Override
+        public void save() {
+            this.options.writeToFile();
+        }
+
     }
 
 }

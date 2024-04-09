@@ -1,10 +1,11 @@
 package com.axialeaa.blockybubbles.mixin;
 
-import com.axialeaa.blockybubbles.compat.SodiumCompat;
-import com.axialeaa.blockybubbles.mixin.extensibility.AbstractBlockMixin;
+import com.axialeaa.blockybubbles.BlockyBubbles;
+import com.axialeaa.blockybubbles.sodium.SodiumCompat;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
-import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BubbleColumnBlock;
@@ -18,29 +19,41 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Environment(EnvType.CLIENT)
 @Mixin(BubbleColumnBlock.class)
-public abstract class BubbleColumnBlockMixin extends AbstractBlockMixin {
+public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 
 	/**
-	 * @return if the "Bubble Columns" setting is fancy or higher when sodium is installed, otherwise if the global graphics setting is fancy or higher.
-	 * @implNote {@link SodiumCompat} only gets loaded when the if statement succeeds, so no errors are thrown when sodium is not installed.
+	 * @return true if the "Bubble Columns" setting is fancy or higher when sodium is installed, otherwise true if the global graphics setting is fancy or higher.
+	 * @implNote {@link SodiumCompat} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
 	 */
 	@Unique
-	private static boolean settingIsFancy() {
+	private static boolean isFancy() {
 		MinecraftClient client = MinecraftClient.getInstance();
 		GraphicsMode graphicsMode = client.options.getGraphicsMode().getValue();
 
-		if (FabricLoader.getInstance().isModLoaded("sodium"))
-			return SodiumCompat.sodiumIsFancy(graphicsMode);
-		return graphicsMode.getId() > GraphicsMode.FAST.getId();
+		boolean isFancyGraphics = graphicsMode.getId() > GraphicsMode.FAST.getId();
+
+		return BlockyBubbles.isSodiumLoaded ? SodiumCompat.isFancy(graphicsMode) : isFancyGraphics;
 	}
 
 	/**
-	 * Makes sure the "Bubble Columns" setting is fancy or higher before creating a bubble particle.
+	 * @param stateFrom The block next to the bubble column.
+	 * @return true if the "Culling Awareness" setting allows culling when sodium is installed, otherwise true if the block next to the bubble column in question is not air.
+	 * @implNote {@link SodiumCompat} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
+	 * @see SodiumCompat.CullingAwareness
+	 */
+	@Unique
+	private static boolean shouldCull(BlockState stateFrom) {
+		return BlockyBubbles.isSodiumLoaded ? SodiumCompat.CullingAwareness.shouldCull(stateFrom) : !stateFrom.isAir();
+	}
+
+	/**
+	 * Ensures the "Bubble Columns" setting is fancy or higher before creating a bubble particle.
 	 */
 	@WrapWithCondition(method = "randomDisplayTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addImportantParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
-	private boolean particlesWhenFancy(World instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-		return settingIsFancy();
+	private boolean shouldSpawnParticles(World instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+		return isFancy();
 	}
 
 	/**
@@ -48,17 +61,16 @@ public abstract class BubbleColumnBlockMixin extends AbstractBlockMixin {
 	 */
 	@ModifyReturnValue(method = "getRenderType", at = @At("RETURN"))
 	private BlockRenderType modifyRenderType(BlockRenderType original, BlockState state) {
-		return settingIsFancy() ? original : BlockRenderType.MODEL;
+		return isFancy() ? original : BlockRenderType.MODEL;
 	}
 
 	/**
-	 * Culls the faces of the bubble column model according to the type of block next to them.
-	 * @implNote Bedrock Edition culls the top face when there is any block above, regardless of collision box shape or visibility. This is also what is done here, though some culling specification is provided in the block model instead.
+	 * Culls the faces of the bubble column model according to the type of block next to it (some culling specification is provided in the block model).
+	 * @see SodiumCompat.CullingAwareness
 	 */
 	@Override
 	public void isSideInvisibleImpl(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {
-		if (!settingIsFancy() && !stateFrom.isAir())
-			cir.setReturnValue(true);
+		cir.setReturnValue(!isFancy() && shouldCull(stateFrom));
 	}
 
 }

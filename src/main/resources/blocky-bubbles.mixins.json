@@ -3,9 +3,8 @@
   "package": "com.axialeaa.blockybubbles.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "extensibility.AbstractBlockMixin",
+    "AbstractBlockMixin",
     "BubbleColumnBlockMixin",
-    "RenderLayersMixin",
     "sodium.SodiumGameOptionPagesMixin"
   ],
   "injectors": {

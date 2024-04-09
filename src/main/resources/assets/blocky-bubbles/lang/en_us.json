@@ -1,4 +1,10 @@
 {
   "blocky-bubbles.options.bubblesQuality.name": "Bubble Columns",
-  "blocky-bubbles.options.bubblesQuality.tooltip": "Controls the quality of bubble columns."
+  "blocky-bubbles.options.bubblesQuality.tooltip": "Controls the quality of bubble columns.",
+  "blocky-bubbles.options.cullingAwareness.enum.bubble_column": "Bubble Column (Vanilla-like)",
+  "blocky-bubbles.options.cullingAwareness.enum.non_air": "Non-Air (Parity)",
+  "blocky-bubbles.options.cullingAwareness.name": "Culling Awareness",
+  "blocky-bubbles.options.cullingAwareness.tooltip": "Which blocks should cause adjacent bubble column faces to cull.",
+  "resourcePack.blocky-bubbles:32x_upscale.description": "Based on §8https://faithfulpack.net",
+  "resourcePack.blocky-bubbles:32x_upscale.name": "Blocky Bubbles: 32x Upscale"
 }

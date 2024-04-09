@@ -14,6 +14,11 @@
 	"license": "LGPLv3",
 	"icon": "assets/blocky-bubbles/icon.png",
 	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"com.axialeaa.blockybubbles.BlockyBubbles"
+		]
+	},
 	"custom": {
 		"modmenu": {
 			"links": {
@@ -28,8 +33,9 @@
 	"depends": {
 		"fabricloader": ">=0.15.0",
 		"minecraft": "~1.20.3",
-		"java": ">=17"
-	},
+		"java": ">=17",
+        "fabric-api": "*"
+    },
 	"suggests": {
 		"sodium": "*"
 	}

@@ -1,4 +1,4 @@
-package com.axialeaa.blockybubbles.mixin.extensibility;
+package com.axialeaa.blockybubbles.mixin;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * Allows instantiation of the isSideInvisible() method without extending + overriding, a bad mixin-ing practice which leads to a lot of inter-mod incompatibility.
  */
+@SuppressWarnings("CancellableInjectionUsage")
 @Mixin(AbstractBlock.class)
 public abstract class AbstractBlockMixin {
 
