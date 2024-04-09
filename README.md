@@ -1,15 +1,16 @@
 # Hi there! Thank you for checking out Blocky Bubbles!
 <img align="right" width="130" src="src/main/resources/assets/blocky-bubbles/icon.png">
 
-Blocky Bubbles is a client-side [Fabric](https://fabricmc.net) mod that attempts to add the fast bubble columns feature from Bedrock Edition!
+[![GitHub downloads](https://img.shields.io/github/downloads/axialeaa/BlockyBubbles/total?label=Github%20downloads&logo=github&style=for-the-badge)](https://github.com/axialeaa/BlockyBubbles/releases)
+[![Modrinth downloads](https://img.shields.io/modrinth/dt/blocky-bubbles?label=Modrinth%20downloads&logo=modrinth&style=for-the-badge)](https://modrinth.com/mod/blocky-bubbles)
 
-Read on to find out how to download this mod, and what opportunities doing so will provide you with!
+<strong>Blocky Bubbles</strong> is a client-side [Fabric](https://fabricmc.net) mod that attempts to add the fast bubble columns feature from Bedrock Edition! It does so by making bubble columns use unbaked block models which can be modified using resource packs. This provides a decent performance improvement as well as a unique visual style you can see from the image below!
 
-## Getting Started
-Simply head to the releases page, find the latest release for the version you're playing on, and place the jar in your mods folder. This mod doesn't require any accompanying library, but you may want to download [Sodium](https://modrinth.com/mod/sodium) to allow you to change the setting independent of your main graphics profile.
+![](https://github.com/axialeaa/BlockyBubbles/assets/116074698/c8343ad4-6047-4b33-80a9-a36c667cdfa1)
+> Fast bubbles around an underwater ruined portal.
 
-## Details
-In vanilla minecraft, bubble columns emit particle effects that indicate the direction of the stream: a downward "whirlpool" for magma blocks and an updraft for soul sand. Unfortunately, rendering a lot of particle effects at once can be costly, and they don't even render behind transparent blocks like water in the fast or fancy graphics profile.
+Without [Sodium](https://modrinth.com/mod/sodium), fast bubbles may be toggled through the main graphics profile; the same toggle that controls fancy leaf rendering! With Sodium, you're able to modify the setting independently, through Sodium's own video settings menu.
+***
 
-This mod allows bubble columns to use unbaked block models instead, which has the intended visual symmetry of the Bedrock Edition counterpart. This provides a decent performance improvement as well as a unique visual style you can see from the image below!
-![2023-11-18_19 05 37](https://github.com/axialeaa/BlockyBubbles/assets/116074698/c8343ad4-6047-4b33-80a9-a36c667cdfa1)
+### Getting Started
+Simply drag <strong>Blocky Bubbles</strong> into your mods folder. This mod doesn't require any accompanying library, but you may want to download [Sodium](https://modrinth.com/mod/sodium) to allow you to change the setting independently of your main graphics profile.
