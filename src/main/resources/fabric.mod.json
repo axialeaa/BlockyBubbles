@@ -3,7 +3,7 @@
 	"id": "blocky-bubbles",
 	"version": "${version}",
 	"name": "Blocky Bubbles",
-	"description": "Bubble columns can render as a block, like Fast Bubbles in Bedrock Edition!",
+	"description": "Allows bubble columns to render as a block, resembling Bedrock Edition's fast bubbles!",
 	"authors": [
 		"axialeaa"
 	],

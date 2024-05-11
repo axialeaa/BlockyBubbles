@@ -28,11 +28,13 @@ public class SodiumCompat {
         BUBBLE_COLUMN;
 
         public Text getLocalizedName() {
-            /*? if >=1.19.2 { */
-            return Text.translatable("blocky-bubbles.options.cullingAwareness.enum." + this.toString().toLowerCase());
-            /*? } else { *//*
-            return new TranslatableText("blocky-bubbles.options.cullingAwareness.enum." + this.toString().toLowerCase());
-            *//*? } */
+            return
+                /*? if >=1.19.2 { */
+                Text.translatable
+                /*? } else { *//*
+                new TranslatableText
+                *//*? } */
+                    ("blocky-bubbles.options.culling_awareness.enum." + this.toString().toLowerCase());
         }
 
         public static boolean shouldCull(BlockState stateFrom, CullingAwareness type) {

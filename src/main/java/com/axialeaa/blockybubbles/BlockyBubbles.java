@@ -21,6 +21,7 @@ public class BlockyBubbles implements ClientModInitializer {
 
     public static final String MOD_ID = "blocky-bubbles";
     public static final String MOD_NAME = "Blocky Bubbles";
+    public static final String packNameKey = "resourcePack.blocky-bubbles:32x_upscale.name";
 
     public static Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
@@ -42,15 +43,19 @@ public class BlockyBubbles implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(modContainer ->
+            ResourceManagerHelper.registerBuiltinResourcePack(id("32x_upscale"), modContainer,
+
             /*? if >=1.19.3 { */
-            ResourceManagerHelper.registerBuiltinResourcePack(id("32x_upscale"), modContainer, Text.translatable("resourcePack.blocky-bubbles:32x_upscale.name"), ResourcePackActivationType.NORMAL)
+            Text.translatable(packNameKey),
             /*? } elif =1.19.2 { *//*
-            ResourceManagerHelper.registerBuiltinResourcePack(id("32x_upscale"), modContainer, String.valueOf(Text.translatable("resourcePack.blocky-bubbles:32x_upscale.name")), ResourcePackActivationType.NORMAL)
+            String.valueOf(Text.translatable(packNameKey)),
             *//*? } elif =1.18.2 { *//*
-            ResourceManagerHelper.registerBuiltinResourcePack(id("32x_upscale"), modContainer, String.valueOf(new TranslatableText("resourcePack.blocky-bubbles:32x_upscale.name")), ResourcePackActivationType.NORMAL)
-            *//*? } elif =1.17.1 { *//*
-            ResourceManagerHelper.registerBuiltinResourcePack(id("32x_upscale"), modContainer, ResourcePackActivationType.NORMAL)
+            String.valueOf(new TranslatableText(packNameKey)),
             *//*? } */
+
+            // Note: custom pack names are only supported in versions above 1.17.1.
+
+            ResourcePackActivationType.NORMAL)
         );
         LOGGER.info(MOD_NAME + " initialized. Bubble trouble!");
 
