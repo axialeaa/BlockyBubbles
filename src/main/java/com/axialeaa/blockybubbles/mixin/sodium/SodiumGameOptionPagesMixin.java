@@ -62,7 +62,8 @@ public class SodiumGameOptionPagesMixin {
                 .setImpact(OptionImpact.LOW)
                 .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
                 .build()
-            ).build()
+            )
+            .build()
         );
 
         return groups;
