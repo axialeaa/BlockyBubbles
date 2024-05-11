@@ -3,7 +3,7 @@ package com.axialeaa.blockybubbles.mixin;
 import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.axialeaa.blockybubbles.sodium.SodiumCompat;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockRenderType;
@@ -30,11 +30,14 @@ public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 	@Unique
 	private static boolean isFancy() {
 		MinecraftClient client = MinecraftClient.getInstance();
-		GraphicsMode graphicsMode = client.options.getGraphicsMode().getValue();
+		GraphicsMode graphicsMode = client.options
+			/*? if >=1.19.2 { */
+			.getGraphicsMode().getValue();
+			/*? } else { *//*
+			.graphicsMode;
+			*//*? } */
 
-		boolean isFancyGraphics = graphicsMode.getId() > GraphicsMode.FAST.getId();
-
-		return BlockyBubbles.isSodiumLoaded ? SodiumCompat.isFancy(graphicsMode) : isFancyGraphics;
+		return BlockyBubbles.isSodiumLoaded ? SodiumCompat.isFancy(graphicsMode) : MinecraftClient.isFancyGraphicsOrBetter();
 	}
 
 	/**

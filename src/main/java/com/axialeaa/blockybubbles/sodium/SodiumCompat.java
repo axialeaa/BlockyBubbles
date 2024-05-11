@@ -5,8 +5,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BubbleColumnBlock;
 import net.minecraft.client.option.GraphicsMode;
 import net.minecraft.text.Text;
-
-import java.util.Locale;
+/*? if <=1.18.2 { *//*
+import net.minecraft.text.TranslatableText;
+*//*? } */
 
 /**
  * aaaaaaaaaaaaaaaaa
@@ -27,7 +28,11 @@ public class SodiumCompat {
         BUBBLE_COLUMN;
 
         public Text getLocalizedName() {
-            return Text.translatable("blocky-bubbles.options.cullingAwareness.enum." + this.toString().toLowerCase(Locale.ROOT));
+            /*? if >=1.19.2 { */
+            return Text.translatable("blocky-bubbles.options.cullingAwareness.enum." + this.toString().toLowerCase());
+            /*? } else { *//*
+            return new TranslatableText("blocky-bubbles.options.cullingAwareness.enum." + this.toString().toLowerCase());
+            *//*? } */
         }
 
         public static boolean shouldCull(BlockState stateFrom, CullingAwareness type) {
