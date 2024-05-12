@@ -32,7 +32,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}"
 
 	modCompileOnly "maven.modrinth:sodium:${property("sodium_version")}"
-	modRuntimeOnly "maven.modrinth:sodium:${property("sodium_version")}"
+	// modRuntimeOnly "maven.modrinth:sodium:${property("sodium_version")}"
 }
 
 if (stonecutter.current.isActive) { // run configs for non-active version would be invalid
