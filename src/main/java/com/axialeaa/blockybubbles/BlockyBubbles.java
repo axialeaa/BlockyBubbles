@@ -46,9 +46,9 @@ public class BlockyBubbles implements ClientModInitializer {
             /*? if >=1.19.3 { */
             Text.translatable(PACK_NAME_KEY),
             /*? } elif =1.19.2 { *//*
-            String.valueOf(Text.translatable(packNameKey)),
+            String.valueOf(Text.translatable(PACK_NAME_KEY)),
             *//*? } elif =1.18.2 { *//*
-            String.valueOf(new TranslatableText(packNameKey)),
+            String.valueOf(new TranslatableText(PACK_NAME_KEY)),
             *//*? } */
 
             // Note: custom pack names are only supported in versions above 1.17.1.
