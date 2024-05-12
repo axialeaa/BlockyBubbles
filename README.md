@@ -54,7 +54,6 @@ I have also obtained permission from miniluv73, the original artist behind the f
 
 > [!IMPORTANT]
 > **Blocky Bubbles** requires [Fabric API][fabric-api]. Without it, the game will fail to start!
-***
 
 [fabric]: https://fabricmc.net
 [fabric-installer]: https://fabricmc.net/use/installer
