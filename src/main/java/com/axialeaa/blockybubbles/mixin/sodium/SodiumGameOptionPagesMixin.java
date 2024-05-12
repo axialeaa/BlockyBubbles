@@ -2,6 +2,7 @@ package com.axialeaa.blockybubbles.mixin.sodium;
 
 import com.axialeaa.blockybubbles.sodium.SodiumCompat;
 import com.axialeaa.blockybubbles.sodium.SodiumConfig;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptionPages;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 import me.jellysquid.mods.sodium.client.gui.options.*;
@@ -14,7 +15,8 @@ import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
@@ -30,8 +32,8 @@ public class SodiumGameOptionPagesMixin {
     /**
      * Adds the "Bubble Columns" option to Sodium's video settings screen.
      */
-    @ModifyVariable(method = "quality", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableList;copyOf(Ljava/util/Collection;)Lcom/google/common/collect/ImmutableList;"), remap = false)
-    private static List<OptionGroup> addOption(List<OptionGroup> groups) {
+    @Inject(method = "quality", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/gui/options/OptionGroup;createBuilder()Lme/jellysquid/mods/sodium/client/gui/options/OptionGroup$Builder;", ordinal = 2, shift = At.Shift.AFTER), remap = false)
+    private static void addOption(CallbackInfoReturnable<OptionPage> cir, @Local List<OptionGroup> groups) {
         groups.add(OptionGroup.createBuilder()
             .add(OptionImpl.createBuilder(SodiumGameOptions.GraphicsQuality.class, SodiumConfig.blockyBubblesOptions)
                 /*? if >=1.19.2 { */
@@ -65,8 +67,6 @@ public class SodiumGameOptionPagesMixin {
             )
             .build()
         );
-
-        return groups;
     }
 
 }
