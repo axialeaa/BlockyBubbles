@@ -6,6 +6,7 @@
     "AbstractBlockMixin",
     "BlockDustParticleMixin",
     "BubbleColumnBlockMixin",
+    "SpriteAtlasTextureMixin",
     "sodium.SodiumGameOptionPagesMixin"
   ],
   "injectors": {

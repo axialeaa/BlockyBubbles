@@ -32,7 +32,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}"
 
 	modCompileOnly "maven.modrinth:sodium:${property("sodium_version")}"
-	// modRuntimeOnly "maven.modrinth:sodium:${property("sodium_version")}"
+	modRuntimeOnly "maven.modrinth:sodium:${property("sodium_version")}"
 }
 
 if (stonecutter.current.isActive) { // run configs for non-active version would be invalid
@@ -42,6 +42,30 @@ if (stonecutter.current.isActive) { // run configs for non-active version would 
 			runDir "../../run" // use a global run directory for all versions
 		}
 	}
+}
+
+stonecutter.swap("create_method") {
+	stonecutter.compare(stonecutter.current.version, "1.20.6") >= 0 ? "\"create\"," : "\"createParticle(Lnet/minecraft/particle/BlockStateParticleEffect;Lnet/minecraft/client/world/ClientWorld;DDDDDD)Lnet/minecraft/client/particle/Particle;\","
+}
+
+stonecutter.swap("graphics_mode") {
+	stonecutter.compare(stonecutter.current.version, "1.19.2") >= 0 ? ".getGraphicsMode().getValue();" : ".graphicsMode;"
+}
+
+stonecutter.swap("list_type") {
+	stonecutter.compare(stonecutter.current.version, "1.19.3") >= 0 ? "Sprite.TickableAnimation" : "TextureTickListener"
+}
+
+stonecutter.swap("pack_name") {
+	stonecutter.compare(stonecutter.current.version, "1.19.3") >= 0 ? "name," : "String.valueOf(name),"
+}
+
+stonecutter.swap("identifier") {
+	stonecutter.compare(stonecutter.current.version, "1.21") >= 0 ? "Identifier.of(MOD_ID, name);" : "new Identifier(MOD_ID, name);"
+}
+
+stonecutter.swap("translatable") {
+	stonecutter.compare(stonecutter.current.version, "1.19.2") >= 0 ? "Text.translatable(key);" : "new TranslatableText(key);"
 }
 
 processResources {

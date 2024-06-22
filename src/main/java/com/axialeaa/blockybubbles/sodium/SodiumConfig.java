@@ -20,7 +20,8 @@ import java.lang.reflect.Modifier;
 public class SodiumConfig {
 
     public SodiumGameOptions.GraphicsQuality bubblesQuality;
-    public SodiumCompat.CullingAwareness cullingAwareness;
+    public boolean enableAnimations;
+    public SodiumUtils.CullingAwareness cullingAwareness;
 
     private File file;
     private static final Gson GSON = new GsonBuilder()
@@ -39,7 +40,7 @@ public class SodiumConfig {
     public static SodiumConfig loadFromFile(File file) {
         SodiumConfig config;
 
-        if (file.exists())
+        if (file.exists()) {
             try (FileReader reader = new FileReader(file)) {
                 config = GSON.fromJson(reader, SodiumConfig.class);
             }
@@ -47,6 +48,7 @@ public class SodiumConfig {
                 BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.");
                 config = new SodiumConfig();
             }
+        }
         else config = new SodiumConfig();
 
         config.file = file;
@@ -58,9 +60,10 @@ public class SodiumConfig {
     public void writeToFile() {
         File parentFile = this.file.getParentFile();
 
-        if (!parentFile.exists())
+        if (!parentFile.exists()) {
             if (!parentFile.mkdirs())
                 throw new RuntimeException("Oops! Could not create parent directories.");
+        }
         else if (!parentFile.isDirectory())
             throw new RuntimeException("Oops! " + parentFile + " is not a directory.");
 
@@ -74,7 +77,8 @@ public class SodiumConfig {
 
     public SodiumConfig() {
         this.bubblesQuality = SodiumGameOptions.GraphicsQuality.DEFAULT;
-        this.cullingAwareness = SodiumCompat.CullingAwareness.NON_AIR;
+        this.enableAnimations = true;
+        this.cullingAwareness = SodiumUtils.CullingAwareness.NON_AIR;
     }
 
     public static class Storage implements OptionStorage<SodiumConfig> {

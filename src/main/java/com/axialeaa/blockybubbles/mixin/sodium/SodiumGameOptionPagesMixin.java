@@ -1,19 +1,15 @@
 package com.axialeaa.blockybubbles.mixin.sodium;
 
-import com.axialeaa.blockybubbles.sodium.SodiumCompat;
+import com.axialeaa.blockybubbles.BlockyBubbles;
+import com.axialeaa.blockybubbles.sodium.SodiumUtils;
 import com.axialeaa.blockybubbles.sodium.SodiumConfig;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptionPages;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
 import me.jellysquid.mods.sodium.client.gui.options.*;
 import me.jellysquid.mods.sodium.client.gui.options.control.CyclingControl;
-/*? if >=1.19.2 { */
-import net.minecraft.text.Text;
-/*? } else { *//*
-import net.minecraft.text.TranslatableText;
-*//*? } */
+import me.jellysquid.mods.sodium.client.gui.options.control.TickBoxControl;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -23,12 +19,6 @@ import java.util.List;
 @Mixin(SodiumGameOptionPages.class)
 public class SodiumGameOptionPagesMixin {
 
-    @Unique private static final String qualityName = "blocky-bubbles.options.quality.name";
-    @Unique private static final String qualityTooltip = "blocky-bubbles.options.quality.tooltip";
-
-    @Unique private static final String cullingAwarenessName = "blocky-bubbles.options.culling_awareness.name";
-    @Unique private static final String cullingAwarenessTooltip = "blocky-bubbles.options.culling_awareness.tooltip";
-
     /**
      * Adds the "Bubble Columns" option to Sodium's video settings screen.
      */
@@ -36,13 +26,8 @@ public class SodiumGameOptionPagesMixin {
     private static void addOption(CallbackInfoReturnable<OptionPage> cir, @Local List<OptionGroup> groups) {
         groups.add(OptionGroup.createBuilder()
             .add(OptionImpl.createBuilder(SodiumGameOptions.GraphicsQuality.class, SodiumConfig.blockyBubblesOptions)
-                /*? if >=1.19.2 { */
-                .setName(Text.translatable(qualityName))
-                .setTooltip(Text.translatable(qualityTooltip))
-                /*? } else { *//*
-                .setName(new TranslatableText(qualityName))
-                .setTooltip(new TranslatableText(qualityTooltip))
-                *//*? } */
+                .setName(BlockyBubbles.getOptionText("quality", false))
+                .setTooltip(BlockyBubbles.getOptionText("quality", true))
 
                 .setControl(option -> new CyclingControl<>(option, SodiumGameOptions.GraphicsQuality.class))
                 .setBinding((opts, value) -> opts.bubblesQuality = value, opts -> opts.bubblesQuality)
@@ -50,16 +35,21 @@ public class SodiumGameOptionPagesMixin {
                 .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
                 .build()
             )
-            .add(OptionImpl.createBuilder(SodiumCompat.CullingAwareness.class, SodiumConfig.blockyBubblesOptions)
-                /*? if >=1.19.2 { */
-                .setName(Text.translatable(cullingAwarenessName))
-                .setTooltip(Text.translatable(cullingAwarenessTooltip))
-                /*? } else { *//*
-                .setName(new TranslatableText(cullingAwarenessName))
-                .setTooltip(new TranslatableText(cullingAwarenessTooltip))
-                *//*? } */
+            .add(OptionImpl.createBuilder(Boolean.class, SodiumConfig.blockyBubblesOptions)
+                .setName(BlockyBubbles.getOptionText("enable_animations", false))
+                .setTooltip(BlockyBubbles.getOptionText("enable_animations", true))
 
-                .setControl(option -> new CyclingControl<>(option, SodiumCompat.CullingAwareness.class))
+                .setControl(TickBoxControl::new)
+                .setBinding((opts, value) -> opts.enableAnimations = value, opts -> opts.enableAnimations)
+                .setImpact(OptionImpact.MEDIUM)
+                .setFlags(OptionFlag.REQUIRES_ASSET_RELOAD)
+                .build()
+            )
+            .add(OptionImpl.createBuilder(SodiumUtils.CullingAwareness.class, SodiumConfig.blockyBubblesOptions)
+                .setName(BlockyBubbles.getOptionText("culling_awareness", false))
+                .setTooltip(BlockyBubbles.getOptionText("culling_awareness", true))
+
+                .setControl(option -> new CyclingControl<>(option, SodiumUtils.CullingAwareness.class))
                 .setBinding((opts, value) -> opts.cullingAwareness = value, opts -> opts.cullingAwareness)
                 .setImpact(OptionImpact.LOW)
                 .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)

@@ -1,7 +1,8 @@
 package com.axialeaa.blockybubbles.mixin;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
-import com.axialeaa.blockybubbles.sodium.SodiumCompat;
+import com.axialeaa.blockybubbles.sodium.SodiumUtils;
+import com.axialeaa.blockybubbles.sodium.SodiumConfig;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.fabricmc.api.EnvType;
@@ -25,30 +26,25 @@ public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 
 	/**
 	 * @return true if the "Bubble Columns" setting is fancy or higher when sodium is installed, otherwise true if the global graphics setting is fancy or higher.
-	 * @implNote {@link SodiumCompat} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
+	 * @implNote {@link SodiumUtils} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
 	 */
 	@Unique
 	private static boolean isFancy() {
 		MinecraftClient client = MinecraftClient.getInstance();
-		GraphicsMode graphicsMode = client.options
-			/*? if >=1.19.2 { */
-			.getGraphicsMode().getValue();
-			/*? } else { *//*
-			.graphicsMode;
-			*//*? } */
+		GraphicsMode graphicsMode = client.options /*$ graphics_mode*/ .getGraphicsMode().getValue();
 
-		return BlockyBubbles.isSodiumLoaded ? SodiumCompat.isFancy(graphicsMode) : MinecraftClient.isFancyGraphicsOrBetter();
+		return BlockyBubbles.isSodiumLoaded ? SodiumUtils.isFancy(graphicsMode) : MinecraftClient.isFancyGraphicsOrBetter();
 	}
 
 	/**
 	 * @param stateFrom The block next to the bubble column.
 	 * @return true if the "Culling Awareness" setting allows culling when sodium is installed, otherwise true if the block next to the bubble column in question is not air.
-	 * @implNote {@link SodiumCompat} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
-	 * @see SodiumCompat.CullingAwareness
+	 * @implNote {@link SodiumUtils} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
+	 * @see SodiumUtils.CullingAwareness
 	 */
 	@Unique
 	private static boolean shouldCull(BlockState stateFrom) {
-		return BlockyBubbles.isSodiumLoaded ? SodiumCompat.CullingAwareness.shouldCull(stateFrom) : !stateFrom.isAir();
+		return BlockyBubbles.isSodiumLoaded ? SodiumConfig.getOptionData().cullingAwareness.shouldCull(stateFrom) : !stateFrom.isAir();
 	}
 
 	/**
@@ -69,7 +65,7 @@ public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 
 	/**
 	 * Culls the faces of the bubble column model according to the type of block next to it (some culling specification is provided in the block model).
-	 * @see SodiumCompat.CullingAwareness
+	 * @see SodiumUtils.CullingAwareness
 	 */
 	@Override
 	public void isSideInvisibleImpl(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {
