@@ -1,7 +1,7 @@
 package com.axialeaa.blockybubbles.mixin;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
-import com.axialeaa.blockybubbles.sodium.SodiumConfig;
+import com.axialeaa.blockybubbles.sodium.BlockyBubblesConfig;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.texture.Sprite;
@@ -23,7 +23,7 @@ public class SpriteAtlasTextureMixin {
             return true;
 
         String namespace = sprite /*? if >=1.19.3 >>*/ .getContents() .getId().getNamespace();
-        return SodiumConfig.getOptionData().enableAnimations || !namespace.equals(BlockyBubbles.MOD_ID);
+        return BlockyBubblesConfig.getOptionData().enableAnimations || !namespace.equals(BlockyBubbles.MOD_ID);
     }
 
 }

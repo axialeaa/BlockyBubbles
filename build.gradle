@@ -3,7 +3,9 @@ plugins {
 	id 'maven-publish'
 }
 
-version = "${property("mod_version")}+${stonecutter.current.version}"
+def mcVersion = stonecutter.current.version
+
+version = property("mod_version") + "+" + mcVersion
 group = property("maven_group")
 
 base {
@@ -26,7 +28,7 @@ repositories {
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${stonecutter.current.version}"
+	minecraft "com.mojang:minecraft:${mcVersion}"
 	mappings "net.fabricmc:yarn:${property("yarn_mappings")}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${property("loader_version")}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}"
@@ -44,28 +46,13 @@ if (stonecutter.current.isActive) { // run configs for non-active version would 
 	}
 }
 
-stonecutter.swap("create_method") {
-	stonecutter.compare(stonecutter.current.version, "1.20.6") >= 0 ? "\"create\"," : "\"createParticle(Lnet/minecraft/particle/BlockStateParticleEffect;Lnet/minecraft/client/world/ClientWorld;DDDDDD)Lnet/minecraft/client/particle/Particle;\","
-}
-
-stonecutter.swap("graphics_mode") {
-	stonecutter.compare(stonecutter.current.version, "1.19.2") >= 0 ? ".getGraphicsMode().getValue();" : ".graphicsMode;"
-}
-
-stonecutter.swap("list_type") {
-	stonecutter.compare(stonecutter.current.version, "1.19.3") >= 0 ? "Sprite.TickableAnimation" : "TextureTickListener"
-}
-
-stonecutter.swap("pack_name") {
-	stonecutter.compare(stonecutter.current.version, "1.19.3") >= 0 ? "name," : "String.valueOf(name),"
-}
-
-stonecutter.swap("identifier") {
-	stonecutter.compare(stonecutter.current.version, "1.21") >= 0 ? "Identifier.of(MOD_ID, name);" : "new Identifier(MOD_ID, name);"
-}
-
-stonecutter.swap("translatable") {
-	stonecutter.compare(stonecutter.current.version, "1.19.2") >= 0 ? "Text.translatable(key);" : "new TranslatableText(key);"
+stonecutter {
+	swap("graphics_mode",	compare(mcVersion, "1.19.2") >= 0 ? ".getGraphicsMode().getValue();" : ".graphicsMode;")
+	swap("translatable", 	compare(mcVersion, "1.19.2") >= 0 ? "Text.translatable(key);" : "new TranslatableText(key);")
+	swap("list_type", 		compare(mcVersion, "1.19.3") >= 0 ? "Sprite.TickableAnimation" : "TextureTickListener")
+	swap("pack_name", 		compare(mcVersion, "1.19.3") >= 0 ? "name," : "String.valueOf(name),")
+	swap("create_method", 	compare(mcVersion, "1.20.6") >= 0 ? "\"create\"," : "\"createParticle(Lnet/minecraft/particle/BlockStateParticleEffect;Lnet/minecraft/client/world/ClientWorld;DDDDDD)Lnet/minecraft/client/particle/Particle;\",")
+	swap("identifier", 		compare(mcVersion, "1.21"  ) >= 0 ? "Identifier.of(MOD_ID, name);" : "new Identifier(MOD_ID, name);")
 }
 
 processResources {

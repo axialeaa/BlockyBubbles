@@ -17,13 +17,8 @@ import java.lang.reflect.Modifier;
 /**
  * Mostly copied from <a href="https://github.com/FlashyReese/sodium-extra-fabric/blob/1.20.x/dev/src/main/java/me/flashyreese/mods/sodiumextra/client/gui/SodiumExtraGameOptions.java">Sodium Extra's game options class</a>, with a few exceptions.
  */
-public class SodiumConfig {
+public class BlockyBubblesConfig {
 
-    public SodiumGameOptions.GraphicsQuality bubblesQuality;
-    public boolean enableAnimations;
-    public SodiumUtils.CullingAwareness cullingAwareness;
-
-    private File file;
     private static final Gson GSON = new GsonBuilder()
         .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -31,25 +26,33 @@ public class SodiumConfig {
         .excludeFieldsWithModifiers(Modifier.PRIVATE)
         .create();
 
-    public static final SodiumConfig.Storage blockyBubblesOptions = new SodiumConfig.Storage();
+    public static final BlockyBubblesConfig.Storage STORAGE = new BlockyBubblesConfig.Storage();
 
-    public static SodiumConfig getOptionData() {
-        return SodiumConfig.blockyBubblesOptions.getData();
+    public SodiumGameOptions.GraphicsQuality bubblesQuality;
+    public boolean enableAnimations;
+    public SodiumUtils.CullingAwareness cullingAwareness;
+
+    private File file;
+
+    public static BlockyBubblesConfig getOptionData() {
+        return STORAGE.getData();
     }
 
-    public static SodiumConfig loadFromFile(File file) {
-        SodiumConfig config;
+    public static BlockyBubblesConfig loadFromFile(File file) {
+        BlockyBubblesConfig config;
 
         if (file.exists()) {
             try (FileReader reader = new FileReader(file)) {
-                config = GSON.fromJson(reader, SodiumConfig.class);
+                config = GSON.fromJson(reader, BlockyBubblesConfig.class);
+                if (config == null)
+                    throw new Exception();
             }
             catch (Exception exception) {
                 BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.");
-                config = new SodiumConfig();
+                config = new BlockyBubblesConfig();
             }
         }
-        else config = new SodiumConfig();
+        else config = new BlockyBubblesConfig();
 
         config.file = file;
         config.writeToFile();
@@ -57,36 +60,36 @@ public class SodiumConfig {
         return config;
     }
 
-    public void writeToFile() {
+    private void writeToFile() {
         File parentFile = this.file.getParentFile();
 
         if (!parentFile.exists()) {
             if (!parentFile.mkdirs())
-                throw new RuntimeException("Oops! Could not create parent directories.");
+                throw new RuntimeException("Failed to create parent directories.");
         }
         else if (!parentFile.isDirectory())
-            throw new RuntimeException("Oops! " + parentFile + " is not a directory.");
+            throw new RuntimeException(parentFile + " must be a directory.");
 
         try (FileWriter fileWriter = new FileWriter(this.file)) {
             GSON.toJson(this, fileWriter);
         }
         catch (IOException exception) {
-            throw new RuntimeException("Oops! Configuration file could not be saved.", exception);
+            throw new RuntimeException("Failed to save configuration file.", exception);
         }
     }
 
-    public SodiumConfig() {
+    public BlockyBubblesConfig() {
         this.bubblesQuality = SodiumGameOptions.GraphicsQuality.DEFAULT;
         this.enableAnimations = true;
         this.cullingAwareness = SodiumUtils.CullingAwareness.NON_AIR;
     }
 
-    public static class Storage implements OptionStorage<SodiumConfig> {
+    public static class Storage implements OptionStorage<BlockyBubblesConfig> {
 
-        private final SodiumConfig options = BlockyBubbles.options();
+        private final BlockyBubblesConfig options = BlockyBubbles.options();
 
         @Override
-        public SodiumConfig getData() {
+        public BlockyBubblesConfig getData() {
             return this.options;
         }
 

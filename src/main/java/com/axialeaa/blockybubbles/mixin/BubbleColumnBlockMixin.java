@@ -1,8 +1,8 @@
 package com.axialeaa.blockybubbles.mixin;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
+import com.axialeaa.blockybubbles.sodium.BlockyBubblesConfig;
 import com.axialeaa.blockybubbles.sodium.SodiumUtils;
-import com.axialeaa.blockybubbles.sodium.SodiumConfig;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.fabricmc.api.EnvType;
@@ -37,14 +37,14 @@ public class BubbleColumnBlockMixin extends AbstractBlockMixin {
 	}
 
 	/**
-	 * @param stateFrom The block next to the bubble column.
+	 * @param state The block next to the bubble column.
 	 * @return true if the "Culling Awareness" setting allows culling when sodium is installed, otherwise true if the block next to the bubble column in question is not air.
 	 * @implNote {@link SodiumUtils} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
 	 * @see SodiumUtils.CullingAwareness
 	 */
 	@Unique
-	private static boolean shouldCull(BlockState stateFrom) {
-		return BlockyBubbles.isSodiumLoaded ? SodiumConfig.getOptionData().cullingAwareness.shouldCull(stateFrom) : !stateFrom.isAir();
+	private static boolean shouldCull(BlockState state) {
+		return BlockyBubbles.isSodiumLoaded ? BlockyBubblesConfig.getOptionData().cullingAwareness.shouldCull(state) : !state.isAir();
 	}
 
 	/**

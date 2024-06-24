@@ -2,7 +2,7 @@ package com.axialeaa.blockybubbles.mixin.sodium;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.axialeaa.blockybubbles.sodium.SodiumUtils;
-import com.axialeaa.blockybubbles.sodium.SodiumConfig;
+import com.axialeaa.blockybubbles.sodium.BlockyBubblesConfig;
 import com.llamalad7.mixinextras.sugar.Local;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptionPages;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
@@ -25,7 +25,7 @@ public class SodiumGameOptionPagesMixin {
     @Inject(method = "quality", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/gui/options/OptionGroup;createBuilder()Lme/jellysquid/mods/sodium/client/gui/options/OptionGroup$Builder;", ordinal = 2, shift = At.Shift.AFTER), remap = false)
     private static void addOption(CallbackInfoReturnable<OptionPage> cir, @Local List<OptionGroup> groups) {
         groups.add(OptionGroup.createBuilder()
-            .add(OptionImpl.createBuilder(SodiumGameOptions.GraphicsQuality.class, SodiumConfig.blockyBubblesOptions)
+            .add(OptionImpl.createBuilder(SodiumGameOptions.GraphicsQuality.class, BlockyBubblesConfig.STORAGE)
                 .setName(BlockyBubbles.getOptionText("quality", false))
                 .setTooltip(BlockyBubbles.getOptionText("quality", true))
 
@@ -35,7 +35,7 @@ public class SodiumGameOptionPagesMixin {
                 .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
                 .build()
             )
-            .add(OptionImpl.createBuilder(Boolean.class, SodiumConfig.blockyBubblesOptions)
+            .add(OptionImpl.createBuilder(Boolean.class, BlockyBubblesConfig.STORAGE)
                 .setName(BlockyBubbles.getOptionText("enable_animations", false))
                 .setTooltip(BlockyBubbles.getOptionText("enable_animations", true))
 
@@ -45,7 +45,7 @@ public class SodiumGameOptionPagesMixin {
                 .setFlags(OptionFlag.REQUIRES_ASSET_RELOAD)
                 .build()
             )
-            .add(OptionImpl.createBuilder(SodiumUtils.CullingAwareness.class, SodiumConfig.blockyBubblesOptions)
+            .add(OptionImpl.createBuilder(SodiumUtils.CullingAwareness.class, BlockyBubblesConfig.STORAGE)
                 .setName(BlockyBubbles.getOptionText("culling_awareness", false))
                 .setTooltip(BlockyBubbles.getOptionText("culling_awareness", true))
 

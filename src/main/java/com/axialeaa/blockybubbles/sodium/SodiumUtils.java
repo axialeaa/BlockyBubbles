@@ -19,7 +19,7 @@ public class SodiumUtils {
     }
 
     public static boolean isFancy(GraphicsMode graphicsMode) {
-        return SodiumConfig.getOptionData().bubblesQuality.isFancy(graphicsMode);
+        return BlockyBubblesConfig.getOptionData().bubblesQuality.isFancy(graphicsMode);
     }
 
     /**
