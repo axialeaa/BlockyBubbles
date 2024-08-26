@@ -1,0 +1,13 @@
+{
+  "blocky-bubbles.options.culling_awareness.enum.bubble_column": "Пузырьковая колонка (подобная Java)",
+  "blocky-bubbles.options.culling_awareness.enum.non_air": "Невоздушные (паритет)",
+  "blocky-bubbles.options.culling_awareness.enum.none": "Без отбраковки",
+  "blocky-bubbles.options.culling_awareness.name": "Режим отбраковки",
+  "blocky-bubbles.options.culling_awareness.tooltip": "Какие блоки должны вызывать отбраковку соседних граней колонны пузырей.",
+  "blocky-bubbles.options.enable_animations.name": "Включить анимацию",
+  "blocky-bubbles.options.enable_animations.tooltip": "Следует ли анимировать текстуры колонны пузырей (требуется перезагрузка ресурсов).",
+  "blocky-bubbles.options.quality.name": "Колонны пузырей",
+  "blocky-bubbles.options.quality.tooltip": "Контролирует качество колонны пузырей.",
+  "resourcePack.blocky-bubbles:32x_upscale.description": "Основано на §8https://faithfulpack.net",
+  "resourcePack.blocky-bubbles:32x_upscale.name": "Блочные пузыри 32×32"
+}
