@@ -1,5 +1,5 @@
 {
-  "blocky-bubbles.options.culling_awareness.enum.bubble_column": "Пузырьковая колонка (подобная Java)",
+  "blocky-bubbles.options.culling_awareness.enum.bubble_column": "Колонна пузырей (подобная Java)",
   "blocky-bubbles.options.culling_awareness.enum.non_air": "Невоздушные (паритет)",
   "blocky-bubbles.options.culling_awareness.enum.none": "Без отбраковки",
   "blocky-bubbles.options.culling_awareness.name": "Режим отбраковки",
