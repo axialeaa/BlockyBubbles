@@ -4,11 +4,6 @@ import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.axialeaa.blockybubbles.sodium.SodiumUtils;
 import com.axialeaa.blockybubbles.sodium.BlockyBubblesConfig;
 import com.llamalad7.mixinextras.sugar.Local;
-import me.jellysquid.mods.sodium.client.gui.SodiumGameOptionPages;
-import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
-import me.jellysquid.mods.sodium.client.gui.options.*;
-import me.jellysquid.mods.sodium.client.gui.options.control.CyclingControl;
-import me.jellysquid.mods.sodium.client.gui.options.control.TickBoxControl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,13 +11,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.SodiumGameOptionPages;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.SodiumGameOptions;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.*;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.control.CyclingControl;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.control.TickBoxControl;
+
 @Mixin(SodiumGameOptionPages.class)
 public class SodiumGameOptionPagesMixin {
 
     /**
      * Adds the "Bubble Columns" option to Sodium's video settings screen.
      */
-    @Inject(method = "quality", at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/gui/options/OptionGroup;createBuilder()Lme/jellysquid/mods/sodium/client/gui/options/OptionGroup$Builder;", ordinal = 2, shift = At.Shift.AFTER), remap = false)
+    @Inject(method = "quality", at = @At(value = "INVOKE", target = "L" + /*$ sodium_package_target >>*/ "net/caffeinemc" + "/mods/sodium/client/gui/options/OptionGroup;createBuilder()L" + /*$ sodium_package_target >>*/ "net/caffeinemc" + "/mods/sodium/client/gui/options/OptionGroup$Builder;", ordinal = 2, shift = At.Shift.AFTER), remap = false)
     private static void addOption(CallbackInfoReturnable<OptionPage> cir, @Local List<OptionGroup> groups) {
         groups.add(OptionGroup.createBuilder()
             .add(OptionImpl.createBuilder(SodiumGameOptions.GraphicsQuality.class, BlockyBubblesConfig.STORAGE)

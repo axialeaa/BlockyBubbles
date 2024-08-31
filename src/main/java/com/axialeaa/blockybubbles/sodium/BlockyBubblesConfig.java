@@ -4,8 +4,6 @@ import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
-import me.jellysquid.mods.sodium.client.gui.options.storage.OptionStorage;
 import net.minecraft.util.Identifier;
 
 import java.io.File;
@@ -13,6 +11,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
+
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.SodiumGameOptions;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.storage.OptionStorage;
 
 /**
  * Mostly copied from <a href="https://github.com/FlashyReese/sodium-extra-fabric/blob/1.20.x/dev/src/main/java/me/flashyreese/mods/sodiumextra/client/gui/SodiumExtraGameOptions.java">Sodium Extra's game options class</a>, with a few exceptions.
@@ -41,18 +42,16 @@ public class BlockyBubblesConfig {
     public static BlockyBubblesConfig loadFromFile(File file) {
         BlockyBubblesConfig config;
 
-        if (file.exists()) {
-            try (FileReader reader = new FileReader(file)) {
-                config = GSON.fromJson(reader, BlockyBubblesConfig.class);
-                if (config == null)
-                    throw new Exception();
-            }
-            catch (Exception exception) {
-                BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.");
-                config = new BlockyBubblesConfig();
-            }
+        try (FileReader reader = new FileReader(file)) {
+            config = GSON.fromJson(reader, BlockyBubblesConfig.class);
+
+            if (config == null)
+                throw new NullPointerException();
         }
-        else config = new BlockyBubblesConfig();
+        catch (Exception e) {
+            BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.");
+            config = new BlockyBubblesConfig();
+        }
 
         config.file = file;
         config.writeToFile();
@@ -63,18 +62,17 @@ public class BlockyBubblesConfig {
     private void writeToFile() {
         File parentFile = this.file.getParentFile();
 
-        if (!parentFile.exists()) {
-            if (!parentFile.mkdirs())
-                throw new RuntimeException("Failed to create parent directories.");
-        }
-        else if (!parentFile.isDirectory())
-            throw new RuntimeException(parentFile + " must be a directory.");
+        if (parentFile.exists() && !parentFile.isDirectory())
+            throw new RuntimeException("%s must be a directory!".formatted(parentFile));
+
+        if (!parentFile.exists() && !parentFile.mkdirs())
+            throw new RuntimeException("Failed to create parent directories!");
 
         try (FileWriter fileWriter = new FileWriter(this.file)) {
             GSON.toJson(this, fileWriter);
         }
-        catch (IOException exception) {
-            throw new RuntimeException("Failed to save configuration file.", exception);
+        catch (IOException e) {
+            throw new RuntimeException("Failed to save configuration file!", e);
         }
     }
 

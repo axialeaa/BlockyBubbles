@@ -1,6 +1,7 @@
+// to .mcmeta
 {
   "pack": {
-    "pack_format": 7,
+    "pack_format": /*$ format_version >>*/ 34 ,
     "description": {
       "translate": "resourcePack.blocky-bubbles:32x_upscale.description"
     }

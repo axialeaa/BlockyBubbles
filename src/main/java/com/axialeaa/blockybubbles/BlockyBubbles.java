@@ -34,7 +34,7 @@ public class BlockyBubbles implements ClientModInitializer {
      */
     public static BlockyBubblesConfig options() {
         if (CONFIG == null)
-            CONFIG = BlockyBubblesConfig.loadFromFile(loader.getConfigDir().resolve(MOD_ID + ".json").toFile());
+            CONFIG = BlockyBubblesConfig.loadFromFile(loader.getConfigDir().resolve("%s.json".formatted(MOD_ID)).toFile());
 
         return CONFIG;
     }
@@ -64,7 +64,7 @@ public class BlockyBubbles implements ClientModInitializer {
      * @return a translated text component specific to a Blocky Bubbles config option.
      */
     public static Text getOptionText(String id) {
-        return translate(MOD_ID + ".options." + id);
+        return translate("%s.options.%s".formatted(MOD_ID, id));
     }
 
     /**
@@ -74,7 +74,7 @@ public class BlockyBubbles implements ClientModInitializer {
      * @return a translated text component specific to a Blocky Bubbles config option.
      */
     public static Text getOptionText(String id, boolean isTooltip) {
-        return getOptionText(id + "." + (isTooltip ? "tooltip" : "name"));
+        return getOptionText("%s.%s".formatted(id, isTooltip ? "tooltip" : "name"));
     }
 
     /**
@@ -82,10 +82,10 @@ public class BlockyBubbles implements ClientModInitializer {
      * @param id the string identifier of the pack.
      */
     private static void registerPack(ModContainer modContainer, String id) {
-        Text name = translate("resourcePack." + MOD_ID + ":" + id + ".name");
+        Text name = translate("resourcePack.%s:%s.name".formatted(MOD_ID, id));
         ResourceManagerHelper.registerBuiltinResourcePack(id(id), modContainer,
             //? if >1.17.1
-            /*$ pack_name*/ name,
+            /*$ pack_name >>*/ name ,
             ResourcePackActivationType.NORMAL);
 
         LOGGER.info("{} pack registered!", name);

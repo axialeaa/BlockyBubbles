@@ -1,8 +1,9 @@
 {
   "blocky-bubbles.options.culling_awareness.enum.bubble_column": "Bubble Column (Java-like)",
   "blocky-bubbles.options.culling_awareness.enum.non_air": "Non-Air (Parity)",
-  "blocky-bubbles.options.culling_awareness.enum.none": "No Culling",
-  "blocky-bubbles.options.culling_awareness.name": "Culling Awareness",
+  "blocky-bubbles.options.culling_awareness.enum.none": "None",
+  "blocky-bubbles.options.culling_awareness.enum.solid_face": "Solid Face",
+  "blocky-bubbles.options.culling_awareness.name": "Culling",
   "blocky-bubbles.options.culling_awareness.tooltip": "Which blocks should cause adjacent bubble column faces to cull.",
   "blocky-bubbles.options.enable_animations.name": "Enable Animations",
   "blocky-bubbles.options.enable_animations.tooltip": "Whether the bubble column textures should be animated (requires asset reload).",

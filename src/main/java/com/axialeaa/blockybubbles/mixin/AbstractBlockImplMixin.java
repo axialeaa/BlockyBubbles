@@ -9,11 +9,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Allows instantiation of the isSideInvisible() method without extending + overriding, a bad mixin-ing practice which leads to a lot of inter-mod incompatibility.
+ * Supports invoking the isSideInvisible() method without extending + overriding, a bad mixin-ing practice which leads to a lot of inter-mod incompatibility.
  */
 @SuppressWarnings("CancellableInjectionUsage")
 @Mixin(AbstractBlock.class)
-public abstract class AbstractBlockMixin {
+public abstract class AbstractBlockImplMixin {
 
     @Inject(method = "isSideInvisible", at = @At("HEAD"), cancellable = true)
     public void isSideInvisibleImpl(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {}
