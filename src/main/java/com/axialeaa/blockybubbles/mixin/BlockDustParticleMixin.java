@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(BlockDustParticle /*? if <=1.20.4 >>*/ /*.Factory*/ .class)
 public class BlockDustParticleMixin {
 
-    @ModifyExpressionValue(method = /*$ create_method >>*/ "create", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z"))
+    @ModifyExpressionValue(method = /*$ create_method >>*/ "create" , at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z"))
     private /*? if >=1.20.6 >>*/ static boolean shouldBypassDustCreation(boolean original, @Local BlockState blockState) {
         return original || blockState.isOf(Blocks.BUBBLE_COLUMN);
     }

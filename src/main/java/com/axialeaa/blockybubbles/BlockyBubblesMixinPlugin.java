@@ -1,5 +1,6 @@
 package com.axialeaa.blockybubbles;
 
+import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -11,7 +12,7 @@ public class BlockyBubblesMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return !targetClassName.contains("sodium") || BlockyBubbles.isSodiumLoaded;
+        return !targetClassName.contains("sodium") || FabricLoader.getInstance().isModLoaded("sodium");
     }
 
     @Override

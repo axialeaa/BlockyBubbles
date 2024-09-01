@@ -4,15 +4,16 @@ import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import me.jellysquid.mods.sodium.client.gui.SodiumGameOptions;
-import me.jellysquid.mods.sodium.client.gui.options.storage.OptionStorage;
+import com.google.gson.annotations.Expose;
 import net.minecraft.util.Identifier;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Modifier;
+
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.SodiumGameOptions;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.storage.OptionStorage;
 
 /**
  * Mostly copied from <a href="https://github.com/FlashyReese/sodium-extra-fabric/blob/1.20.x/dev/src/main/java/me/flashyreese/mods/sodiumextra/client/gui/SodiumExtraGameOptions.java">Sodium Extra's game options class</a>, with a few exceptions.
@@ -22,15 +23,15 @@ public class BlockyBubblesConfig {
     private static final Gson GSON = new GsonBuilder()
         .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .excludeFieldsWithoutExposeAnnotation()
         .setPrettyPrinting()
-        .excludeFieldsWithModifiers(Modifier.PRIVATE)
         .create();
 
-    public static final BlockyBubblesConfig.Storage STORAGE = new BlockyBubblesConfig.Storage();
+    @Expose public SodiumGameOptions.GraphicsQuality bubblesQuality;
+    @Expose public boolean enableAnimations;
+    @Expose public SodiumUtils.CullingAwareness cullingAwareness;
 
-    public SodiumGameOptions.GraphicsQuality bubblesQuality;
-    public boolean enableAnimations;
-    public SodiumUtils.CullingAwareness cullingAwareness;
+    public static final Storage STORAGE = new Storage();
 
     private File file;
 
@@ -41,18 +42,18 @@ public class BlockyBubblesConfig {
     public static BlockyBubblesConfig loadFromFile(File file) {
         BlockyBubblesConfig config;
 
-        if (file.exists()) {
-            try (FileReader reader = new FileReader(file)) {
-                config = GSON.fromJson(reader, BlockyBubblesConfig.class);
-                if (config == null)
-                    throw new Exception();
-            }
-            catch (Exception exception) {
-                BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.");
-                config = new BlockyBubblesConfig();
-            }
+        if (!file.exists())
+            config = new BlockyBubblesConfig();
+        else try (FileReader reader = new FileReader(file)) {
+            config = GSON.fromJson(reader, BlockyBubblesConfig.class);
+
+            if (config == null)
+                throw new NullPointerException();
         }
-        else config = new BlockyBubblesConfig();
+        catch (Exception e) {
+            BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.", e);
+            config = new BlockyBubblesConfig();
+        }
 
         config.file = file;
         config.writeToFile();
@@ -65,16 +66,16 @@ public class BlockyBubblesConfig {
 
         if (!parentFile.exists()) {
             if (!parentFile.mkdirs())
-                throw new RuntimeException("Failed to create parent directories.");
+                throw new RuntimeException("Failed to create parent directories!");
         }
         else if (!parentFile.isDirectory())
-            throw new RuntimeException(parentFile + " must be a directory.");
+            throw new RuntimeException("%s must be a directory!".formatted(parentFile));
 
         try (FileWriter fileWriter = new FileWriter(this.file)) {
             GSON.toJson(this, fileWriter);
         }
-        catch (IOException exception) {
-            throw new RuntimeException("Failed to save configuration file.", exception);
+        catch (IOException e) {
+            throw new RuntimeException("Failed to save configuration file!", e);
         }
     }
 
@@ -86,7 +87,7 @@ public class BlockyBubblesConfig {
 
     public static class Storage implements OptionStorage<BlockyBubblesConfig> {
 
-        private final BlockyBubblesConfig options = BlockyBubbles.options();
+        private final BlockyBubblesConfig options = BlockyBubbles.getOptions();
 
         @Override
         public BlockyBubblesConfig getData() {

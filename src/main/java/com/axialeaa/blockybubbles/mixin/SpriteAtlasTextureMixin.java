@@ -23,6 +23,7 @@ public class SpriteAtlasTextureMixin {
             return true;
 
         String namespace = sprite /*? if >=1.19.3 >>*/ .getContents() .getId().getNamespace();
+
         return BlockyBubblesConfig.getOptionData().enableAnimations || !namespace.equals(BlockyBubbles.MOD_ID);
     }
 
