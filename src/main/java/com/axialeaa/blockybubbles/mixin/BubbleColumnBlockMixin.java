@@ -31,30 +31,30 @@ public class BubbleColumnBlockMixin extends AbstractBlockImplMixin {
 	 */
 	@Unique
 	private static boolean isFancy() {
+		if (!BlockyBubbles.isSodiumLoaded)
+			return MinecraftClient.isFancyGraphicsOrBetter();
+
 		MinecraftClient client = MinecraftClient.getInstance();
-
-		if (client == null)
-			return false;
-
 		GraphicsMode graphicsMode = client.options /*$ graphics_mode >>*/ .getGraphicsMode().getValue() ;
 
-		return BlockyBubbles.isSodiumLoaded ? SodiumUtils.isFancy(graphicsMode) : MinecraftClient.isFancyGraphicsOrBetter();
+		return SodiumUtils.isFancy(graphicsMode);
 	}
 
 	/**
 	 * @param state The block next to the bubble column.
-	 * @return true if the "CullingAwareness Awareness" setting allows culling when sodium is installed, otherwise true if the block next to the bubble column in question is not air.
+	 * @return true if the "Culling" setting allows culling when sodium is installed, otherwise true if the block next to the bubble column in question is not air.
 	 * @implNote {@link SodiumUtils} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
 	 * @see SodiumUtils.CullingAwareness
 	 */
 	@Unique
 	private static boolean shouldCull(BlockState state, Direction direction) {
+		if (!BlockyBubbles.isSodiumLoaded)
+			return !state.isAir();
+
 		MinecraftClient client = MinecraftClient.getInstance();
+		BlockPos origin = BlockPos.ORIGIN;
 
-		if (client == null)
-			return false;
-
-		return BlockyBubbles.isSodiumLoaded ? BlockyBubblesConfig.getOptionData().cullingAwareness.shouldCull(client.world, BlockPos.ORIGIN, state, direction) : !state.isAir();
+		return BlockyBubblesConfig.getOptionData().cullingAwareness.shouldCull(client.world, origin, state, direction);
 	}
 
 	/**

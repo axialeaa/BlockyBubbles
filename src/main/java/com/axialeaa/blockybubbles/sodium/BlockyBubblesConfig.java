@@ -4,13 +4,13 @@ import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import net.minecraft.util.Identifier;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Modifier;
 
 import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.SodiumGameOptions;
 import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.storage.OptionStorage;
@@ -23,15 +23,15 @@ public class BlockyBubblesConfig {
     private static final Gson GSON = new GsonBuilder()
         .registerTypeAdapter(Identifier.class, new Identifier.Serializer())
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .excludeFieldsWithoutExposeAnnotation()
         .setPrettyPrinting()
-        .excludeFieldsWithModifiers(Modifier.PRIVATE)
         .create();
 
-    public static final BlockyBubblesConfig.Storage STORAGE = new BlockyBubblesConfig.Storage();
+    @Expose public SodiumGameOptions.GraphicsQuality bubblesQuality;
+    @Expose public boolean enableAnimations;
+    @Expose public SodiumUtils.CullingAwareness cullingAwareness;
 
-    public SodiumGameOptions.GraphicsQuality bubblesQuality;
-    public boolean enableAnimations;
-    public SodiumUtils.CullingAwareness cullingAwareness;
+    public static final Storage STORAGE = new Storage();
 
     private File file;
 
@@ -42,14 +42,16 @@ public class BlockyBubblesConfig {
     public static BlockyBubblesConfig loadFromFile(File file) {
         BlockyBubblesConfig config;
 
-        try (FileReader reader = new FileReader(file)) {
+        if (!file.exists())
+            config = new BlockyBubblesConfig();
+        else try (FileReader reader = new FileReader(file)) {
             config = GSON.fromJson(reader, BlockyBubblesConfig.class);
 
             if (config == null)
                 throw new NullPointerException();
         }
         catch (Exception e) {
-            BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.");
+            BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.", e);
             config = new BlockyBubblesConfig();
         }
 
@@ -62,11 +64,12 @@ public class BlockyBubblesConfig {
     private void writeToFile() {
         File parentFile = this.file.getParentFile();
 
-        if (parentFile.exists() && !parentFile.isDirectory())
+        if (!parentFile.exists()) {
+            if (!parentFile.mkdirs())
+                throw new RuntimeException("Failed to create parent directories!");
+        }
+        else if (!parentFile.isDirectory())
             throw new RuntimeException("%s must be a directory!".formatted(parentFile));
-
-        if (!parentFile.exists() && !parentFile.mkdirs())
-            throw new RuntimeException("Failed to create parent directories!");
 
         try (FileWriter fileWriter = new FileWriter(this.file)) {
             GSON.toJson(this, fileWriter);
@@ -84,7 +87,7 @@ public class BlockyBubblesConfig {
 
     public static class Storage implements OptionStorage<BlockyBubblesConfig> {
 
-        private final BlockyBubblesConfig options = BlockyBubbles.options();
+        private final BlockyBubblesConfig options = BlockyBubbles.getOptions();
 
         @Override
         public BlockyBubblesConfig getData() {

@@ -23,8 +23,12 @@ public class BlockyBubbles implements ClientModInitializer {
     public static final String MOD_NAME = "Blocky Bubbles";
     public static Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
-    private static final FabricLoader loader = FabricLoader.getInstance();
-    public static boolean isSodiumLoaded = loader.isModLoaded("sodium");
+    private static final FabricLoader LOADER = FabricLoader.getInstance();
+
+    /**
+     * True if sodium is installed on the client. Do not call this from the mixin plugin; it will throw a preloading error.
+     */
+    public static boolean isSodiumLoaded = LOADER.isModLoaded("sodium");
 
     private static BlockyBubblesConfig CONFIG;
 
@@ -32,16 +36,16 @@ public class BlockyBubbles implements ClientModInitializer {
      * @return the default values of a new config file in the fabric mod directory if one doesn't exist, otherwise the
      * configured settings.
      */
-    public static BlockyBubblesConfig options() {
+    public static BlockyBubblesConfig getOptions() {
         if (CONFIG == null)
-            CONFIG = BlockyBubblesConfig.loadFromFile(loader.getConfigDir().resolve("%s.json".formatted(MOD_ID)).toFile());
+            CONFIG = BlockyBubblesConfig.loadFromFile(LOADER.getConfigDir().resolve("%s.json".formatted(MOD_ID)).toFile());
 
         return CONFIG;
     }
 
     @Override
     public void onInitializeClient() {
-        loader.getModContainer(MOD_ID).ifPresent(modContainer -> registerPack(modContainer, "32x_upscale"));
+        LOADER.getModContainer(MOD_ID).ifPresent(modContainer -> registerPack(modContainer, "32x_upscale"));
         BlockRenderLayerMap.INSTANCE.putBlock(Blocks.BUBBLE_COLUMN, RenderLayer.getCutout());
     }
 
@@ -88,7 +92,7 @@ public class BlockyBubbles implements ClientModInitializer {
             /*$ pack_name >>*/ name ,
             ResourcePackActivationType.NORMAL);
 
-        LOGGER.info("{} pack registered!", name);
+        LOGGER.info("{} pack registered!", id);
     }
 
 }
