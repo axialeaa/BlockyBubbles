@@ -3,7 +3,7 @@
   "modmenu.descriptionTranslation.blocky-bubbles": "Позволяет отображать колонны пузырей в виде блока, что внешне напоминает «Быстрые пузыри» из Bedrock Edition.",
   "blocky-bubbles.options.culling_awareness.enum.bubble_column": "Колонна пузырей (подобная Java)",
   "blocky-bubbles.options.culling_awareness.enum.non_air": "Невоздушные (паритет)",
-  "blocky-bubbles.options.culling_awareness.enum.none": "Без отбраковки",
+  "blocky-bubbles.options.culling_awareness.enum.none": "Нет",
   "blocky-bubbles.options.culling_awareness.name": "Отбраковка",
   "blocky-bubbles.options.culling_awareness.tooltip": "Какие блоки должны вызывать отбраковку соседних граней колонны пузырей.",
   "blocky-bubbles.options.enable_animations.name": "Включить анимацию",
