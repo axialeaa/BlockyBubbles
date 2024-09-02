@@ -1,15 +1,15 @@
 {
-  "modmenu.summaryTranslation.blocky-bubbles": "Порт «Быстрых пузырей» из Bedrock Edition.",
-  "modmenu.descriptionTranslation.blocky-bubbles": "Позволяет отображать колонны пузырей в виде блока, что внешне напоминает «Быстрые пузыри» из Bedrock Edition.",
-  "blocky-bubbles.options.culling_awareness.enum.bubble_column": "Колонна пузырей (подобная Java)",
-  "blocky-bubbles.options.culling_awareness.enum.non_air": "Невоздушные (паритет)",
-  "blocky-bubbles.options.culling_awareness.enum.none": "Нет",
-  "blocky-bubbles.options.culling_awareness.name": "Отбраковка",
-  "blocky-bubbles.options.culling_awareness.tooltip": "Какие блоки должны вызывать отбраковку соседних граней колонны пузырей.",
+  "blocky-bubbles.options.culling_mode.enum.bubble_column": "Колонна пузырей (подобная Java)",
+  "blocky-bubbles.options.culling_mode.enum.non_air": "Невоздушные (паритет)",
+  "blocky-bubbles.options.culling_mode.enum.none": "Нет",
+  "blocky-bubbles.options.culling_mode.name": "Отбраковка",
+  "blocky-bubbles.options.culling_mode.tooltip": "Какие блоки должны вызывать отбраковку соседних граней колонны пузырей.",
   "blocky-bubbles.options.enable_animations.name": "Включить анимацию",
   "blocky-bubbles.options.enable_animations.tooltip": "Следует ли анимировать текстуры колонны пузырей (требует перезагрузки ресурсов).",
   "blocky-bubbles.options.quality.name": "Колонны пузырей",
   "blocky-bubbles.options.quality.tooltip": "Влияет на качество колонн пузырей.",
+  "modmenu.descriptionTranslation.blocky-bubbles": "Позволяет отображать колонны пузырей в виде блока, что внешне напоминает «Быстрые пузыри» из Bedrock Edition.",
+  "modmenu.summaryTranslation.blocky-bubbles": "Порт «Быстрых пузырей» из Bedrock Edition.",
   "resourcePack.blocky-bubbles:32x_upscale.description": "Основано на §8§nhttps://faithfulpack.net",
   "resourcePack.blocky-bubbles:32x_upscale.name": "Blocky Bubbles: 32x Upscale"
 }

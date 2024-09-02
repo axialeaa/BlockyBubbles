@@ -57,7 +57,6 @@ stonecutter {
 	swap("identifier", 		   		eval(mcVersion, ">=1.21"  ) ? "Identifier.of(MOD_ID, name);" : "new Identifier(MOD_ID, name);")
 	swap("sodium_package",     		eval(mcVersion, ">=1.21"  ) ? "net.caffeinemc" : "me.jellysquid")
 	swap("sodium_package_target",	eval(mcVersion, ">=1.21"  ) ? "\"net/caffeinemc\"" : "\"me/jellysquid\"")
-	swap("format_version", property("format_version"))
 }
 
 processResources {

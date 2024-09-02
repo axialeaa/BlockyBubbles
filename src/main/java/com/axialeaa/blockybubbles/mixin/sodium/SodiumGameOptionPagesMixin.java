@@ -17,6 +17,8 @@ import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.*;
 import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.control.CyclingControl;
 import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.control.TickBoxControl;
 
+import static com.axialeaa.blockybubbles.sodium.SodiumUtils.*;
+
 @Mixin(SodiumGameOptionPages.class)
 public class SodiumGameOptionPagesMixin {
 
@@ -27,8 +29,8 @@ public class SodiumGameOptionPagesMixin {
     private static void addOption(CallbackInfoReturnable<OptionPage> cir, @Local List<OptionGroup> groups) {
         groups.add(OptionGroup.createBuilder()
             .add(OptionImpl.createBuilder(SodiumGameOptions.GraphicsQuality.class, BlockyBubblesConfig.STORAGE)
-                .setName(BlockyBubbles.getOptionText("quality", false))
-                .setTooltip(BlockyBubbles.getOptionText("quality", true))
+                .setName(BlockyBubbles.getOptionTextWithSuffix(quality, "name"))
+                .setTooltip(BlockyBubbles.getOptionTextWithSuffix(quality, "tooltip"))
 
                 .setControl(option -> new CyclingControl<>(option, SodiumGameOptions.GraphicsQuality.class))
                 .setBinding((opts, value) -> opts.bubblesQuality = value, opts -> opts.bubblesQuality)
@@ -37,8 +39,8 @@ public class SodiumGameOptionPagesMixin {
                 .build()
             )
             .add(OptionImpl.createBuilder(Boolean.class, BlockyBubblesConfig.STORAGE)
-                .setName(BlockyBubbles.getOptionText("enable_animations", false))
-                .setTooltip(BlockyBubbles.getOptionText("enable_animations", true))
+                .setName(BlockyBubbles.getOptionTextWithSuffix(enable_animations, "name"))
+                .setTooltip(BlockyBubbles.getOptionTextWithSuffix(enable_animations, "tooltip"))
 
                 .setControl(TickBoxControl::new)
                 .setBinding((opts, value) -> opts.enableAnimations = value, opts -> opts.enableAnimations)
@@ -46,12 +48,12 @@ public class SodiumGameOptionPagesMixin {
                 .setFlags(OptionFlag.REQUIRES_ASSET_RELOAD)
                 .build()
             )
-            .add(OptionImpl.createBuilder(SodiumUtils.CullingAwareness.class, BlockyBubblesConfig.STORAGE)
-                .setName(BlockyBubbles.getOptionText("culling_awareness", false))
-                .setTooltip(BlockyBubbles.getOptionText("culling_awareness", true))
+            .add(OptionImpl.createBuilder(SodiumUtils.CullingMode.class, BlockyBubblesConfig.STORAGE)
+                .setName(BlockyBubbles.getOptionTextWithSuffix(culling_mode, "name"))
+                .setTooltip(BlockyBubbles.getOptionTextWithSuffix(culling_mode, "tooltip"))
 
-                .setControl(option -> new CyclingControl<>(option, SodiumUtils.CullingAwareness.class))
-                .setBinding((opts, value) -> opts.cullingAwareness = value, opts -> opts.cullingAwareness)
+                .setControl(option -> new CyclingControl<>(option, SodiumUtils.CullingMode.class))
+                .setBinding((opts, value) -> opts.cullingMode = value, opts -> opts.cullingMode)
                 .setImpact(OptionImpact.LOW)
                 .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
                 .build()

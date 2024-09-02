@@ -29,7 +29,7 @@ public class BlockyBubblesConfig {
 
     @Expose public SodiumGameOptions.GraphicsQuality bubblesQuality;
     @Expose public boolean enableAnimations;
-    @Expose public SodiumUtils.CullingAwareness cullingAwareness;
+    @Expose public SodiumUtils.CullingMode cullingMode;
 
     public static final Storage STORAGE = new Storage();
 
@@ -82,12 +82,12 @@ public class BlockyBubblesConfig {
     public BlockyBubblesConfig() {
         this.bubblesQuality = SodiumGameOptions.GraphicsQuality.DEFAULT;
         this.enableAnimations = true;
-        this.cullingAwareness = SodiumUtils.CullingAwareness.NON_AIR;
+        this.cullingMode = SodiumUtils.CullingMode.NON_AIR;
     }
 
     public static class Storage implements OptionStorage<BlockyBubblesConfig> {
 
-        private final BlockyBubblesConfig options = BlockyBubbles.getOptions();
+        private final BlockyBubblesConfig options = SodiumUtils.getOptions();
 
         @Override
         public BlockyBubblesConfig getData() {

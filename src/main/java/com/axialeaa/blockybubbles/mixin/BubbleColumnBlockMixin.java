@@ -44,17 +44,17 @@ public class BubbleColumnBlockMixin extends AbstractBlockImplMixin {
 	 * @param state The block next to the bubble column.
 	 * @return true if the "Culling" setting allows culling when sodium is installed, otherwise true if the block next to the bubble column in question is not air.
 	 * @implNote {@link SodiumUtils} only gets loaded when the condition succeeds, so no errors are thrown when sodium is not installed.
-	 * @see SodiumUtils.CullingAwareness
+	 * @see SodiumUtils.CullingMode
 	 */
 	@Unique
 	private static boolean shouldCull(BlockState state, Direction direction) {
 		if (!BlockyBubbles.isSodiumLoaded)
-			return !state.isAir();
+			return BlockyBubbles.defaultCullingFunction.apply(state);
 
 		MinecraftClient client = MinecraftClient.getInstance();
 		BlockPos origin = BlockPos.ORIGIN;
 
-		return BlockyBubblesConfig.getOptionData().cullingAwareness.shouldCull(client.world, origin, state, direction);
+		return BlockyBubblesConfig.getOptionData().cullingMode.shouldCull(client.world, origin, state, direction);
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class BubbleColumnBlockMixin extends AbstractBlockImplMixin {
 
 	/**
 	 * Culls the faces of the bubble column model according to the type of block next to it (some culling specification is provided in the block model).
-	 * @see SodiumUtils.CullingAwareness
+	 * @see SodiumUtils.CullingMode
 	 */
 	@Override
 	public void isSideInvisibleImpl(BlockState state, BlockState stateFrom, Direction direction, CallbackInfoReturnable<Boolean> cir) {
