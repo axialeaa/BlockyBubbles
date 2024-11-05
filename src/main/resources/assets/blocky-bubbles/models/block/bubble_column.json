@@ -1,5 +1,5 @@
 {
-	"credit": "Made by axialeaa, using Blockbench",
+	"credit": "Made by axialeaa using Blockbench",
 	"parent": "minecraft:block/block",
 	"ambientocclusion": false,
 	"elements": [

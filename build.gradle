@@ -1,7 +1,6 @@
 plugins {
-	id 'fabric-loom' version '1.7-SNAPSHOT'
+	id 'fabric-loom' version '1.8-SNAPSHOT'
 	id 'dev.kikugie.stonecutter'
-	id "dev.kikugie.j52j" version "1.0.2"
 	id 'maven-publish'
 }
 
@@ -36,6 +35,8 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}"
 
 	modCompileOnly "maven.modrinth:sodium:${property("sodium_version")}"
+
+	// Comment this line out if testing in game without sodium
 	modRuntimeOnly "maven.modrinth:sodium:${property("sodium_version")}"
 }
 
@@ -50,34 +51,45 @@ if (stonecutter.current.isActive) { // run configs for non-active version would 
 
 stonecutter {
 	swap("graphics_mode",	   		eval(mcVersion, ">=1.19.2") ? ".getGraphicsMode().getValue()" : ".graphicsMode")
-	swap("translatable", 	   		eval(mcVersion, ">=1.19.2") ? "Text.translatable(key);" : "new TranslatableText(key);")
+	swap("translatable", 	   		eval(mcVersion, ">=1.19.2") ? "Text::translatable" : "TranslatableText::new")
 	swap("list_type", 		   		eval(mcVersion, ">=1.19.3") ? "Sprite.TickableAnimation" : "TextureTickListener")
-	swap("pack_name", 		   		eval(mcVersion, ">=1.19.3") ? "name" : "String.valueOf(name)")
 	swap("create_method", 	   		eval(mcVersion, ">=1.20.6") ? "\"create\"" : "\"createParticle(Lnet/minecraft/particle/BlockStateParticleEffect;Lnet/minecraft/client/world/ClientWorld;DDDDDD)Lnet/minecraft/client/particle/Particle;\"")
-	swap("identifier", 		   		eval(mcVersion, ">=1.21"  ) ? "Identifier.of(MOD_ID, name);" : "new Identifier(MOD_ID, name);")
-	swap("sodium_package",     		eval(mcVersion, ">=1.21"  ) ? "net.caffeinemc" : "me.jellysquid")
-	swap("sodium_package_target",	eval(mcVersion, ">=1.21"  ) ? "\"net/caffeinemc\"" : "\"me/jellysquid\"")
+	swap("identifier", 		   		eval(mcVersion, ">=1.21.1") ? "Identifier.of(MOD_ID, name);" : "new Identifier(MOD_ID, name);")
+
+	def packName = "translated"
+	def sodiumPackage = eval(mcVersion, ">=1.21.1") ? "net.caffeinemc" : "me.jellysquid"
+
+	if (eval(mcVersion, "<1.19.3"))
+		packName += ".getString()"
+
+	swap("pack_name", packName)
+	swap("sodium_package", sodiumPackage)
+	swap("quality_target", "\"L%s/mods/sodium/client/gui/options/OptionGroup;createBuilder()L%<s/mods/sodium/client/gui/options/OptionGroup\$Builder;\"".formatted(sodiumPackage.replace('.', '/')))
 }
+
+def javaVersion = stonecutter.eval(mcVersion, ">=1.20.6") ? JavaVersion.VERSION_21 : JavaVersion.VERSION_17
+def javaVersionNumber = javaVersion.ordinal() + 1
 
 processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version,
-				"target": project.property("target_version")
+				"target": project.property("target_version"),
+				"java_version": javaVersionNumber
 	}
 
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = javaVersionNumber
 }
 
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = javaVersion
+	targetCompatibility = javaVersion
 }
 
 jar {

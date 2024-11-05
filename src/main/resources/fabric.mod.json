@@ -36,9 +36,9 @@
 		"blocky-bubbles.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.15.10",
+		"fabricloader": ">=0.16.7",
 		"minecraft": "${target}",
-		"java": ">=17",
+		"java": ">=${java_version}",
         "fabric": "*"
     },
 	"suggests": {
