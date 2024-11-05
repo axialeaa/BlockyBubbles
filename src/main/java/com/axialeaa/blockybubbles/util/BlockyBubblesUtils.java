@@ -15,7 +15,7 @@ import java.util.function.Predicate;
 public class BlockyBubblesUtils {
 
     /**
-     * True if config is installed on the client.
+     * True if sodium is installed on the client.
      * Do not call this from the mixin plugin; it will throw a preloading error.
      */
     public static boolean isSodiumLoaded = BlockyBubbles.LOADER.isModLoaded("sodium");
