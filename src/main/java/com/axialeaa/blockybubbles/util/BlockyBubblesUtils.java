@@ -30,7 +30,7 @@ public class BlockyBubblesUtils {
             return MinecraftClient.isFancyGraphicsOrBetter();
 
         MinecraftClient client = MinecraftClient.getInstance();
-        GraphicsMode graphicsMode = client.options /*$ graphics_mode >>*/ .getGraphicsMode().getValue() ;
+        GraphicsMode graphicsMode = client.options.getGraphicsMode().getValue();
 
         return BlockyBubblesConfig.getData().bubblesQuality.isFancy(graphicsMode);
     }

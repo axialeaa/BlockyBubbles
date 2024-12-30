@@ -1,0 +1,1 @@
+Nothing of note this update! Just added 1.21.4 compatibility, refactored some things in the code and tweaked some translations in minor ways.

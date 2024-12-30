@@ -1,16 +1,49 @@
 {
 	"schemaVersion": 1,
-	"id": "blocky-bubbles",
+	"id": "${id}",
 	"version": "${version}",
 	"name": "Blocky Bubbles",
 	"description": "Allows bubble columns to render as a block, resembling Bedrock Edition's fast bubbles!",
 	"authors": [
-		"axialeaa"
+		{
+			"name": "axialeaa",
+			"contact": {
+				"homepage": "https://github.com/axialeaa"
+			}
+		}
 	],
 	"contributors": [
-		"miniluv73",
-		"mpustovoi",
-		"Felix14-v2"
+		"miniluv73 (32x textures)",
+		{
+			"name": "mpustovoi (ru_RU translations)",
+			"contact": {
+				"homepage": "https://github.com/mpustovoi"
+			}
+		},
+		{
+			"name": "Felix14-v2 (ru_RU translations)",
+			"contact": {
+				"homepage": "https://github.com/Felix14-v2"
+			}
+		},
+		{
+			"name": "SeriousFreezing (pt_BR translations)",
+			"contact": {
+				"homepage": "https://github.com/seriousfreezing"
+			}
+		},
+		{
+			"name": "Flatkat (es_ES translations)",
+			"contact": {
+				"homepage": "https://github.com/Flatkat"
+			}
+		},
+		{
+			"name": "dirtTW (zh_TW translations)",
+			"contact": {
+				"homepage": "https://github.com/yichifauzi"
+			}
+		}
 	],
 	"contact": {
 		"sources": "https://github.com/axialeaa/BlockyBubbles",
@@ -28,7 +61,8 @@
 		"modmenu": {
 			"links": {
 				"modmenu.github_releases": "https://github.com/axialeaa/BlockyBubbles/releases",
-				"modmenu.modrinth": "https://modrinth.com/mod/blocky-bubbles"
+				"modmenu.modrinth": "https://modrinth.com/mod/blocky-bubbles",
+				"modmenu.discord": "https://discord.gg/hfVmpeQhe8"
 			}
 		}
 	},
@@ -36,7 +70,7 @@
 		"blocky-bubbles.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.7",
+		"fabricloader": ">=0.16.9",
 		"minecraft": "${target}",
 		"java": ">=${java_version}",
         "fabric": "*"

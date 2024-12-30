@@ -2,25 +2,18 @@ pluginManagement {
 	repositories {
 		mavenCentral()
 		gradlePluginPortal()
-		maven {
-			name = 'Fabric'
-			url = 'https://maven.fabricmc.net/'
-		}
-		maven {
-			url = "https://maven.kikugie.dev/releases"
-		}
+		maven { url = 'https://maven.fabricmc.net/' }
+		maven { url = "https://maven.kikugie.dev/releases" }
 	}
 }
 
 plugins {
-	id "dev.kikugie.stonecutter" version "0.4"
+	id "dev.kikugie.stonecutter" version "0.5"
 }
 
 stonecutter {
-	shared {
-		versions "1.21.3", "1.21.1", "1.20.6", "1.20.4", "1.20.2", "1.20.1", "1.19.4", "1.19.3", "1.19.2", "1.18.2", "1.17.1" // these specify directories used in `versions`, as well as versions used in comments
-		vcsVersion "1.21.1"
+	create(rootProject) {
+		versions "1.21.4", "1.21.3", "1.21.1", "1.20.6", "1.20.4", "1.20.2", "1.20.1"
+		vcsVersion = "1.21.4"
 	}
-
-	create rootProject
 }

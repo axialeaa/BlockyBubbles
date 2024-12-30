@@ -21,11 +21,11 @@ public enum CullingMode implements TextProvider {
     /**
      * Culls the bubble column face when the adjacent block is anything other than air, including water, glass and other bubble columns. This matches the behaviour of vanilla Bedrock Edition.
      */
-    NON_AIR         ((world, pos, state, direction) -> BlockyBubblesUtils.DEFAULT_CULLING_PREDICATE.test(state)),
+    NON_AIR         (CullingModePredicate.NON_AIR),
     /**
      * Culls the bubble column face when the adjacent block is a bubble column or a full, solid, square side of an opaque block. This resembles how Java handles face culling on most other blocks.
      */
-    BUBBLE_COLUMN   ((world, pos, state, direction) -> state.getBlock() instanceof BubbleColumnBlock || (state.isSideSolidFullSquare(world, pos, direction.getOpposite()) && state.isOpaque())),
+    BUBBLE_COLUMN   (CullingModePredicate.BUBBLE_COLUMN),
     /**
      * Never culls the bubble column face under any circumstance.
      */
@@ -50,6 +50,10 @@ public enum CullingMode implements TextProvider {
 
     @FunctionalInterface
     public interface CullingModePredicate {
+
+        CullingModePredicate NON_AIR = (world, pos, state, direction) -> BlockyBubblesUtils.DEFAULT_CULLING_PREDICATE.test(state);
+
+        CullingModePredicate BUBBLE_COLUMN = (world, pos, state, direction) -> state.getBlock() instanceof BubbleColumnBlock || (state.isSideSolidFullSquare(world, pos, direction.getOpposite()) && state.isOpaque());
 
         CullingModePredicate FALSE = (world, pos, state, direction) -> false;
 

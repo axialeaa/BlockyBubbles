@@ -98,22 +98,12 @@ public class BlockyBubblesConfig {
         }
     }
 
-    /**
-     * @param id The id of the option.
-     * @return a translated text component specific to a Blocky Bubbles config option.
-     */
-    public static Text getOptionText(String id) {
-        return BlockyBubbles.TRANSLATE_FUNCTION.apply(BlockyBubbles.MOD_ID + ".options." + id);
+    public static Text getOptionText(String path) {
+        return Text.translatable(BlockyBubbles.MOD_ID + ".options." + path);
     }
 
-    /**
-     * An alternative implementation of {@link BlockyBubblesConfig#getOptionText(String)} used to add suffixes without repeating confusing formatting.
-     * @param id The id of the option.
-     * @param tooltip Whether to append "tooltip" to the end of the text. If false, does "name" instead.
-     * @return a translated text component specific to a Blocky Bubbles config option.
-     */
-    public static Text getOptionText(String id, boolean tooltip) {
-        return getOptionText(id + "." + (tooltip ? "tooltip" : "name"));
+    public static Text getOptionText(String path, boolean tooltip) {
+        return getOptionText(path + "." + (tooltip ? "tooltip" : "name"));
     }
 
     private static <T> OptionImpl<BlockyBubblesConfig, T> createOption(String name, Class<T> type, Function<OptionImpl<BlockyBubblesConfig, T>, Control<T>> controlFunction, BiConsumer<BlockyBubblesConfig, T> setter, Function<BlockyBubblesConfig, T> getter, OptionImpact impact, OptionFlag... optionFlags) {
