@@ -1,7 +1,7 @@
 <h1 align="center">
   <img width="20%" src="https://github.com/axialeaa/BlockyBubbles/assets/116074698/a2fcc89f-abc5-47df-908a-d6c5f6751d09">
   <br>
-  Hi there! Thank you for checking out Blocky Bubbles!
+  🫧 Hi there! Thank you for checking out Blocky Bubbles!
 </h1>
 
 <p align="center">
@@ -44,16 +44,19 @@
 > Without [Sodium][sodium] installed, **Blocky Bubbles** will use the main graphics quality setting.
 
 I have also obtained permission from miniluv73, the original artist behind the fast bubbles textures for the Bedrock Edition version of [Faithful 32x][faithful], to use his assets inside an in-built resource pack! Simply head to the resource pack menu to upscale **Blocky Bubbles** to double resolution.
-***
 
-### Getting Started
-**Blocky Bubbles** operates on [Kikugie's fork of Stonecutter][stonecutter-kt], allowing for easy multi-version scheming. Every release will be available for most versions since 1.17, allowing you to get the full experience regardless of your circumstances.
+## 📝 Getting Started
+**Blocky Bubbles** operates on [Kikugie's fork of Stonecutter][stonecutter-kt], allowing for easy multi-version scheming. Every release will be available for most versions since 1.20, allowing you to get the full experience regardless of your circumstances.
 
 - Make sure you're running a Fabric instance of the game. If you're playing from the vanilla launcher, follow the [Fabric installation guide][fabric-guide]. If you're playing from a third-party launcher like [Prism][prism], you'll need to follow their own instructions which you can often find on their respective websites. For example, [here][prism-guide] is Prism's guide to downloading mods.
 - If you're not using a third-party launcher with in-built mod installation, you'll need to download the latest version of **Blocky Bubbles** for your game version from the [GitHub releases][github-releases] page or on [Modrinth][modrinth-versions]. Drag the `.jar` file into your mods folder and launch the game!
 
 > [!IMPORTANT]
 > **Blocky Bubbles** requires [Fabric API][fabric-api]. Without it, the game will fail to start!
+***
+
+<a href='https://ko-fi.com/P5P81B1BAS' target='_blank'><img align=left height='50' style='border:0px;height:50px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com'/></a>
+Modding takes a lot of work, so if you're enjoying what I'm doing and wish to show your gratitude, you _have the option_ to give me a tip over on Ko-fi. It's entirely up to you. I would appreciate it massively! 🤗
 
 [fabric]: https://fabricmc.net
 [fabric-installer]: https://fabricmc.net/use/installer
