@@ -48,7 +48,7 @@ I have also obtained permission from miniluv73, the original artist behind the f
 > [!IMPORTANT]
 > **Blocky Bubbles** requires [Fabric API][fabric-api]. Without it, the game will fail to start!
 
-<h2 align=center>🤗 Support me! 🤗</h2>
+<h2 align=center>🤗 Support Me! 🤗</h2>
 
 Modding takes a lot of work, so if you're enjoying what I'm doing and wish to show your gratitude, you *have the option* to give me a tip over on Ko-fi. It's entirely up to you. I would appreciate it massively!
 
