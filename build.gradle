@@ -1,7 +1,7 @@
 plugins {
-	id 'fabric-loom' version '1.9-SNAPSHOT'
+	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
-	id "me.modmuss50.mod-publish-plugin" version "0.8.3"
+	id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 def mcVersion = stonecutter.current.version
@@ -35,12 +35,15 @@ publishMods {
 	file = remapJar.archiveFile
 	changelog = rootProject.file("CHANGELOG.md").text
 	type = STABLE
-	displayName = "${property("mod_name")} ${property("mod_version")} ($mcVersion)"
+
+	StringBuilder builder = new StringBuilder("${property("mod_name")} ${property("mod_version")} ($mcVersion)")
 
 	def updateName = property("update_name")
 
 	if (!updateName.toString().isBlank())
-		displayName += " - $updateName"
+		builder.append(" - $updateName")
+
+	displayName = builder.toString()
 
 	modLoaders.add("fabric")
 	version = property("mod_version")
@@ -63,7 +66,7 @@ dependencies {
 	mappings "net.fabricmc:yarn:${property("yarn_mappings")}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${property("loader_version")}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}"
-	modRuntimeOnly("com.terraformersmc:modmenu:${property("modmenu_version")}")
+	modRuntimeOnly "com.terraformersmc:modmenu:${property("modmenu_version")}"
 
 	modCompileOnly "maven.modrinth:sodium:${property("sodium_version")}"
 
@@ -74,9 +77,6 @@ dependencies {
 stonecutter {
 	swap("mod_id", "\"${property("mod_id")}\";")
 	swap("mod_name", "\"${property("mod_name")}\";")
-
-	swap("create_method", eval(mcVersion, ">=1.20.6") ? "\"create\"" : "\"createParticle(Lnet/minecraft/particle/BlockStateParticleEffect;Lnet/minecraft/client/world/ClientWorld;DDDDDD)Lnet/minecraft/client/particle/Particle;\"")
-	swap("identifier",    eval(mcVersion, ">=1.21.1") ? "Identifier.of(MOD_ID, path);" : "new Identifier(MOD_ID, path);")
 
 	def sodiumPackage = eval(mcVersion, ">=1.21.1") ? "net.caffeinemc" : "me.jellysquid"
 

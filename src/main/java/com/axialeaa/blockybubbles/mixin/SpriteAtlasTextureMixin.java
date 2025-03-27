@@ -1,7 +1,7 @@
 package com.axialeaa.blockybubbles.mixin;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
-import com.axialeaa.blockybubbles.util.BlockyBubblesUtils;
+import com.axialeaa.blockybubbles.util.RenderingUtils;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.texture.Sprite;
@@ -16,7 +16,7 @@ public class SpriteAtlasTextureMixin {
 
     @WrapWithCondition(method = "upload", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 1))
     private boolean shouldAnimateTexture(List<Sprite.TickableAnimation> instance, Object object, @Local Sprite sprite) {
-        if (BlockyBubblesUtils.shouldAnimate())
+        if (RenderingUtils.shouldAnimate())
             return true;
 
         String namespace = sprite.getContents().getId().getNamespace();

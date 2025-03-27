@@ -1,13 +1,13 @@
 {
-  "blocky-bubbles.options.culling_mode.enum.bubble_column": "Bubble Column (Java-like)",
-  "blocky-bubbles.options.culling_mode.enum.non_air": "Non-Air (Parity)",
-  "blocky-bubbles.options.culling_mode.enum.none": "None",
-  "blocky-bubbles.options.culling_mode.name": "Culling",
-  "blocky-bubbles.options.culling_mode.tooltip": "Which blocks should cause adjacent bubble column faces to cull.",
-  "blocky-bubbles.options.enable_animations.name": "Enable Animations",
-  "blocky-bubbles.options.enable_animations.tooltip": "Whether the bubble column textures should be animated (requires asset reload).",
+  "blocky-bubbles.options.animations.name": "Animations",
+  "blocky-bubbles.options.animations.tooltip": "Whether the bubble column textures should be animated (requires asset reload).",
+  "blocky-bubbles.options.opaque_faces.name": "Opaque Faces",
+  "blocky-bubbles.options.opaque_faces.tooltip": "Whether bubble columns should render with completely opaque faces.",
   "blocky-bubbles.options.quality.name": "Bubble Columns",
   "blocky-bubbles.options.quality.tooltip": "Controls the quality of bubble columns.",
-  "resourcePack.blocky-bubbles:32x_upscale.description": "Based on §8§nhttps://faithfulpack.net",
-  "resourcePack.blocky-bubbles:32x_upscale.name": "Blocky Bubbles: 32x Upscale"
+  "blocky-bubbles.options.top_face_culling_method.option.java_similar": "Java-ish",
+  "blocky-bubbles.options.top_face_culling_method.option.non_air": "Non-Air (Parity)",
+  "blocky-bubbles.options.top_face_culling_method.option.off": "Off",
+  "blocky-bubbles.options.top_face_culling_method.name": "Top Face Culling",
+  "blocky-bubbles.options.top_face_culling_method.tooltip": "Which blocks should cause top bubble column faces to cull."
 }

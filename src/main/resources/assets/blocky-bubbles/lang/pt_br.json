@@ -1,13 +1,11 @@
 {
-  "blocky-bubbles.options.culling_mode.enum.bubble_column": "Coluna de Bolhas (semelhante a Java)",
-  "blocky-bubbles.options.culling_mode.enum.non_air": "Não-Aéreo (Paridade)",
-  "blocky-bubbles.options.culling_mode.enum.none": "Nenhum",
-  "blocky-bubbles.options.culling_mode.name": "Eliminação",
-  "blocky-bubbles.options.culling_mode.tooltip": "Quais blocos devem fazer com que as faces adjacentes da coluna de bolhas sejam eliminadas.",
-  "blocky-bubbles.options.enable_animations.name": "Ativar Animações",
-  "blocky-bubbles.options.enable_animations.tooltip": "Se as texturas da coluna de bolhas devem ser animadas (requer recarregamento de ativos).",
+  "blocky-bubbles.options.top_face_culling_method.option.bubble_column": "Coluna de Bolhas (semelhante a Java)",
+  "blocky-bubbles.options.top_face_culling_method.option.non_air": "Não-Aéreo (Paridade)",
+  "blocky-bubbles.options.top_face_culling_method.option.none": "Nenhum",
+  "blocky-bubbles.options.top_face_culling_method.name": "Eliminação",
+  "blocky-bubbles.options.top_face_culling_method.tooltip": "Quais blocos devem fazer com que as faces adjacentes da coluna de bolhas sejam eliminadas.",
+  "blocky-bubbles.options.animations.name": "Ativar Animações",
+  "blocky-bubbles.options.animations.tooltip": "Se as texturas da coluna de bolhas devem ser animadas (requer recarregamento de ativos).",
   "blocky-bubbles.options.quality.name": "Coluna de Bolhas",
-  "blocky-bubbles.options.quality.tooltip": "Controla a qualidade da coluna de bolhas.",
-  "resourcePack.blocky-bubbles:32x_upscale.description": "Baseado no §8§nhttps://faithfulpack.net",
-  "resourcePack.blocky-bubbles:32x_upscale.name": "Blocky Bubbles: Aumentado em 32x"
+  "blocky-bubbles.options.quality.tooltip": "Controla a qualidade da coluna de bolhas."
 }

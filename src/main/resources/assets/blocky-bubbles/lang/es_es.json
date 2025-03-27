@@ -1,13 +1,11 @@
 {
-  "blocky-bubbles.options.culling_mode.enum.bubble_column": "Columna de burbujas (Similar a Java)",
-  "blocky-bubbles.options.culling_mode.enum.non_air": "Todo excepto aire (Paridad)",
-  "blocky-bubbles.options.culling_mode.enum.none": "Ninguno",
-  "blocky-bubbles.options.culling_mode.name": "Culling",
-  "blocky-bubbles.options.culling_mode.tooltip": "Qué bloques deberían causar a las caras adyacentes de columnas de burbujas hacer culling.",
-  "blocky-bubbles.options.enable_animations.name": "Activar animaciones",
-  "blocky-bubbles.options.enable_animations.tooltip": "Activa o desactiva las animaciones de las columnas de burbujas (requiere recargar los recursos).",
+  "blocky-bubbles.options.top_face_culling_method.option.bubble_column": "Columna de burbujas (Similar a Java)",
+  "blocky-bubbles.options.top_face_culling_method.option.non_air": "Todo excepto aire (Paridad)",
+  "blocky-bubbles.options.top_face_culling_method.option.none": "Ninguno",
+  "blocky-bubbles.options.top_face_culling_method.name": "Culling",
+  "blocky-bubbles.options.top_face_culling_method.tooltip": "Qué bloques deberían causar a las caras adyacentes de columnas de burbujas hacer culling.",
+  "blocky-bubbles.options.animations.name": "Activar animaciones",
+  "blocky-bubbles.options.animations.tooltip": "Activa o desactiva las animaciones de las columnas de burbujas (requiere recargar los recursos).",
   "blocky-bubbles.options.quality.name": "Columnas de burbujas",
-  "blocky-bubbles.options.quality.tooltip": "Controla la calidad de las columnas de burbujas.",
-  "resourcePack.blocky-bubbles:32x_upscale.description": "Basado en §8§nhttps://faithfulpack.net",
-  "resourcePack.blocky-bubbles:32x_upscale.name": "Blocky Bubbles: Resolución 32x"
+  "blocky-bubbles.options.quality.tooltip": "Controla la calidad de las columnas de burbujas."
 }

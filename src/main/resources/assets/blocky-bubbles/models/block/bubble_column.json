@@ -2,6 +2,9 @@
 	"credit": "Made by axialeaa using Blockbench",
 	"parent": "minecraft:block/block",
 	"ambientocclusion": false,
+	"textures": {
+		"particle": "#outer"
+	},
 	"elements": [
 		{
 			"from": [1, 0, 1],

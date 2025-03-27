@@ -13,7 +13,6 @@
 		}
 	],
 	"contributors": [
-		"miniluv73 (32x textures)",
 		{
 			"name": "mpustovoi (ru_RU translations)",
 			"contact": {
@@ -70,12 +69,13 @@
 		"blocky-bubbles.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.9",
+		"fabricloader": ">=0.16.10",
 		"minecraft": "${target}",
 		"java": ">=${java_version}",
-        "fabric": "*"
-    },
+		"fabric": "*"
+	},
 	"suggests": {
-		"sodium": "*"
+		"sodium": "*",
+		"reeses-sodium-options": "*"
 	}
 }
