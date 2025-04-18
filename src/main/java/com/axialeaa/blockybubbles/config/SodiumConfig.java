@@ -11,8 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import /*$ sodium_package >>*/ me.jellysquid .mods.sodium.client.gui.SodiumGameOptions;
-import /*$ sodium_package >>*/ me.jellysquid .mods.sodium.client.gui.options.storage.OptionStorage;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.SodiumGameOptions;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.storage.OptionStorage;
 
 /**
  * Mostly copied from <a href="https://github.com/FlashyReese/sodium-extra-fabric/blob/1.20.x/dev/src/main/java/me/flashyreese/mods/sodiumextra/client/gui/SodiumExtraGameOptions.java">Sodium Extra's game options class</a>, with a few exceptions.

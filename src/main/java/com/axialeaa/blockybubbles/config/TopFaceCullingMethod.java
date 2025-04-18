@@ -10,7 +10,7 @@ import net.minecraft.world.BlockView;
 
 import java.util.Locale;
 
-import /*$ sodium_package >>*/ me.jellysquid .mods.sodium.client.gui.options.TextProvider;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.TextProvider;
 
 /**
  * Defines culling behaviour and provides an enumerator for the config to use.

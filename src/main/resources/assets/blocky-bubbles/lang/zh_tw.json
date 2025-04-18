@@ -1,7 +1,7 @@
 {
-  "blocky-bubbles.options.top_face_culling_method.option.bubble_column": "氣泡柱 (類似 Java)",
+  "blocky-bubbles.options.top_face_culling_method.option.java_ish": "氣泡柱 (類似 Java)",
   "blocky-bubbles.options.top_face_culling_method.option.non_air": "非空氣 (趨同)",
-  "blocky-bubbles.options.top_face_culling_method.option.none": "無",
+  "blocky-bubbles.options.top_face_culling_method.option.off": "無",
   "blocky-bubbles.options.top_face_culling_method.name": "剔除",
   "blocky-bubbles.options.top_face_culling_method.tooltip": "哪些方塊會導致鄰近的氣泡柱面被剔除。",
   "blocky-bubbles.options.animations.name": "啟用動畫",

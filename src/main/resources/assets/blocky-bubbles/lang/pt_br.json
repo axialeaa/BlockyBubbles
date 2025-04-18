@@ -1,7 +1,7 @@
 {
-  "blocky-bubbles.options.top_face_culling_method.option.bubble_column": "Coluna de Bolhas (semelhante a Java)",
+  "blocky-bubbles.options.top_face_culling_method.option.java_ish": "Coluna de Bolhas (semelhante a Java)",
   "blocky-bubbles.options.top_face_culling_method.option.non_air": "Não-Aéreo (Paridade)",
-  "blocky-bubbles.options.top_face_culling_method.option.none": "Nenhum",
+  "blocky-bubbles.options.top_face_culling_method.option.off": "Nenhum",
   "blocky-bubbles.options.top_face_culling_method.name": "Eliminação",
   "blocky-bubbles.options.top_face_culling_method.tooltip": "Quais blocos devem fazer com que as faces adjacentes da coluna de bolhas sejam eliminadas.",
   "blocky-bubbles.options.animations.name": "Ativar Animações",

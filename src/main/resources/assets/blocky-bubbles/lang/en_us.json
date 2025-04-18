@@ -5,7 +5,7 @@
   "blocky-bubbles.options.opaque_faces.tooltip": "Whether bubble columns should render with completely opaque faces.",
   "blocky-bubbles.options.quality.name": "Bubble Columns",
   "blocky-bubbles.options.quality.tooltip": "Controls the quality of bubble columns.",
-  "blocky-bubbles.options.top_face_culling_method.option.java_similar": "Java-ish",
+  "blocky-bubbles.options.top_face_culling_method.option.java_ish": "Java-ish",
   "blocky-bubbles.options.top_face_culling_method.option.non_air": "Non-Air (Parity)",
   "blocky-bubbles.options.top_face_culling_method.option.off": "Off",
   "blocky-bubbles.options.top_face_culling_method.name": "Top Face Culling",

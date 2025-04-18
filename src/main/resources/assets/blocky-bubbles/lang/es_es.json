@@ -1,7 +1,7 @@
 {
-  "blocky-bubbles.options.top_face_culling_method.option.bubble_column": "Columna de burbujas (Similar a Java)",
+  "blocky-bubbles.options.top_face_culling_method.option.java_ish": "Columna de burbujas (Similar a Java)",
   "blocky-bubbles.options.top_face_culling_method.option.non_air": "Todo excepto aire (Paridad)",
-  "blocky-bubbles.options.top_face_culling_method.option.none": "Ninguno",
+  "blocky-bubbles.options.top_face_culling_method.option.off": "Ninguno",
   "blocky-bubbles.options.top_face_culling_method.name": "Culling",
   "blocky-bubbles.options.top_face_culling_method.tooltip": "Qué bloques deberían causar a las caras adyacentes de columnas de burbujas hacer culling.",
   "blocky-bubbles.options.animations.name": "Activar animaciones",

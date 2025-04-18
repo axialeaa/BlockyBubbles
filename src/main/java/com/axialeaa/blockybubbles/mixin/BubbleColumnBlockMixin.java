@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(BubbleColumnBlock.class)
 public class BubbleColumnBlockMixin extends AbstractBlockImplMixin {
 
-	@WrapWithCondition(method = "randomDisplayTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addImportantParticle" /*? if >=1.21.5 >>*/ /*+"Client"*/ + "(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
+	@WrapWithCondition(method = "randomDisplayTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addImportantParticle" /*? if >=1.21.5 >>*/ +"Client" + "(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
 	private boolean shouldSpawnParticles(World instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
 		return RenderingUtils.isFancy();
 	}

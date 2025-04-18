@@ -6,7 +6,7 @@
   "blocky-bubbles.options.quality.name": "Колонны Пузырей",
   "blocky-bubbles.options.quality.tooltip": "Влияет на качество колонн пузырей.",
   "blocky-bubbles.options.top_face_culling_method.name": "Отбраковка верхней грани",
-  "blocky-bubbles.options.top_face_culling_method.option.java_similar": "В стиле Java",
+  "blocky-bubbles.options.top_face_culling_method.option.java_ish": "В стиле Java",
   "blocky-bubbles.options.top_face_culling_method.option.non_air": "На воздухе (паритет)",
   "blocky-bubbles.options.top_face_culling_method.option.off": "Выключена",
   "blocky-bubbles.options.top_face_culling_method.tooltip": "Какие блоки должны привести к отбраковке верхних граней колонн пузырей?"

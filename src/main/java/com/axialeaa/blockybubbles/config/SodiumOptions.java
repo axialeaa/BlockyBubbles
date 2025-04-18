@@ -6,9 +6,9 @@ import net.minecraft.text.Text;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import /*$ sodium_package >>*/ me.jellysquid .mods.sodium.client.gui.SodiumGameOptions;
-import /*$ sodium_package >>*/ me.jellysquid .mods.sodium.client.gui.options.*;
-import /*$ sodium_package >>*/ me.jellysquid .mods.sodium.client.gui.options.control.*;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.SodiumGameOptions;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.*;
+import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.control.*;
 
 public class SodiumOptions {
 
