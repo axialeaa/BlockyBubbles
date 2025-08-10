@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 
 public class BlockyBubbles implements ClientModInitializer {
 
-    public static final String MOD_ID = /*$ mod_id*/ "blocky-bubbles";
-    public static final String MOD_NAME = /*$ mod_name*/ "Blocky Bubbles";
+    public static final String MOD_ID = "blocky-bubbles";
+    public static final String MOD_NAME = "Blocky Bubbles";
 
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
     public static final FabricLoader LOADER = FabricLoader.getInstance();

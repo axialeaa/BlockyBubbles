@@ -6,7 +6,7 @@ import com.axialeaa.blockybubbles.config.TopFaceCullingMethod;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GraphicsMode;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 
 public class RenderingUtils {
@@ -47,8 +47,8 @@ public class RenderingUtils {
     /**
      * @return The render layer to use for the bubble column faces based on the "Opaque Faces" setting.
      */
-    public static RenderLayer getRenderLayer() {
-        return SODIUM_LOADED && SodiumConfig.getData().opaqueFaces ? RenderLayer.getSolid() : RenderLayer.getCutout();
+    public static BlockRenderLayer getBlockRenderLayer() {
+        return SODIUM_LOADED && SodiumConfig.getData().opaqueFaces ? BlockRenderLayer.SOLID : BlockRenderLayer.CUTOUT;
     }
 
 }

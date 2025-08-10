@@ -1,16 +1,16 @@
 plugins {
-	id 'fabric-loom' version '1.10-SNAPSHOT'
+	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 	id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
-def mcVersion = stonecutter.current.version
+def mcVersion = project.build_version
 
-version = "${property("mod_version")}+$mcVersion"
-group = property("maven_group")
+version = "$project.mod_version+$mcVersion"
+group = project.maven_group
 
 base {
-	archivesName = property("mod_id")
+	archivesName = project.mod_id
 }
 
 repositories {
@@ -35,107 +35,83 @@ publishMods {
 	file = remapJar.archiveFile
 	changelog = rootProject.file("CHANGELOG.md").text
 	type = STABLE
-
-	StringBuilder builder = new StringBuilder("${property("mod_name")} ${property("mod_version")} ($mcVersion)")
-
-	def updateName = property("update_name")
-
-	if (!updateName.toString().isBlank())
-		builder.append(" - $updateName")
-
-	displayName = builder.toString()
-
+	displayName = "$mod_name $mod_version ($mcVersion) - $update_name"
 	modLoaders.add("fabric")
-	version = property("mod_version")
+	version = mod_version
+
+	github {
+		accessToken = providers.gradleProperty("secrets.github_token")
+		repository = repository_url
+		commitish = "master"
+		tagName = mod_version
+	}
 
 	modrinth {
 		accessToken = providers.gradleProperty("secrets.modrinth_token")
-		projectId = property("modrinth_project_id")
+		projectId = modrinth_project_id
 
-		for (String version : property("modrinth_versions").toString().split(' '))
+		for (String version : modrinth_versions.toString().split(' '))
 			minecraftVersions.add(version)
 
 		requires("fabric-api")
 		optional("sodium")
 	}
+
+	discord {
+		webhookUrl = providers.gradleProperty("secrets.discord_webhook_url")
+		content = changelog.map { "# $mod_name $mod_version ($mcVersion) - $update_name\n" + it + "-# ||<@1201276927428804741>||" }
+
+		style {
+			look = "MODERN"
+		}
+	}
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:$mcVersion"
-	mappings "net.fabricmc:yarn:${property("yarn_mappings")}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${property("loader_version")}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}"
-	modRuntimeOnly "com.terraformersmc:modmenu:${property("modmenu_version")}"
+	mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 
-	modCompileOnly "maven.modrinth:sodium:${property("sodium_version")}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+	modRuntimeOnly "com.terraformersmc:modmenu:${modmenu_version}"
+
+	modCompileOnly "maven.modrinth:sodium:${sodium_version}"
 
 	// Comment this line out if testing in game without sodium
-	modRuntimeOnly "maven.modrinth:sodium:${property("sodium_version")}"
+	modRuntimeOnly "maven.modrinth:sodium:${sodium_version}"
 }
 
-stonecutter {
-	swap("mod_id", "\"${property("mod_id")}\";")
-	swap("mod_name", "\"${property("mod_name")}\";")
-
-	def sodiumPackage = eval(mcVersion, ">=1.21.1") ? "net.caffeinemc" : "me.jellysquid"
-
-	swap("sodium_package", sodiumPackage)
-	swap("quality_target", "\"L%s/mods/sodium/client/gui/options/OptionGroup;createBuilder()L%<s/mods/sodium/client/gui/options/OptionGroup\$Builder;\"".formatted(sodiumPackage.replace('.', '/')))
-}
-
-JavaVersion javaVersion = stonecutter.eval(mcVersion, ">=1.20.6") ? JavaVersion.VERSION_21 : JavaVersion.VERSION_17
-int javaVersionNumber = javaVersion.ordinal() + 1
-
-tasks.register('copyBuild', Copy) {
-	from("${layout.buildDirectory.get()}/libs")
-	into("$rootDir/libs/${project.property("mod_version")}")
-}
-
-tasks.build.finalizedBy("copyBuild")
+def javaVersion = JavaVersion.VERSION_21
+def javaVersionNumber = javaVersion.ordinal() + 1
 
 processResources {
-	inputs.property("id", project.property("mod_id"))
-	inputs.property("name", project.property("mod_name"))
-	inputs.property("version", project.property("mod_version"))
-	inputs.property("target", project.property("target_version"))
+	inputs.property("id", project.mod_id)
+	inputs.property("name", project.mod_name)
+	inputs.property("version", project.mod_version)
+	inputs.property("target", project.target_version)
 	inputs.property("java_version", javaVersionNumber)
 
 	def map = [
-		"id": project.property("mod_id"),
-		"name": project.property("mod_name"),
-		"version": project.property("mod_version"),
-		"target": project.property("target_version"),
-		"java_version": javaVersionNumber
+		"id": inputs.properties.id,
+		"name": inputs.properties.name,
+		"version": inputs.properties.version,
+		"target": inputs.properties.target,
+		"java_version": inputs.properties.java_version
 	]
 
 	filesMatching("fabric.mod.json") {
 		expand map
 	}
-
-	duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = javaVersionNumber
 }
 
-if (stonecutter.current.isActive) {
-	rootProject.tasks.register("runActiveClient") {
-		group = "fabric"
-		dependsOn(tasks.named("runClient"))
-	}
-
-	loom {
-		runs {
-			client {
-				programArgs(["--username", "axialeaa", "--uuid", "dabdffa7-fdd2-4798-9f94-a518c7856163"])
-			}
-		}
-		runConfigs.all {
-			ideConfigGenerated = true
-			vmArgs("-Dmixin.debug.export=true")
-			runDir "../../run"
+loom {
+	runs {
+		client {
+			programArgs(["--username", "axialeaa", "--uuid", "dabdffa7-fdd2-4798-9f94-a518c7856163"])
 		}
 	}
 }

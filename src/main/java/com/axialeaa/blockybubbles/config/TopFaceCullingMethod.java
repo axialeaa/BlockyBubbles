@@ -3,20 +3,15 @@ package com.axialeaa.blockybubbles.config;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
-
-import java.util.Locale;
-
-import /*$ sodium_package >>*/ net.caffeinemc .mods.sodium.client.gui.options.TextProvider;
 
 /**
  * Defines culling behaviour and provides an enumerator for the config to use.
  */
 @SuppressWarnings("unused")
-public enum TopFaceCullingMethod implements TextProvider, AbstractBlock.ContextPredicate {
+public enum TopFaceCullingMethod implements EnumOptionTextProvider, AbstractBlock.ContextPredicate {
 
     /**
      * Culls the bubble column face when the adjacent block is anything other than air, including water, glass and other bubble columns. This matches the behaviour of vanilla Bedrock Edition.
@@ -36,10 +31,7 @@ public enum TopFaceCullingMethod implements TextProvider, AbstractBlock.ContextP
 
         @Override
         public boolean test(BlockState state, BlockView world, BlockPos pos) {
-            if (state.isOf(Blocks.BUBBLE_COLUMN))
-                return true;
-
-            return state.isSideSolidFullSquare(world, pos, Direction.DOWN) && state.isOpaque();
+            return state.isOf(Blocks.BUBBLE_COLUMN) || state.isSideSolidFullSquare(world, pos, Direction.DOWN) && state.isOpaque();
         }
 
     },
@@ -55,11 +47,11 @@ public enum TopFaceCullingMethod implements TextProvider, AbstractBlock.ContextP
 
     };
 
-    public static final String PATH = "top_face_culling_method";
+    static final String PATH = "top_face_culling_method";
 
     @Override
-    public Text getLocalizedName() {
-        return SodiumOptions.getOptionText(PATH + ".option." + this.name().toLowerCase(Locale.ROOT));
+    public String getPath() {
+        return PATH;
     }
 
 }

@@ -18,7 +18,7 @@ public abstract class EntityMixin {
     @Shadow protected abstract BlockState getLandingBlockState();
 
     @ModifyExpressionValue(method = "shouldSpawnSprintingParticles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isTouchingWater()Z"))
-    private boolean modifyShouldNotSpawnSprintingParticles(boolean original) {
+    private boolean shouldIgnoreSprintingBlock(boolean original) {
         if (!RenderingUtils.isFancy())
             original |= this.getLandingBlockState().isOf(Blocks.BUBBLE_COLUMN);
 
