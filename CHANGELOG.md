@@ -1,15 +1,21 @@
-Hey! This is mostly just a trivial update for the Chase The Skies drop and its hotfixes. But first, a solemn announcement...
+As we wait for the 1.21.10 hotfix to release and mods to finish updating to The Copper Age drop, I have done a little bit of cleaning up and bugfixing for 1.21.6 through 8!
 
-## 🪦 The End-est of the Lives
-I have finally stood up for the part of myself that had been weighed under by the workload of handling multiple game versions at the same time.
+If you want to use [Sodium 0.7.0](https://modrinth.com/mod/sodium/version/mc1.21.8-0.7.0-fabric), you will need to install this version of **Blocky Bubbles** else the game'll crash on startup.
 
-For those in the modding scene you'll know it's a pain in the ass to keep up with. For those not in the know: it's incredibly demotivating and shifts my focus away from the quality of the content I make. For this reason, I have decided I will no longer be supporting versions before the most recent release.
+## 🌐 Translators' Note
+`zh_TW` still needs translations for the following tags:
+- `blocky-bubbles.options.opaque_faces`
+- `blocky-bubbles.options.opaque_faces.tooltip`
 
-I am aware that this will alienate a portion of my consumers: it's simply the only way forward for me to continue enjoying what I do. I am sorry if you're someone who will be affected by this decision. I hope you can continue to enjoy my work!!
+Also, "Bubble Columns" (`blocky-bubbles.options.quality`) changed to simply "Bubbles" in this update. I have updated this for all supported languages already.
 
 ## 🔧 Changes
-- Updated the mod icon.
+- Moved the Sodium subsettings menu to its own tab rather than sharing the content of the Quality page.
+- Reduced the verbosity of some translation tags.
+  - I have updated these for all supported languages already.
 
 ## 🐛 Fixes
-- Updated `pt_BR` localization. Thanks, @SeriousFreezing!
-- Cleaned up the codebase in some minor ways.
+- #16: Updated to Sodium version 0.7.0.
+  - The quality option (of type `SodiumGameOptions$GraphicsQuality`) has now been moved to its own separate enumerator, `BubblesQuality`. This also means 3 new translation tags per language file, which I have already added simply by copying from vanilla.
+- The game now requires *at least* fabric loader version 0.17.2.
+- Added [Reese's Sodium Options](https://modrinth.com/mod/reeses-sodium-options) to the mod runtime environment.

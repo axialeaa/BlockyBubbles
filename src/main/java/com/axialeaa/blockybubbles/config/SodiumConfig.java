@@ -5,7 +5,6 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-import net.caffeinemc.mods.sodium.client.gui.SodiumGameOptions;
 import net.caffeinemc.mods.sodium.client.gui.options.storage.OptionStorage;
 
 import java.io.File;
@@ -24,13 +23,13 @@ public class SodiumConfig {
     static final Storage STORAGE = new Storage();
     private File file;
 
-    @Expose public SodiumGameOptions.GraphicsQuality bubblesQuality;
+    @Expose public BubblesQuality bubblesQuality;
     @Expose public boolean animations;
     @Expose public boolean opaqueFaces;
     @Expose public TopFaceCullingMethod topFaceCullingMethod;
 
     public SodiumConfig() {
-        this.bubblesQuality = SodiumGameOptions.GraphicsQuality.FAST;
+        this.bubblesQuality = BubblesQuality.FAST;
         this.animations = true;
         this.opaqueFaces = false;
         this.topFaceCullingMethod = TopFaceCullingMethod.NON_AIR;

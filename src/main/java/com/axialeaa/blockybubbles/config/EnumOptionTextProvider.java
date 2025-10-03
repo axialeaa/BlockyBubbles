@@ -11,7 +11,7 @@ public interface EnumOptionTextProvider extends TextProvider {
 
     @Override
     default Text getLocalizedName() {
-        return SodiumOptions.getOptionText(this.getPath() + ".option." + ((Enum<?>) this).name().toLowerCase(Locale.ROOT));
+        return Options.getOptionText(this.getPath() + '.' + ((Enum<?>) this).name().toLowerCase(Locale.ROOT));
     }
 
 }

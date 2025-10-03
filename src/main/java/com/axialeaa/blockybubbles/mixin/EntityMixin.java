@@ -1,6 +1,5 @@
 package com.axialeaa.blockybubbles.mixin;
 
-import com.axialeaa.blockybubbles.util.RenderingUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -19,10 +18,7 @@ public abstract class EntityMixin {
 
     @ModifyExpressionValue(method = "shouldSpawnSprintingParticles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isTouchingWater()Z"))
     private boolean shouldIgnoreSprintingBlock(boolean original) {
-        if (!RenderingUtils.isFancy())
-            original |= this.getLandingBlockState().isOf(Blocks.BUBBLE_COLUMN);
-
-        return original;
+        return original || this.getLandingBlockState().isOf(Blocks.BUBBLE_COLUMN);
     }
 
 }

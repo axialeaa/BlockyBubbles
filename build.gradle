@@ -5,6 +5,7 @@ plugins {
 }
 
 def mcVersion = project.build_version
+String updateName = "$mod_name $mod_version ($mcVersion) $update_name_suffix"
 
 version = "$project.mod_version+$mcVersion"
 group = project.maven_group
@@ -35,7 +36,8 @@ publishMods {
 	file = remapJar.archiveFile
 	changelog = rootProject.file("CHANGELOG.md").text
 	type = STABLE
-	displayName = "$mod_name $mod_version ($mcVersion) - $update_name"
+	displayName = updateName
+
 	modLoaders.add("fabric")
 	version = mod_version
 
@@ -60,11 +62,7 @@ publishMods {
 	discord {
 		webhookUrl = providers.gradleProperty("secrets.discord_webhook_url")
 		username = "$mod_name Update Tracker"
-		content = changelog.map { "# $mod_name $mod_version ($mcVersion) - $update_name\n" + it + "\n-# ||<@&1201276927428804741>||" }
-
-		style {
-			look = "MODERN"
-		}
+		content = changelog.map { "# " + updateName + '\n' + it + "\n-# ||<@&1201276927428804741>||" }
 	}
 }
 
@@ -75,11 +73,12 @@ dependencies {
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 	modRuntimeOnly "com.terraformersmc:modmenu:${modmenu_version}"
+	modRuntimeOnly "maven.modrinth:reeses-sodium-options:${reeses_sodium_options_version}+fabric"
 
-	modCompileOnly "maven.modrinth:sodium:${sodium_version}"
+	modCompileOnly "maven.modrinth:sodium:${sodium_version}-fabric"
 
 	// Comment this line out if testing in game without sodium
-	modRuntimeOnly "maven.modrinth:sodium:${sodium_version}"
+	modRuntimeOnly "maven.modrinth:sodium:${sodium_version}-fabric"
 }
 
 def javaVersion = JavaVersion.VERSION_21
@@ -90,6 +89,7 @@ processResources {
 	inputs.property("name", project.mod_name)
 	inputs.property("version", project.mod_version)
 	inputs.property("target", project.target_version)
+	inputs.property("loader", project.loader_version)
 	inputs.property("java_version", javaVersionNumber)
 
 	def map = [
@@ -97,6 +97,7 @@ processResources {
 		"name": inputs.properties.name,
 		"version": inputs.properties.version,
 		"target": inputs.properties.target,
+		"loader": inputs.properties.loader,
 		"java_version": inputs.properties.java_version
 	]
 

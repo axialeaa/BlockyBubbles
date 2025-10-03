@@ -1,7 +1,7 @@
 package com.axialeaa.blockybubbles.config;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
-import net.caffeinemc.mods.sodium.client.gui.SodiumGameOptions;
+import com.google.common.collect.ImmutableList;
 import net.caffeinemc.mods.sodium.client.gui.options.*;
 import net.caffeinemc.mods.sodium.client.gui.options.control.*;
 import net.minecraft.text.Text;
@@ -9,11 +9,11 @@ import net.minecraft.text.Text;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-public class SodiumOptions {
+public class Options {
 
-    private static final Option<SodiumGameOptions.GraphicsQuality> QUALITY = ofEnum(
-        "quality",
-        SodiumGameOptions.GraphicsQuality.class,
+    private static final Option<BubblesQuality> QUALITY = ofEnum(
+        BubblesQuality.PATH,
+        BubblesQuality.class,
         (config, value) -> config.bubblesQuality = value,
         config -> config.bubblesQuality,
         OptionImpact.MEDIUM,
@@ -45,15 +45,24 @@ public class SodiumOptions {
         OptionFlag.REQUIRES_ASSET_RELOAD
     );
 
-    public static final OptionGroup GROUP = OptionGroup.createBuilder()
-        .add(QUALITY)
-        .add(ANIMATIONS)
-        .add(OPAQUE_FACES)
-        .add(TOP_FACE_CULLING_MODE)
-        .build();
+    private static final ImmutableList<OptionGroup> GROUPS = ImmutableList.of(
+        group(QUALITY),
+        group(ANIMATIONS, OPAQUE_FACES, TOP_FACE_CULLING_MODE)
+    );
+
+    public static final OptionPage PAGE = new OptionPage(Text.of(BlockyBubbles.MOD_NAME), GROUPS);
+
+    private static OptionGroup group(Option<?>... options) {
+        OptionGroup.Builder builder = OptionGroup.createBuilder();
+
+        for (Option<?> option : options)
+            builder.add(option);
+
+        return builder.build();
+    }
 
     private static Option<Boolean> ofBoolean(String path, BiConsumer<SodiumConfig, Boolean> setter, Function<SodiumConfig, Boolean> getter, OptionImpact impact, OptionFlag... optionFlags) {
-        return of(path, Boolean.class, TickBoxControl::new, setter, getter, impact, optionFlags);
+        return of(path, Boolean.TYPE, TickBoxControl::new, setter, getter, impact, optionFlags);
     }
 
     private static <T extends Enum<T>> Option<T> ofEnum(String path, Class<T> type, BiConsumer<SodiumConfig, T> setter, Function<SodiumConfig, T> getter, OptionImpact impact, OptionFlag... optionFlags) {
@@ -62,7 +71,7 @@ public class SodiumOptions {
 
     private static <T> OptionImpl<SodiumConfig, T> of(String path, Class<T> type, Function<OptionImpl<SodiumConfig, T>, Control<T>> controlFunction, BiConsumer<SodiumConfig, T> setter, Function<SodiumConfig, T> getter, OptionImpact impact, OptionFlag... optionFlags) {
         return OptionImpl.createBuilder(type, SodiumConfig.STORAGE)
-            .setName(getOptionText(path, false))
+            .setName(getOptionText(path))
             .setTooltip(getOptionText(path, true))
             .setControl(controlFunction)
             .setBinding(setter, getter)
@@ -76,7 +85,10 @@ public class SodiumOptions {
     }
 
     static Text getOptionText(String path, boolean tooltip) {
-        return getOptionText(path + "." + (tooltip ? "tooltip" : "name"));
+        if (tooltip)
+            path += ".tooltip";
+
+        return getOptionText(path);
     }
 
 }

@@ -1,17 +1,17 @@
 {
-  "required": true,
-  "package": "com.axialeaa.blockybubbles.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "client": [
-    "BubbleColumnBlockMixin",
-    "EntityMixin",
-    "RenderLayersMixin",
-    "SpriteAtlasTextureMixin",
-    "impl.AbstractBlockImplMixin",
-    "sodium.SodiumGameOptionPagesMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "plugin": "com.axialeaa.blockybubbles.BlockyBubblesMixinPlugin"
+    "required": true,
+    "package": "com.axialeaa.blockybubbles.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "client": [
+        "BubbleColumnBlockMixin",
+        "EntityMixin",
+        "RenderLayersMixin",
+        "SpriteAtlasTextureMixin",
+        "impl.AbstractBlockImplMixin",
+        "sodium.SodiumOptionsGUIMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "plugin": "com.axialeaa.blockybubbles.BlockyBubblesMixinPlugin"
 }

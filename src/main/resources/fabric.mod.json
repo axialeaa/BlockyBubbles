@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "${id}",
 	"version": "${version}",
-	"name": "Blocky Bubbles",
+	"name": "${name}",
 	"description": "Allows bubble columns to render as a block, resembling Bedrock Edition's fast bubbles!",
 	"authors": [
 		{
@@ -69,7 +69,7 @@
 		"blocky-bubbles.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.10",
+		"fabricloader": ">=${loader}",
 		"minecraft": "${target}",
 		"java": ">=${java_version}",
 		"fabric": "*"

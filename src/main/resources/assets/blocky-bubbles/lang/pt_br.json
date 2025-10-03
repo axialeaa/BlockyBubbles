@@ -1,13 +1,16 @@
 {
-  "blocky-bubbles.options.animations.name": "Animações",
-  "blocky-bubbles.options.animations.tooltip": "Se as texturas da coluna de bolhas devem ser animadas (requer recarregamento de ativos).",
-  "blocky-bubbles.options.opaque_faces.name": "Faces Opacas",
-  "blocky-bubbles.options.opaque_faces.tooltip": "Se as colunas de bolhas devem ser renderizadas com faces completamente opacas.",
-  "blocky-bubbles.options.quality.name": "Coluna de Bolhas",
-  "blocky-bubbles.options.quality.tooltip": "Controla a qualidade da coluna de bolhas.",
-  "blocky-bubbles.options.top_face_culling_method.option.java_ish": "Estilo Java",
-  "blocky-bubbles.options.top_face_culling_method.option.non_air": "Não-Aéreo (Paridade)",
-  "blocky-bubbles.options.top_face_culling_method.option.off": "Não",
-  "blocky-bubbles.options.top_face_culling_method.name": "Eliminação da Face Superior",
-  "blocky-bubbles.options.top_face_culling_method.tooltip": "Quais blocos devem fazer com que as faces adjacentes da coluna de bolhas sejam eliminadas."
+    "blocky-bubbles.options.animations": "Animações",
+    "blocky-bubbles.options.animations.tooltip": "Se as texturas da coluna de bolhas devem ser animadas (requer recarregamento de ativos).",
+    "blocky-bubbles.options.opaque_faces": "Faces Opacas",
+    "blocky-bubbles.options.opaque_faces.tooltip": "Se as colunas de bolhas devem ser renderizadas com faces completamente opacas.",
+    "blocky-bubbles.options.quality": "Bolhas",
+    "blocky-bubbles.options.quality.default": "Padrão",
+    "blocky-bubbles.options.quality.fancy": "Detalhados",
+    "blocky-bubbles.options.quality.fast": "Rápidos",
+    "blocky-bubbles.options.quality.tooltip": "Controla a qualidade da coluna de bolhas.",
+    "blocky-bubbles.options.top_face_culling_method": "Eliminação da Face Superior",
+    "blocky-bubbles.options.top_face_culling_method.java_ish": "Estilo Java",
+    "blocky-bubbles.options.top_face_culling_method.non_air": "Não-Aéreo (Paridade)",
+    "blocky-bubbles.options.top_face_culling_method.off": "Não",
+    "blocky-bubbles.options.top_face_culling_method.tooltip": "Quais blocos devem fazer com que as faces adjacentes da coluna de bolhas sejam eliminadas."
 }
