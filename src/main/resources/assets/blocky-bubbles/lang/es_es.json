@@ -3,7 +3,8 @@
     "blocky-bubbles.options.animations.tooltip": "Activa o desactiva las animaciones de las columnas de burbujas (requiere recargar los recursos).",
     "blocky-bubbles.options.opaque_faces": "Caras Opacas",
     "blocky-bubbles.options.opaque_faces.tooltip": "Activa o desactiva que las columnas de burbujas se rendericen con caras completamente opacas.",
-    "blocky-bubbles.options.quality": "Burbujas",
+    "blocky-bubbles.options.page.bubble_columns": "Columnas de Burbujas",
+    "blocky-bubbles.options.quality": "Calidad",
     "blocky-bubbles.options.quality.default": "Por defecto",
     "blocky-bubbles.options.quality.fancy": "Detallados",
     "blocky-bubbles.options.quality.fast": "Rápidos",
@@ -11,6 +12,5 @@
     "blocky-bubbles.options.top_face_culling_method": "Culling",
     "blocky-bubbles.options.top_face_culling_method.java_ish": "Columna de burbujas (Similar a Java)",
     "blocky-bubbles.options.top_face_culling_method.non_air": "Todo excepto aire (Paridad)",
-    "blocky-bubbles.options.top_face_culling_method.off": "Ninguno",
-    "blocky-bubbles.options.top_face_culling_method.tooltip": "Qué bloques deberían causar a las caras adyacentes de columnas de burbujas hacer culling."
+    "blocky-bubbles.options.top_face_culling_method.off": "Ninguno"
 }

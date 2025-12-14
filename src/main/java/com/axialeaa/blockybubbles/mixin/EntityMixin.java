@@ -1,9 +1,9 @@
 package com.axialeaa.blockybubbles.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,11 +14,11 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(Entity.class)
 public abstract class EntityMixin {
 
-    @Shadow protected abstract BlockState getLandingBlockState();
+    @Shadow protected abstract BlockState getBlockStateOnLegacy();
 
-    @ModifyExpressionValue(method = "shouldSpawnSprintingParticles", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;isTouchingWater()Z"))
+    @ModifyExpressionValue(method = "canSpawnSprintParticle", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;isInWater()Z"))
     private boolean shouldIgnoreSprintingBlock(boolean original) {
-        return original || this.getLandingBlockState().isOf(Blocks.BUBBLE_COLUMN);
+        return original || this.getBlockStateOnLegacy().is(Blocks.BUBBLE_COLUMN);
     }
 
 }

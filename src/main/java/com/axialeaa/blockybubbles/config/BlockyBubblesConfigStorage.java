@@ -5,14 +5,14 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-import net.caffeinemc.mods.sodium.client.gui.options.storage.OptionStorage;
+import net.caffeinemc.mods.sodium.api.config.StorageEventHandler;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class SodiumConfig {
+public class BlockyBubblesConfigStorage implements StorageEventHandler {
 
     private static final Gson GSON = new GsonBuilder()
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -20,31 +20,19 @@ public class SodiumConfig {
         .setPrettyPrinting()
         .create();
 
-    static final Storage STORAGE = new Storage();
+    @Expose public BubblesQuality quality = BubblesQuality.FAST;
+    @Expose public boolean animations = true;
+    @Expose public boolean opaqueFaces = false;
+    @Expose public TopFaceCullingMethod topFaceCullingMethod = TopFaceCullingMethod.NON_AIR;
+
     private File file;
 
-    @Expose public BubblesQuality bubblesQuality;
-    @Expose public boolean animations;
-    @Expose public boolean opaqueFaces;
-    @Expose public TopFaceCullingMethod topFaceCullingMethod;
-
-    public SodiumConfig() {
-        this.bubblesQuality = BubblesQuality.FAST;
-        this.animations = true;
-        this.opaqueFaces = false;
-        this.topFaceCullingMethod = TopFaceCullingMethod.NON_AIR;
-    }
-
-    public static SodiumConfig getData() {
-        return STORAGE.getData();
-    }
-
-    protected static SodiumConfig loadFromFile() {
+    public static BlockyBubblesConfigStorage loadFromFile() {
         File configFile = getConfigFile();
-        SodiumConfig config = parseOrCreate(configFile);
+        BlockyBubblesConfigStorage config = parseOrCreate(configFile);
 
         config.file = configFile;
-        config.writeToFile();
+        config.afterSave();
 
         return config;
     }
@@ -53,22 +41,17 @@ public class SodiumConfig {
         return BlockyBubbles.LOADER.getConfigDir().resolve(BlockyBubbles.MOD_ID + ".json").toFile();
     }
 
-    private static SodiumConfig parseOrCreate(File configFile) {
+    private static BlockyBubblesConfigStorage parseOrCreate(File configFile) {
         if (!configFile.exists())
-            return new SodiumConfig();
+            return new BlockyBubblesConfigStorage();
 
         try (FileReader reader = new FileReader(configFile)) {
-            return GSON.fromJson(reader, SodiumConfig.class);
+            return GSON.fromJson(reader, BlockyBubblesConfigStorage.class);
         }
         catch (Exception e) {
             BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.", e);
-            return new SodiumConfig();
+            return new BlockyBubblesConfigStorage();
         }
-    }
-
-    protected void writeToFile() {
-        this.validateDirectory();
-        this.tryWriteFile();
     }
 
     private void validateDirectory() {
@@ -97,27 +80,14 @@ public class SodiumConfig {
         }
     }
 
-    public static class Storage implements OptionStorage<SodiumConfig> {
+    public boolean isFancy() {
+        return this.quality == BubblesQuality.FANCY;
+    }
 
-        private static SodiumConfig config;
-
-        @Override
-        public SodiumConfig getData() {
-            return this.getConfig();
-        }
-
-        @Override
-        public void save() {
-            this.getConfig().writeToFile();
-        }
-
-        public SodiumConfig getConfig() {
-            if (config == null)
-                config = SodiumConfig.loadFromFile();
-
-            return config;
-        }
-
+    @Override
+    public void afterSave() {
+        this.validateDirectory();
+        this.tryWriteFile();
     }
 
 }

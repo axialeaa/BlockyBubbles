@@ -5,13 +5,11 @@
     "client": [
         "BubbleColumnBlockMixin",
         "EntityMixin",
-        "RenderLayersMixin",
-        "SpriteAtlasTextureMixin",
-        "impl.AbstractBlockImplMixin",
-        "sodium.SodiumOptionsGUIMixin"
+        "ItemBlockRenderTypesMixin",
+        "SpriteContentsMixin",
+        "impl.BlockBehaviourImplMixin"
     ],
     "injectors": {
         "defaultRequire": 1
-    },
-    "plugin": "com.axialeaa.blockybubbles.BlockyBubblesMixinPlugin"
+    }
 }

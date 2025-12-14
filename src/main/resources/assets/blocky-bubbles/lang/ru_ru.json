@@ -3,7 +3,8 @@
     "blocky-bubbles.options.animations.tooltip": "Следует ли анимировать текстуры колонн пузырей (требует перезагрузки ресурсов).",
     "blocky-bubbles.options.opaque_faces": "Непрозрачные грани",
     "blocky-bubbles.options.opaque_faces.tooltip": "Следует ли отображать колонны пузырей с полностью непрозрачными гранями.",
-    "blocky-bubbles.options.quality": "Пузырей",
+    "blocky-bubbles.options.page.bubble_columns": "колонн пузырей",
+    "blocky-bubbles.options.quality": "Качество",
     "blocky-bubbles.options.quality.default": "По умолчанию",
     "blocky-bubbles.options.quality.fancy": "Детально",
     "blocky-bubbles.options.quality.fast": "Быстро",
@@ -11,6 +12,5 @@
     "blocky-bubbles.options.top_face_culling_method": "Отбраковка верхней грани",
     "blocky-bubbles.options.top_face_culling_method.java_ish": "В стиле Java",
     "blocky-bubbles.options.top_face_culling_method.non_air": "На воздухе (паритет)",
-    "blocky-bubbles.options.top_face_culling_method.off": "Выключена",
-    "blocky-bubbles.options.top_face_culling_method.tooltip": "Какие блоки должны привести к отбраковке верхних граней колонн пузырей?"
+    "blocky-bubbles.options.top_face_culling_method.off": "Выключена"
 }

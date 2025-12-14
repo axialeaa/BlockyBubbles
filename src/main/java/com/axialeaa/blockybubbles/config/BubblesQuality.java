@@ -1,20 +1,14 @@
 package com.axialeaa.blockybubbles.config;
 
-import net.minecraft.client.option.GraphicsMode;
+public enum BubblesQuality {
 
-public enum BubblesQuality implements EnumOptionTextProvider {
+    FANCY("fancy"),
+    FAST("fast");
 
-    DEFAULT, FANCY, FAST;
+    public final String path;
 
-    static final String PATH = "quality";
-
-    public boolean isFancy(GraphicsMode graphicsMode) {
-        return this == FANCY || this == DEFAULT && graphicsMode != GraphicsMode.FAST;
-    }
-
-    @Override
-    public String getPath() {
-        return PATH;
+    BubblesQuality(String path) {
+        this.path = path;
     }
 
 }

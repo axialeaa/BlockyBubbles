@@ -1,0 +1,3 @@
+{
+    "blocky-bubbles.options.top_face_culling_method.non_air.tooltip": "Bubble column faces cull when the adjacent block is anything other than air, including water, glass and other bubble columns. This matches the behaviour of vanilla Bedrock Edition."
+}

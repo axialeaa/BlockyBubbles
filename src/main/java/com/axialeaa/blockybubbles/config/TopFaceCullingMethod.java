@@ -1,57 +1,46 @@
 package com.axialeaa.blockybubbles.config;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import org.lwjgl.system.NonnullDefault;
 
-/**
- * Defines culling behaviour and provides an enumerator for the config to use.
- */
 @SuppressWarnings("unused")
-public enum TopFaceCullingMethod implements EnumOptionTextProvider, AbstractBlock.ContextPredicate {
+@NonnullDefault
+public enum TopFaceCullingMethod implements BlockBehaviour.StatePredicate {
 
-    /**
-     * Culls the bubble column face when the adjacent block is anything other than air, including water, glass and other bubble columns. This matches the behaviour of vanilla Bedrock Edition.
-     */
-    NON_AIR {
+    NON_AIR("non_air") {
 
         @Override
-        public boolean test(BlockState state, BlockView world, BlockPos pos) {
+        public boolean test(BlockState state, BlockGetter world, BlockPos pos) {
             return !state.isAir();
         }
 
     },
-    /**
-     * Culls the bubble column face when the block above is a bubble column or a full, solid, square side of an opaque block. This resembles how Java handles face culling on most other blocks.
-     */
-    JAVA_ISH {
+    JAVA_ISH("java_ish") {
 
         @Override
-        public boolean test(BlockState state, BlockView world, BlockPos pos) {
-            return state.isOf(Blocks.BUBBLE_COLUMN) || state.isSideSolidFullSquare(world, pos, Direction.DOWN) && state.isOpaque();
+        public boolean test(BlockState state, BlockGetter world, BlockPos pos) {
+            return state.is(Blocks.BUBBLE_COLUMN) || state.isFaceSturdy(world, pos, Direction.DOWN) && state.canOcclude();
         }
 
     },
-    /**
-     * Never culls the bubble column face under any circumstance.
-     */
-    OFF {
+    OFF("off") {
 
         @Override
-        public boolean test(BlockState state, BlockView world, BlockPos pos) {
+        public boolean test(BlockState state, BlockGetter world, BlockPos pos) {
             return false;
         }
 
     };
 
-    static final String PATH = "top_face_culling_method";
+    public final String path;
 
-    @Override
-    public String getPath() {
-        return PATH;
+    TopFaceCullingMethod(String path) {
+        this.path = path;
     }
 
 }

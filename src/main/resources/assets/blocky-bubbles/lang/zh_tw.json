@@ -7,7 +7,6 @@
     "blocky-bubbles.options.top_face_culling_method.java_ish": "氣泡柱 (類似 Java)",
     "blocky-bubbles.options.top_face_culling_method.non_air": "非空氣 (趨同)",
     "blocky-bubbles.options.top_face_culling_method.off": "無",
-    "blocky-bubbles.options.top_face_culling_method.tooltip": "哪些方塊會導致鄰近的氣泡柱面被剔除。",
     "blocky-bubbles.options.quality.default": "預設",
     "blocky-bubbles.options.quality.fancy": "精緻",
     "blocky-bubbles.options.quality.fast": "流暢"

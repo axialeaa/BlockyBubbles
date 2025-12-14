@@ -54,8 +54,12 @@
 	"entrypoints": {
 		"client": [
 			"com.axialeaa.blockybubbles.BlockyBubbles"
+		],
+		"sodium:config_api_user": [
+			"com.axialeaa.blockybubbles.config.BlockyBubblesConfig"
 		]
 	},
+	"accessWidener" : "blocky-bubbles.classtweaker",
 	"custom": {
 		"modmenu": {
 			"links": {
@@ -72,10 +76,7 @@
 		"fabricloader": ">=${loader}",
 		"minecraft": "${target}",
 		"java": ">=${java_version}",
-		"fabric": "*"
-	},
-	"suggests": {
-		"sodium": "*",
-		"reeses-sodium-options": "*"
+		"fabric": "*",
+		"sodium": "*"
 	}
 }

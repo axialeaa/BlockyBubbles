@@ -1,7 +1,7 @@
 plugins {
 	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
-	id "me.modmuss50.mod-publish-plugin" version "0.8.4"
+	id "me.modmuss50.mod-publish-plugin" version "${mpp_version}"
 }
 
 def mcVersion = project.build_version
@@ -16,19 +16,12 @@ base {
 
 repositories {
 	maven {
-		name = 'Terraformers'
-		url = 'https://maven.terraformersmc.com/'
+		name "CaffeineMC"
+		url "https://maven.caffeinemc.net/releases"
 	}
-	exclusiveContent {
-		forRepository {
-			maven {
-				name = "Modrinth"
-				url = "https://api.modrinth.com/maven"
-			}
-		}
-		filter {
-			includeGroup "maven.modrinth"
-		}
+	maven {
+		name "Terraformers"
+		url "https://maven.terraformersmc.com/"
 	}
 }
 
@@ -56,7 +49,7 @@ publishMods {
 			minecraftVersions.add(version)
 
 		requires("fabric-api")
-		optional("sodium")
+		requires("sodium")
 	}
 
 	discord {
@@ -68,17 +61,11 @@ publishMods {
 
 dependencies {
 	minecraft "com.mojang:minecraft:$mcVersion"
-	mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
+	mappings loom.officialMojangMappings()
 	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
-
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-	modRuntimeOnly "com.terraformersmc:modmenu:${modmenu_version}"
-	modRuntimeOnly "maven.modrinth:reeses-sodium-options:${reeses_sodium_options_version}+fabric"
-
-	modCompileOnly "maven.modrinth:sodium:${sodium_version}-fabric"
-
-	// Comment this line out if testing in game without sodium
-	modRuntimeOnly "maven.modrinth:sodium:${sodium_version}-fabric"
+	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
+	modImplementation "net.caffeinemc:sodium-fabric:${sodium_version}"
 }
 
 def javaVersion = JavaVersion.VERSION_21
@@ -116,6 +103,7 @@ loom {
 			programArgs(["--username", "axialeaa", "--uuid", "dabdffa7-fdd2-4798-9f94-a518c7856163"])
 		}
 	}
+	accessWidenerPath = file("src/main/resources/${project.mod_id}.classtweaker")
 }
 
 java {

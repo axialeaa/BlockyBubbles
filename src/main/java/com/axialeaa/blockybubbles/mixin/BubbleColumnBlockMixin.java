@@ -1,39 +1,46 @@
 package com.axialeaa.blockybubbles.mixin;
 
-import com.axialeaa.blockybubbles.mixin.impl.AbstractBlockImplMixin;
+import com.axialeaa.blockybubbles.config.BlockyBubblesConfig;
+import com.axialeaa.blockybubbles.mixin.impl.BlockBehaviourImplMixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BubbleColumnBlock;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BubbleColumnBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import static com.axialeaa.blockybubbles.util.RenderingUtils.*;
-
 @Mixin(BubbleColumnBlock.class)
-public class BubbleColumnBlockMixin extends AbstractBlockImplMixin {
+public class BubbleColumnBlockMixin extends BlockBehaviourImplMixin {
 
-	@WrapWithCondition(method = "randomDisplayTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addImportantParticleClient(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
-	private boolean shouldSpawnParticles(World instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-		return isFancy();
+	@WrapWithCondition(method = "animateTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addAlwaysVisibleParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"))
+	private boolean shouldAddParticles(Level instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+		return BlockyBubblesConfig.getStorage().isFancy();
 	}
 
-	@ModifyReturnValue(method = "getRenderType", at = @At("RETURN"))
-	private BlockRenderType modifyRenderType(BlockRenderType original, BlockState state) {
-		return isFancy() ? original : BlockRenderType.MODEL;
+	@ModifyReturnValue(method = "getRenderShape", at = @At("RETURN"))
+	private RenderShape modifyRenderShape(RenderShape original, BlockState state) {
+		return BlockyBubblesConfig.getStorage().isFancy() ? original : RenderShape.MODEL;
 	}
 
 	@Override
-	public boolean isSideInvisibleImpl(BlockState state, BlockState stateFrom, Direction direction, Operation<Boolean> original) {
-		if (super.isSideInvisibleImpl(state, stateFrom, direction, original))
+	public boolean skipRenderingImpl(BlockState state, BlockState stateFrom, Direction direction, Operation<Boolean> original) {
+		if (super.skipRenderingImpl(state, stateFrom, direction, original))
 			return true;
 
-		return !isFancy() && direction == Direction.UP && shouldCullTopFace(stateFrom);
+		if (BlockyBubblesConfig.getStorage().isFancy() || direction != Direction.UP)
+			return false;
+
+		ClientLevel clientLevel = Minecraft.getInstance().level;
+
+		return clientLevel != null && BlockyBubblesConfig.getStorage().topFaceCullingMethod.test(stateFrom, clientLevel, BlockPos.ZERO);
 	}
 
 }
