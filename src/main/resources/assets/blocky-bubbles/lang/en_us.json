@@ -5,15 +5,12 @@
     "blocky-bubbles.options.opaque_faces.tooltip": "Whether bubble columns should render with completely opaque faces.",
     "blocky-bubbles.options.page.bubble_columns": "Bubble Columns",
     "blocky-bubbles.options.quality": "Quality",
-    "blocky-bubbles.options.quality.default": "Default",
     "blocky-bubbles.options.quality.fancy": "Fancy",
     "blocky-bubbles.options.quality.fast": "Fast",
     "blocky-bubbles.options.quality.tooltip": "Controls the quality of bubble columns.",
-    "blocky-bubbles.options.top_face_culling_method": "Top Face Culling",
-    "blocky-bubbles.options.top_face_culling_method.java_ish": "Java-ish",
-    "blocky-bubbles.options.top_face_culling_method.java_ish.tooltip": "Bubble column faces cull when the adjacent block is either a bubble column or a full, solid, square side of an opaque block. This resembles how Java Edition handles face culling on most other blocks.",
-    "blocky-bubbles.options.top_face_culling_method.non_air": "Non-Air (Parity)",
-    "blocky-bubbles.options.top_face_culling_method.non_air.tooltip": "Bubble column faces cull when the adjacent block is anything other than air, including water, glass and other bubble columns. This matches the behavior of vanilla Bedrock Edition.",
-    "blocky-bubbles.options.top_face_culling_method.off": "Off",
-    "blocky-bubbles.options.top_face_culling_method.off.tooltip": "Bubble column faces never cull."
+    "blocky-bubbles.options.cullface_method": "Cullface Method",
+    "blocky-bubbles.options.cullface_method.standard": "Standard",
+    "blocky-bubbles.options.cullface_method.standard.tooltip": "Bubble column faces cull when the adjacent block is either a bubble column or a full, solid, square side of an opaque block. This resembles how Java Edition handles face culling on most other blocks.",
+    "blocky-bubbles.options.cullface_method.non_air": "Non-Air (Parity)",
+    "blocky-bubbles.options.cullface_method.non_air.tooltip": "Bubble column faces cull when the adjacent block is anything other than air, including water, glass and other bubble columns. This matches the behavior of vanilla Bedrock Edition."
 }

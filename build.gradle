@@ -48,8 +48,8 @@ publishMods {
 		for (String version : modrinth_versions.toString().split(' '))
 			minecraftVersions.add(version)
 
-		requires("fabric-api")
-		requires("sodium")
+		requires "fabric-api"
+		optional "sodium"
 	}
 
 	discord {
@@ -65,7 +65,9 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
-	modImplementation "net.caffeinemc:sodium-fabric:${sodium_version}"
+	modCompileOnly "net.caffeinemc:sodium-fabric-api:${sodium_version}"
+
+	// modRuntimeOnly "net.caffeinemc:sodium-fabric:${sodium_version}"
 }
 
 def javaVersion = JavaVersion.VERSION_21
@@ -75,17 +77,21 @@ processResources {
 	inputs.property("id", project.mod_id)
 	inputs.property("name", project.mod_name)
 	inputs.property("version", project.mod_version)
+	inputs.property("description", project.mod_description)
 	inputs.property("target", project.target_version)
 	inputs.property("loader", project.loader_version)
-	inputs.property("java_version", javaVersionNumber)
+	inputs.property("java", javaVersionNumber)
+	inputs.property("repository", project.repository_url)
 
 	def map = [
 		"id": inputs.properties.id,
 		"name": inputs.properties.name,
 		"version": inputs.properties.version,
+		"description": inputs.properties.description,
 		"target": inputs.properties.target,
 		"loader": inputs.properties.loader,
-		"java_version": inputs.properties.java_version
+		"java": inputs.properties.java,
+		"repository": inputs.properties.repository
 	]
 
 	filesMatching("fabric.mod.json") {

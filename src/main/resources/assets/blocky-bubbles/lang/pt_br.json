@@ -5,12 +5,10 @@
     "blocky-bubbles.options.opaque_faces.tooltip": "Se as colunas de bolhas devem ser renderizadas com faces completamente opacas.",
     "blocky-bubbles.options.page.bubble_columns": "Coluna de Bolhas",
     "blocky-bubbles.options.quality": "Qualidade",
-    "blocky-bubbles.options.quality.default": "Padrão",
     "blocky-bubbles.options.quality.fancy": "Detalhados",
     "blocky-bubbles.options.quality.fast": "Rápidos",
     "blocky-bubbles.options.quality.tooltip": "Controla a qualidade da coluna de bolhas.",
-    "blocky-bubbles.options.top_face_culling_method": "Eliminação da Face Superior",
-    "blocky-bubbles.options.top_face_culling_method.java_ish": "Estilo Java",
-    "blocky-bubbles.options.top_face_culling_method.non_air": "Não-Aéreo (Paridade)",
-    "blocky-bubbles.options.top_face_culling_method.off": "Não"
+    "blocky-bubbles.options.cullface_method": "Eliminação da Face Superior",
+    "blocky-bubbles.options.cullface_method.standard": "Estilo Java",
+    "blocky-bubbles.options.cullface_method.non_air": "Não-Aéreo (Paridade)"
 }

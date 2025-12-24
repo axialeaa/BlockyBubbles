@@ -3,7 +3,7 @@
 	"id": "${id}",
 	"version": "${version}",
 	"name": "${name}",
-	"description": "Allows bubble columns to render as a block, resembling Bedrock Edition's fast bubbles!",
+	"description": "${description}",
 	"authors": [
 		{
 			"name": "axialeaa",
@@ -45,38 +45,40 @@
 		}
 	],
 	"contact": {
-		"sources": "https://github.com/axialeaa/BlockyBubbles",
-		"issues": "https://github.com/axialeaa/BlockyBubbles/issues"
+		"sources": "https://github.com/${repository}",
+		"issues": "https://github.com/${repository}/issues"
 	},
 	"license": "LGPLv3",
-	"icon": "assets/blocky-bubbles/icon.png",
+	"icon": "assets/${id}/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
 			"com.axialeaa.blockybubbles.BlockyBubbles"
 		],
 		"sodium:config_api_user": [
-			"com.axialeaa.blockybubbles.config.BlockyBubblesConfig"
+			"com.axialeaa.blockybubbles.config.SodiumConfigAPICompat"
 		]
 	},
-	"accessWidener" : "blocky-bubbles.classtweaker",
+	"accessWidener" : "${id}.classtweaker",
 	"custom": {
 		"modmenu": {
 			"links": {
-				"modmenu.github_releases": "https://github.com/axialeaa/BlockyBubbles/releases",
-				"modmenu.modrinth": "https://modrinth.com/mod/blocky-bubbles",
+				"modmenu.github_releases": "https://github.com/${repository}/releases",
+				"modmenu.modrinth": "https://modrinth.com/mod/${id}",
 				"modmenu.discord": "https://discord.gg/hfVmpeQhe8"
 			}
 		}
 	},
 	"mixins": [
-		"blocky-bubbles.mixins.json"
+		"${id}.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=${loader}",
 		"minecraft": "${target}",
-		"java": ">=${java_version}",
-		"fabric": "*",
+		"java": ">=${java}",
+		"fabric": "*"
+	},
+	"suggests": {
 		"sodium": "*"
 	}
 }

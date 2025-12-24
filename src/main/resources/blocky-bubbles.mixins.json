@@ -7,7 +7,10 @@
         "EntityMixin",
         "ItemBlockRenderTypesMixin",
         "SpriteContentsMixin",
-        "impl.BlockBehaviourImplMixin"
+        "impl.BlockBehaviourImplMixin",
+        "config.GraphicsPresetMixin",
+        "config.OptionsAccessor",
+        "config.VideoSettingsScreenMixin"
     ],
     "injectors": {
         "defaultRequire": 1

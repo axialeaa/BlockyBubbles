@@ -1,101 +1,130 @@
 package com.axialeaa.blockybubbles.config;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
-import net.caffeinemc.mods.sodium.api.config.ConfigEntryPoint;
-import net.caffeinemc.mods.sodium.api.config.ConfigState;
-import net.caffeinemc.mods.sodium.api.config.option.OptionFlag;
-import net.caffeinemc.mods.sodium.api.config.option.OptionImpact;
-import net.caffeinemc.mods.sodium.api.config.structure.ConfigBuilder;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import org.jspecify.annotations.Nullable;
 
-public class BlockyBubblesConfig implements ConfigEntryPoint {
-    
-    private static final Identifier QUALITY = BlockyBubbles.id("quality");
-    private static final Identifier ANIMATIONS = BlockyBubbles.id("animations");
-    private static final Identifier OPAQUE_FACES = BlockyBubbles.id("opaque_faces");
-    private static final Identifier TOP_FACE_CULLING_METHOD = BlockyBubbles.id("top_face_culling_method");
-    private static final int THEME_COLOR = 0xFF77D9FF;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Objects;
 
-    private static BlockyBubblesConfigStorage storage = null;
+public class BlockyBubblesConfig {
 
-    @Override
-    public void registerConfigLate(ConfigBuilder configBuilder) {
-        configBuilder.registerOwnModOptions()
-            .setColorTheme(configBuilder.createColorTheme().setBaseThemeRGB(THEME_COLOR))
-            .setIcon(BlockyBubbles.id("textures/gui/config_icon.png"))
-            .setName(BlockyBubbles.MOD_NAME)
-            .addPage(configBuilder.createOptionPage()
-                .setName(optionText(BlockyBubbles.id("page.bubble_columns")))
-                .addOptionGroup(configBuilder.createOptionGroup()
-                    .addOption(configBuilder.createEnumOption(QUALITY, BubblesQuality.class)
-                        .setName(optionText(QUALITY))
-                        .setElementNameProvider(value -> optionText(QUALITY, '.' + value.path))
-                        .setTooltip(optionTooltip(QUALITY))
-                        .setStorageHandler(getStorage())
-                        .setBinding(value -> getStorage().quality = value, () -> getStorage().quality)
-                        .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
-                        .setImpact(OptionImpact.MEDIUM)
-                        .setDefaultValue(BubblesQuality.FAST)
-                    )
-                )
-                .addOptionGroup(configBuilder.createOptionGroup()
-                    .addOption(configBuilder.createBooleanOption(ANIMATIONS)
-                        .setName(optionText(ANIMATIONS))
-                        .setTooltip(optionTooltip(ANIMATIONS))
-                        .setStorageHandler(getStorage())
-                        .setBinding(value -> getStorage().animations = value, () -> getStorage().animations)
-                        .setFlags(OptionFlag.REQUIRES_ASSET_RELOAD)
-                        .setImpact(OptionImpact.MEDIUM)
-                        .setDefaultValue(true)
-                        .setEnabledProvider(BlockyBubblesConfig::isFast, QUALITY)
-                    )
-                    .addOption(configBuilder.createBooleanOption(OPAQUE_FACES)
-                        .setName(optionText(OPAQUE_FACES))
-                        .setTooltip(optionTooltip(OPAQUE_FACES))
-                        .setStorageHandler(getStorage())
-                        .setBinding(value -> getStorage().opaqueFaces = value, () -> getStorage().opaqueFaces)
-                        .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
-                        .setImpact(OptionImpact.MEDIUM)
-                        .setDefaultValue(false)
-                        .setEnabledProvider(BlockyBubblesConfig::isFast, QUALITY)
-                    )
-                    .addOption(configBuilder.createEnumOption(TOP_FACE_CULLING_METHOD, TopFaceCullingMethod.class)
-                        .setName(optionText(TOP_FACE_CULLING_METHOD))
-                        .setElementNameProvider(value -> optionText(TOP_FACE_CULLING_METHOD, '.' + value.path))
-                        .setTooltip(value -> optionText(TOP_FACE_CULLING_METHOD, '.' + value.path + ".tooltip"))
-                        .setStorageHandler(getStorage())
-                        .setBinding(value -> getStorage().topFaceCullingMethod = value, () -> getStorage().topFaceCullingMethod)
-                        .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
-                        .setImpact(OptionImpact.LOW)
-                        .setDefaultValue(TopFaceCullingMethod.NON_AIR)
-                        .setEnabledProvider(BlockyBubblesConfig::isFast, QUALITY)
-                    )
-                )
-            );
+    private static final Gson GSON = new GsonBuilder()
+        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .excludeFieldsWithoutExposeAnnotation()
+        .setPrettyPrinting()
+        .create();
+
+    @Expose @Nullable private Quality quality = Quality.FAST;
+    @Expose @Nullable private Boolean animations = true;
+    @Expose @Nullable private Boolean opaqueFaces = false;
+    @Expose @Nullable private CullfaceMethod cullfaceMethod = CullfaceMethod.NON_AIR;
+
+    @Nullable private File file;
+
+    public static BlockyBubblesConfig loadFromFile() {
+        File configFile = createFile();
+        BlockyBubblesConfig config = parseOrCreate(configFile);
+
+        config.file = configFile;
+        config.writeToFile();
+
+        return config;
     }
 
-    public static BlockyBubblesConfigStorage getStorage() {
-        if (storage == null)
-            storage = BlockyBubblesConfigStorage.loadFromFile();
-
-        return storage;
-    }
-    
-    private static boolean isFast(ConfigState configState) {
-        return configState.readEnumOption(QUALITY, BubblesQuality.class) == BubblesQuality.FAST;
+    private static File createFile() {
+        return BlockyBubbles.LOADER.getConfigDir().resolve(BlockyBubbles.MOD_ID + ".json").toFile();
     }
 
-    public static Component optionTooltip(Identifier option) {
-        return optionText(option, ".tooltip");
+    private static BlockyBubblesConfig parseOrCreate(File configFile) {
+        if (!configFile.exists())
+            return new BlockyBubblesConfig();
+
+        try (FileReader reader = new FileReader(configFile)) {
+            return Objects.requireNonNullElse(GSON.fromJson(reader, BlockyBubblesConfig.class), new BlockyBubblesConfig());
+        }
+        catch (Exception e) {
+            BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.", e);
+            return new BlockyBubblesConfig();
+        }
     }
 
-    public static Component optionText(Identifier option) {
-        return optionText(option, "");
+    public void writeToFile() {
+        this.validateDirectory();
+        this.tryWriteFile();
     }
 
-    public static Component optionText(Identifier option, String suffix) {
-        return Component.translatable(option.withPrefix("options.").toLanguageKey() + suffix);
+    private void validateDirectory() {
+        if (this.file == null)
+            throw new RuntimeException("Config file not found!");
+
+        File directory = this.file.getParentFile();
+
+        if (!directory.exists()) {
+            tryMakeDirectories(directory);
+            return;
+        }
+
+        if (!directory.isDirectory())
+            throw new RuntimeException(directory + " must be a directory!");
+    }
+
+    private static void tryMakeDirectories(File parentFile) {
+        if (!parentFile.mkdirs())
+            throw new RuntimeException("Failed to create parent directories!");
+    }
+
+    private void tryWriteFile() {
+        assert this.file != null; // checked in validateDirectories
+
+        try (FileWriter fileWriter = new FileWriter(this.file)) {
+            GSON.toJson(this, fileWriter);
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Failed to save configuration file!", e);
+        }
+    }
+
+    public boolean isFancy() {
+        return this.getQuality() == Quality.FANCY;
+    }
+
+    public void setAnimations(boolean animations) {
+        this.animations = animations;
+    }
+
+    public void setOpaqueFaces(boolean opaqueFaces) {
+        this.opaqueFaces = opaqueFaces;
+    }
+
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+
+    public void setCullfaceMethod(CullfaceMethod cullfaceMethod) {
+        this.cullfaceMethod = cullfaceMethod;
+    }
+
+    public boolean hasAnimations() {
+        return Objects.requireNonNullElse(this.animations, true);
+    }
+
+    public boolean hasOpaqueFaces() {
+        return Objects.requireNonNullElse(this.opaqueFaces, false);
+    }
+
+    public Quality getQuality() {
+        return Objects.requireNonNullElse(this.quality, Quality.FAST);
+    }
+
+    public CullfaceMethod getCullfaceMethod() {
+        return Objects.requireNonNullElse(this.cullfaceMethod, CullfaceMethod.NON_AIR);
     }
 
 }

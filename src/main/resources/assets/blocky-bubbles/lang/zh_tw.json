@@ -3,11 +3,9 @@
     "blocky-bubbles.options.animations.tooltip": "氣泡柱紋理是否顯示動畫 (需要重新載入資源包)。",
     "blocky-bubbles.options.quality": "氣泡",
     "blocky-bubbles.options.quality.tooltip": "控制氣泡柱的品質。",
-    "blocky-bubbles.options.top_face_culling_method": "剔除",
-    "blocky-bubbles.options.top_face_culling_method.java_ish": "氣泡柱 (類似 Java)",
-    "blocky-bubbles.options.top_face_culling_method.non_air": "非空氣 (趨同)",
-    "blocky-bubbles.options.top_face_culling_method.off": "無",
-    "blocky-bubbles.options.quality.default": "預設",
+    "blocky-bubbles.options.cullface_method": "剔除",
+    "blocky-bubbles.options.cullface_method.standard": "氣泡柱 (類似 Java)",
+    "blocky-bubbles.options.cullface_method.non_air": "非空氣 (趨同)",
     "blocky-bubbles.options.quality.fancy": "精緻",
     "blocky-bubbles.options.quality.fast": "流暢"
 }

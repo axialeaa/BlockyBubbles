@@ -7,9 +7,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 
-/**
- * Supports invoking the isSideInvisible() method without extending + overriding, a bad mixin-ing practice which leads to a lot of inter-mod incompatibility.
- */
 @Mixin(BlockBehaviour.class)
 public abstract class BlockBehaviourImplMixin {
 

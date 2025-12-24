@@ -5,12 +5,10 @@
     "blocky-bubbles.options.opaque_faces.tooltip": "Activa o desactiva que las columnas de burbujas se rendericen con caras completamente opacas.",
     "blocky-bubbles.options.page.bubble_columns": "Columnas de Burbujas",
     "blocky-bubbles.options.quality": "Calidad",
-    "blocky-bubbles.options.quality.default": "Por defecto",
     "blocky-bubbles.options.quality.fancy": "Detallados",
     "blocky-bubbles.options.quality.fast": "Rápidos",
     "blocky-bubbles.options.quality.tooltip": "Controla la calidad de las columnas de burbujas.",
-    "blocky-bubbles.options.top_face_culling_method": "Culling",
-    "blocky-bubbles.options.top_face_culling_method.java_ish": "Columna de burbujas (Similar a Java)",
-    "blocky-bubbles.options.top_face_culling_method.non_air": "Todo excepto aire (Paridad)",
-    "blocky-bubbles.options.top_face_culling_method.off": "Ninguno"
+    "blocky-bubbles.options.cullface_method": "Culling",
+    "blocky-bubbles.options.cullface_method.standard": "Columna de burbujas (Similar a Java)",
+    "blocky-bubbles.options.cullface_method.non_air": "Todo excepto aire (Paridad)"
 }

@@ -1,5 +1,6 @@
 package com.axialeaa.blockybubbles.mixin;
 
+import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.axialeaa.blockybubbles.config.BlockyBubblesConfig;
 import com.axialeaa.blockybubbles.mixin.impl.BlockBehaviourImplMixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
@@ -22,12 +23,12 @@ public class BubbleColumnBlockMixin extends BlockBehaviourImplMixin {
 
 	@WrapWithCondition(method = "animateTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addAlwaysVisibleParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"))
 	private boolean shouldAddParticles(Level instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-		return BlockyBubblesConfig.getStorage().isFancy();
+		return BlockyBubbles.getConfig().isFancy();
 	}
 
 	@ModifyReturnValue(method = "getRenderShape", at = @At("RETURN"))
 	private RenderShape modifyRenderShape(RenderShape original, BlockState state) {
-		return BlockyBubblesConfig.getStorage().isFancy() ? original : RenderShape.MODEL;
+		return BlockyBubbles.getConfig().isFancy() ? original : RenderShape.MODEL;
 	}
 
 	@Override
@@ -35,12 +36,14 @@ public class BubbleColumnBlockMixin extends BlockBehaviourImplMixin {
 		if (super.skipRenderingImpl(state, stateFrom, direction, original))
 			return true;
 
-		if (BlockyBubblesConfig.getStorage().isFancy() || direction != Direction.UP)
+		BlockyBubblesConfig config = BlockyBubbles.getConfig();
+
+		if (config.isFancy())
 			return false;
 
-		ClientLevel clientLevel = Minecraft.getInstance().level;
+		ClientLevel level = Minecraft.getInstance().level;
 
-		return clientLevel != null && BlockyBubblesConfig.getStorage().topFaceCullingMethod.test(stateFrom, clientLevel, BlockPos.ZERO);
+		return level != null && config.getCullfaceMethod().test(stateFrom, level, BlockPos.ZERO, direction);
 	}
 
 }
