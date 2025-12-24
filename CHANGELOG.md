@@ -1,9 +1,14 @@
-hi it's me again
-***
+Happy holidays! Here's a gift just for you 🎁 💞
 
 ## 🔧 Changes
-[Sodium] recently brought about a new config API specifically designed with Sodium addons in mind. With this, I've removed the janky mixin and replaced it with a clean, professional-looking tab in the video settings screen!
+- [Sodium] is now truly optional in light of its new config API, specifically designed with addons in mind!
+    - All configuration options are now available in the vanilla video settings screen as well as Sodium's redirected counterpart.
+    - The master graphics presets will affect the bubble column quality setting when applied.
+- `Top Face Culling Method` has been renamed to `Cullface Method`. In theory it now supports all directions for custom block models that supply cullface arguments. 
+- The codebase now uses official Mojang mappings in preparation (and practice!) for 26.1.
+- Added tooltips for Cullface Method settings and updated many of the localization strings. Translators will need to make sure their languages have up-to-date entries.
 
-In similar news, 1.21.11 removed the Fast, Fancy and Fabulous graphics profiles and turned them into presets for functionally separate, individual options.
+## ➖ Removals
+- `Cullface Method > Off` has been removed. Resource packs should be used instead if you wish to turn off block face culling entirely.
 
-You can now configure all the features of **Blocky Bubbles** without Sodium!
+[Sodium]: https://modrinth.com/mod/sodium
