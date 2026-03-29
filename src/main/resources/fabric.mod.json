@@ -76,7 +76,7 @@
 		"fabricloader": ">=${loader}",
 		"minecraft": "${target}",
 		"java": ">=${java}",
-		"fabric": "*"
+		"fabric-api": "*"
 	},
 	"suggests": {
 		"sodium": "*"

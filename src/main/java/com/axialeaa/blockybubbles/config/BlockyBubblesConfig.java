@@ -43,16 +43,16 @@ public class BlockyBubblesConfig {
     }
 
     private static BlockyBubblesConfig parseOrCreate(File configFile) {
-        if (!configFile.exists())
-            return new BlockyBubblesConfig();
+        if (configFile.exists()) {
+            try (FileReader reader = new FileReader(configFile)) {
+                return GSON.fromJson(reader, BlockyBubblesConfig.class);
+            }
+            catch (Exception e) {
+                BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.", e);
+            }
+        }
 
-        try (FileReader reader = new FileReader(configFile)) {
-            return Objects.requireNonNullElse(GSON.fromJson(reader, BlockyBubblesConfig.class), new BlockyBubblesConfig());
-        }
-        catch (Exception e) {
-            BlockyBubbles.LOGGER.warn("Falling back to defaults as the config could not be parsed.", e);
-            return new BlockyBubblesConfig();
-        }
+        return new BlockyBubblesConfig();
     }
 
     public void writeToFile() {
@@ -81,7 +81,7 @@ public class BlockyBubblesConfig {
     }
 
     private void tryWriteFile() {
-        assert this.file != null; // checked in validateDirectories
+        assert this.file != null;
 
         try (FileWriter fileWriter = new FileWriter(this.file)) {
             GSON.toJson(this, fileWriter);
@@ -103,11 +103,11 @@ public class BlockyBubblesConfig {
         this.opaqueFaces = opaqueFaces;
     }
 
-    public void setQuality(Quality quality) {
+    public void setQuality(@Nullable Quality quality) {
         this.quality = quality;
     }
 
-    public void setCullfaceMethod(CullfaceMethod cullfaceMethod) {
+    public void setCullfaceMethod(@Nullable CullfaceMethod cullfaceMethod) {
         this.cullfaceMethod = cullfaceMethod;
     }
 

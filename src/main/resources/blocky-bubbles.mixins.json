@@ -1,11 +1,11 @@
 {
     "required": true,
     "package": "com.axialeaa.blockybubbles.mixin",
-    "compatibilityLevel": "JAVA_17",
+    "compatibilityLevel": "JAVA_25",
     "client": [
         "BubbleColumnBlockMixin",
         "EntityMixin",
-        "ItemBlockRenderTypesMixin",
+        "ModelBlockRendererMixin",
         "SpriteContentsMixin",
         "impl.BlockBehaviourImplMixin",
         "config.GraphicsPresetMixin",

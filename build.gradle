@@ -1,11 +1,14 @@
 plugins {
-	id 'fabric-loom' version "${loom_version}"
-	id 'maven-publish'
+	id "net.fabricmc.fabric-loom" version "${loom_version}"
+	id "maven-publish"
 	id "me.modmuss50.mod-publish-plugin" version "${mpp_version}"
 }
 
-def mcVersion = project.build_version
+String mcVersion = project.build_version
 String updateName = "$mod_name $mod_version ($mcVersion) $update_name_suffix"
+
+JavaVersion javaVersion = JavaVersion.VERSION_25
+int javaVersionNumber = 25
 
 version = "$project.mod_version+$mcVersion"
 group = project.maven_group
@@ -26,7 +29,7 @@ repositories {
 }
 
 publishMods {
-	file = remapJar.archiveFile
+	file = jar.archiveFile
 	changelog = rootProject.file("CHANGELOG.md").text
 	type = STABLE
 	displayName = updateName
@@ -61,17 +64,14 @@ publishMods {
 
 dependencies {
 	minecraft "com.mojang:minecraft:$mcVersion"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-	modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
-	modCompileOnly "net.caffeinemc:sodium-fabric-api:${sodium_version}"
 
-	// modRuntimeOnly "net.caffeinemc:sodium-fabric:${sodium_version}"
+	implementation "net.fabricmc:fabric-loader:${loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+	implementation "com.terraformersmc:modmenu:${modmenu_version}"
+	compileOnly "net.caffeinemc:sodium-fabric-api:${sodium_version}"
+
+	runtimeOnly "net.caffeinemc:sodium-fabric:${sodium_version}"
 }
-
-def javaVersion = JavaVersion.VERSION_21
-def javaVersionNumber = javaVersion.ordinal() + 1
 
 processResources {
 	inputs.property("id", project.mod_id)
@@ -83,7 +83,7 @@ processResources {
 	inputs.property("java", javaVersionNumber)
 	inputs.property("repository", project.repository_url)
 
-	def map = [
+	Map<String, Object> map = [
 		"id": inputs.properties.id,
 		"name": inputs.properties.name,
 		"version": inputs.properties.version,

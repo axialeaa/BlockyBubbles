@@ -34,15 +34,15 @@ public class GraphicsPresetMixin {
     }
 
     @Inject(method = "apply", at = @At("RETURN"))
-    private void applyPresetToBlockyBubblesOptions(Minecraft minecraft, CallbackInfo ci, @Local OptionsSubScreen optionsSubScreen, @Share("ordinal") LocalIntRef ref) {
+    private void applyPresetToBlockyBubblesOptions(Minecraft minecraft, CallbackInfo ci, @Local(name = "screen") OptionsSubScreen screen, @Share("ordinal") LocalIntRef ref) {
         int ordinal = ref.get();
 
         if (ordinal != CUSTOM.ordinal())
-            applyQualityValue(BlockyBubbles.getConfig(), optionsSubScreen, ordinal == FAST.ordinal() ? Quality.FAST : Quality.FANCY);
+            applyQualityValue(BlockyBubbles.getConfig(), screen, ordinal == FAST.ordinal() ? Quality.FAST : Quality.FANCY);
     }
 
     @Unique
-    private static void applyQualityValue(BlockyBubblesConfig config, OptionsSubScreen optionsSubScreen, Quality quality) {
+    private static void applyQualityValue(BlockyBubblesConfig config, OptionsSubScreen screen, Quality quality) {
         if (config.getQuality() == quality)
             return;
 
@@ -50,18 +50,17 @@ public class GraphicsPresetMixin {
         config.writeToFile();
 
         OptionsAccessor.invokeOperateOnLevelRenderer(LevelRenderer::allChanged);
-        forceButtonValue(optionsSubScreen, quality);
+        forceButtonValue(screen, quality);
     }
 
     @Unique
-    private static void forceButtonValue(OptionsSubScreen optionsSubScreen, Quality quality) {
-        if (!(optionsSubScreen instanceof QualityButtonHolder holder))
-            return;
+    private static void forceButtonValue(OptionsSubScreen screen, Quality quality) {
+        if (screen instanceof QualityButtonHolder holder) {
+            CycleButton<Quality> button = holder.blocky_bubbles$get();
 
-        CycleButton<Quality> button = holder.blocky_bubbles$get();
-
-        if (button != null)
-            button.setValue(quality);
+            if (button != null)
+                button.setValue(quality);
+        }
     }
 
 }

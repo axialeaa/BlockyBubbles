@@ -40,7 +40,7 @@ public abstract class VideoSettingsScreenMixin extends OptionsSubScreen implemen
 
         BlockyBubblesConfig config = BlockyBubbles.getConfig();
 
-        this.quality = createCyclingEnum(QUALITY, Quality.values(), false, config::setQuality, config::getQuality, (button, value) -> {
+        this.quality = createCyclingEnum(QUALITY, Quality.values(), false, config::setQuality, config::getQuality, (_, value) -> {
             this.minecraft.levelRenderer.allChanged();
             this.animations.active = value == Quality.FAST;
             this.opaqueFaces.active = value == Quality.FAST;

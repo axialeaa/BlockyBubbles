@@ -1,4 +1,4 @@
-@NonnullDefault
+@NullMarked
 package com.axialeaa.blockybubbles.config;
 
-import org.lwjgl.system.NonnullDefault;
+import org.jspecify.annotations.NullMarked;

@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
-import org.jspecify.annotations.NonNull;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -29,7 +28,7 @@ public class ConfigHelper {
 
     public static CycleButton<Boolean> createCyclingBoolean(Identifier option, Consumer<Boolean> setter, Supplier<Boolean> getter, CycleButton.OnValueChange<Boolean> onValueChange) {
         return CycleButton.onOffBuilder(getter.get())
-            .withTooltip(value -> Tooltip.create(optionTooltip(option)))
+            .withTooltip(_ -> Tooltip.create(optionTooltip(option)))
             .create(0, 0, WIDTH, HEIGHT, optionText(option), (button, value) -> {
                 setter.accept(value);
                 onValueChange.onValueChange(button, value);
@@ -37,7 +36,7 @@ public class ConfigHelper {
             });
     }
 
-    public static <E extends Enum<E> & StringRepresentable> CycleButton<@NonNull E> createCyclingEnum(Identifier option, E[] values, boolean pertainTooltipToValue, Consumer<E> setter, Supplier<E> getter, CycleButton.OnValueChange<@NonNull E> onValueChange) {
+    public static <E extends Enum<E> & StringRepresentable> CycleButton<E> createCyclingEnum(Identifier option, E[] values, boolean pertainTooltipToValue, Consumer<E> setter, Supplier<E> getter, CycleButton.OnValueChange<E> onValueChange) {
         return CycleButton.builder(enumOptionNameProvider(option)::apply, getter.get())
             .withValues(values)
             .withTooltip(value -> Tooltip.create(pertainTooltipToValue ? enumOptionTooltipProvider(option).apply(value) : optionTooltip(option)))
@@ -69,11 +68,11 @@ public class ConfigHelper {
     }
 
     public static <T> CycleButton.OnValueChange<T> reloadRenderer() {
-        return (button, value) -> OptionsAccessor.invokeOperateOnLevelRenderer(LevelRenderer::allChanged);
+        return (_, _) -> OptionsAccessor.invokeOperateOnLevelRenderer(LevelRenderer::allChanged);
     }
 
     public static <T> CycleButton.OnValueChange<T> reloadAssets() {
-        return (button, value) -> Minecraft.getInstance().reloadResourcePacks();
+        return (_, _) -> Minecraft.getInstance().reloadResourcePacks();
     }
 
 }

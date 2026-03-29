@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(BlockBehaviour.class)
-public abstract class BlockBehaviourImplMixin {
+public class BlockBehaviourImplMixin {
 
     @WrapMethod(method = "skipRendering")
     public boolean skipRenderingImpl(BlockState state, BlockState stateFrom, Direction direction, Operation<Boolean> original) {
