@@ -1,1 +1,1 @@
-Heya! Just a simple port to 26.1. As always, make sure to report any bugs you find on GitHub!~
+Support for the upcoming hotfix.
