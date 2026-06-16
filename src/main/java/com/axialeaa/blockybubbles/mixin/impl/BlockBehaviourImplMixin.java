@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.Mixin;
 public class BlockBehaviourImplMixin {
 
     @WrapMethod(method = "skipRendering")
-    public boolean skipRenderingImpl(BlockState state, BlockState stateFrom, Direction direction, Operation<Boolean> original) {
-        return original.call(state, stateFrom, direction);
+    public boolean skipRenderingImpl(BlockState state, BlockState neighborState, Direction direction, Operation<Boolean> original) {
+        return original.call(state, neighborState, direction);
     }
 
 }

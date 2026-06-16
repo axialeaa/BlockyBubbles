@@ -1,3 +1,4 @@
+//file:noinspection GroovyAssignabilityCheck
 plugins {
 	id "net.fabricmc.fabric-loom" version "${loom_version}"
 	id "maven-publish"
@@ -5,7 +6,7 @@ plugins {
 }
 
 String mcVersion = project.build_version
-String updateName = "$mod_name $mod_version ($mcVersion) $update_name_suffix"
+String updateName = "$mod_name $mod_version ($mcVersion)$update_name_suffix"
 
 JavaVersion javaVersion = JavaVersion.VERSION_25
 int javaVersionNumber = 25
@@ -19,12 +20,12 @@ base {
 
 repositories {
 	maven {
-		name "CaffeineMC"
-		url "https://maven.caffeinemc.net/releases"
+		name("CaffeineMC")
+		url("https://maven.caffeinemc.net/releases")
 	}
 	maven {
-		name "Terraformers"
-		url "https://maven.terraformersmc.com/"
+		name("Terraformers")
+		url("https://maven.terraformersmc.com/")
 	}
 }
 
@@ -47,12 +48,13 @@ publishMods {
 	modrinth {
 		accessToken = providers.gradleProperty("secrets.modrinth_token")
 		projectId = modrinth_project_id
+        projectDescription = rootProject.file("README.md").text
 
 		for (String version : modrinth_versions.toString().split(' '))
 			minecraftVersions.add(version)
 
-		requires "fabric-api"
-		optional "sodium"
+		requires("fabric-api")
+		optional("sodium")
 	}
 
 	discord {
@@ -63,14 +65,14 @@ publishMods {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:$mcVersion"
+	minecraft("com.mojang:minecraft:$mcVersion")
 
-	implementation "net.fabricmc:fabric-loader:${loader_version}"
-	implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
-	implementation "com.terraformersmc:modmenu:${modmenu_version}"
-	compileOnly "net.caffeinemc:sodium-fabric-api:${sodium_version}"
+	implementation("net.fabricmc:fabric-loader:${loader_version}")
+	implementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
+	implementation("com.terraformersmc:modmenu:${modmenu_version}")
+	compileOnly("net.caffeinemc:sodium-fabric-api:${sodium_version}")
 
-	runtimeOnly "net.caffeinemc:sodium-fabric:${sodium_version}"
+    runtimeOnly("net.caffeinemc:sodium-fabric:${sodium_version}")
 }
 
 processResources {
@@ -106,8 +108,19 @@ tasks.withType(JavaCompile).configureEach {
 loom {
 	runs {
 		client {
-			programArgs(["--username", "axialeaa", "--uuid", "dabdffa7-fdd2-4798-9f94-a518c7856163"])
-		}
+            programArguments.addAll(
+                "--username",
+                "axialeaa",
+                "--uuid",
+                "dabdffa7-fdd2-4798-9f94-a518c7856163"
+            )
+            jvmArguments.addAll(
+                "-XX:+UseG1GC", // cannot use ZGC for enhanced class redef
+                "-XX:+UseCompactObjectHeaders",
+                "-XX:+UseStringDeduplication",
+                "-XX:+AllowEnhancedClassRedefinition"
+            )
+        }
 	}
 	accessWidenerPath = file("src/main/resources/${project.mod_id}.classtweaker")
 }
@@ -121,7 +134,9 @@ java {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
+		rename {
+            "${it}_${project.base.archivesName.get()}"
+        }
 	}
 }
 

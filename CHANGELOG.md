@@ -1,1 +1,1 @@
-Support for the upcoming hotfix.
+Quick n lazy 26.2 have fun xoxo

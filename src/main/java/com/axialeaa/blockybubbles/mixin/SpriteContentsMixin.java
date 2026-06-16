@@ -16,11 +16,11 @@ public abstract class SpriteContentsMixin {
     @Shadow public abstract Identifier name();
 
     @WrapMethod(method = "createAnimatedTexture")
-    private SpriteContents.AnimatedTexture shouldAnimateTexture(FrameSize frameSize, int i, int j, AnimationMetadataSection animationMetadataSection, Operation<SpriteContents.AnimatedTexture> original) {
+    private SpriteContents.AnimatedTexture shouldAnimateTexture(FrameSize frameSize, int fullWidth, int fullHeight, AnimationMetadataSection metadata, Operation<SpriteContents.AnimatedTexture> original) {
         if (this.name().getNamespace().equals(BlockyBubbles.MOD_ID) && !BlockyBubbles.getConfig().hasAnimations())
             return null;
 
-        return original.call(frameSize, i, j, animationMetadataSection);
+        return original.call(frameSize, fullWidth, fullHeight, metadata);
     }
 
 }

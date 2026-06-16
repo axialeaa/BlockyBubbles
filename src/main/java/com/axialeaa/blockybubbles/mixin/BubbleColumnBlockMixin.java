@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class BubbleColumnBlockMixin extends BlockBehaviourImplMixin {
 
 	@WrapWithCondition(method = "animateTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addAlwaysVisibleParticle(Lnet/minecraft/core/particles/ParticleOptions;DDDDDD)V"))
-	private boolean shouldAddParticles(Level instance, ParticleOptions parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+	private boolean shouldAddParticles(Level instance, ParticleOptions particle, double x, double y, double z, double xd, double yd, double zd) {
 		return BlockyBubbles.getConfig().isFancy();
 	}
 

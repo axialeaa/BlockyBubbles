@@ -5,7 +5,7 @@ import com.axialeaa.blockybubbles.mixin.config.OptionsAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
@@ -68,7 +68,7 @@ public class ConfigHelper {
     }
 
     public static <T> CycleButton.OnValueChange<T> reloadRenderer() {
-        return (_, _) -> OptionsAccessor.invokeOperateOnLevelRenderer(LevelRenderer::allChanged);
+        return (_, _) -> OptionsAccessor.invokeOperateOnLevelExtractor(LevelExtractor::allChanged);
     }
 
     public static <T> CycleButton.OnValueChange<T> reloadAssets() {

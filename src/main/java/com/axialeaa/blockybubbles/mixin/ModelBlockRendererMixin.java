@@ -14,13 +14,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ModelBlockRendererMixin {
 
     @ModifyReturnValue(method = "forceOpaque", at = @At("RETURN"))
-    private static boolean setOpaqueBubbleColumns(boolean original, @Local(argsOnly = true) BlockState blockState) {
-        if (original)
-            return true;
-
+    private static boolean setOpaqueBubbleColumns(boolean original, @Local(argsOnly = true, name = "blockState") BlockState blockState) {
         BlockyBubblesConfig config = BlockyBubbles.getConfig();
-
-        return blockState.is(Blocks.BUBBLE_COLUMN) && !config.isFancy() && config.hasOpaqueFaces();
+        return original || (blockState.is(Blocks.BUBBLE_COLUMN) && !config.isFancy() && config.hasOpaqueFaces());
     }
 
 }

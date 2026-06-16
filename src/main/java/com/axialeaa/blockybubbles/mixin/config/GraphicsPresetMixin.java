@@ -12,7 +12,7 @@ import net.minecraft.client.GraphicsPreset;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
-import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.extract.LevelExtractor;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,8 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GraphicsPreset.class)
 public class GraphicsPresetMixin {
 
-    @Shadow @Final public static GraphicsPreset FAST;
-    @Shadow @Final public static GraphicsPreset CUSTOM;
+    @Shadow @Final public static GraphicsPreset FAST, CUSTOM;
 
     @ModifyExpressionValue(method = "apply", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/GraphicsPreset;ordinal()I"))
     private int shareOrdinal(int original, @Share("ordinal") LocalIntRef ref) {
@@ -38,19 +37,20 @@ public class GraphicsPresetMixin {
         int ordinal = ref.get();
 
         if (ordinal != CUSTOM.ordinal())
-            applyQualityValue(BlockyBubbles.getConfig(), screen, ordinal == FAST.ordinal() ? Quality.FAST : Quality.FANCY);
+            applyQualityValue(screen, ordinal == FAST.ordinal() ? Quality.FAST : Quality.FANCY);
     }
 
     @Unique
-    private static void applyQualityValue(BlockyBubblesConfig config, OptionsSubScreen screen, Quality quality) {
-        if (config.getQuality() == quality)
-            return;
+    private static void applyQualityValue(OptionsSubScreen screen, Quality quality) {
+        BlockyBubblesConfig config = BlockyBubbles.getConfig();
 
-        config.setQuality(quality);
-        config.writeToFile();
+        if (config.getQuality() != quality) {
+            config.setQuality(quality);
+            config.writeToFile();
 
-        OptionsAccessor.invokeOperateOnLevelRenderer(LevelRenderer::allChanged);
-        forceButtonValue(screen, quality);
+            OptionsAccessor.invokeOperateOnLevelExtractor(LevelExtractor::allChanged);
+            forceButtonValue(screen, quality);
+        }
     }
 
     @Unique
