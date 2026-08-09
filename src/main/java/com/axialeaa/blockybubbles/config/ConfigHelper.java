@@ -18,8 +18,10 @@ public class ConfigHelper {
 
     public static final Identifier QUALITY = BlockyBubbles.id("quality");
     public static final Identifier ANIMATIONS = BlockyBubbles.id("animations");
+	public static final Identifier SMOOTHEN_ANIMATION_FRAMES = BlockyBubbles.id("smoothen_animation_frames");
     public static final Identifier OPAQUE_FACES = BlockyBubbles.id("opaque_faces");
     public static final Identifier CULLFACE_METHOD = BlockyBubbles.id("cullface_method");
+	public static final Identifier BIOME_COLORS = BlockyBubbles.id("biome_colors");
 
     public static final Component OPTION_PAGE_TEXT = optionText(BlockyBubbles.id("page.bubble_columns"));
 
@@ -47,11 +49,11 @@ public class ConfigHelper {
             });
     }
 
-    static Component optionTooltip(Identifier option) {
+    public static Component optionTooltip(Identifier option) {
         return optionText(option, ".tooltip");
     }
 
-    static Component optionText(Identifier option) {
+    public static Component optionText(Identifier option) {
         return optionText(option, "");
     }
 
@@ -59,11 +61,11 @@ public class ConfigHelper {
         return Component.translatable(option.withPrefix("options.").toLanguageKey() + suffix);
     }
 
-    static <E extends Enum<?> & StringRepresentable> Function<E, Component> enumOptionNameProvider(Identifier option) {
+    public static <E extends Enum<?> & StringRepresentable> Function<E, Component> enumOptionNameProvider(Identifier option) {
         return value -> optionText(option, '.' + value.getSerializedName());
     }
 
-    static <E extends Enum<?> & StringRepresentable> Function<E, Component> enumOptionTooltipProvider(Identifier option) {
+    public static <E extends Enum<?> & StringRepresentable> Function<E, Component> enumOptionTooltipProvider(Identifier option) {
         return value -> optionText(option, '.' + value.getSerializedName() + ".tooltip");
     }
 

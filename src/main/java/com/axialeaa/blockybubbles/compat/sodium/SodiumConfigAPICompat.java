@@ -1,6 +1,10 @@
-package com.axialeaa.blockybubbles.config;
+package com.axialeaa.blockybubbles.compat.sodium;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
+import com.axialeaa.blockybubbles.config.BlockyBubblesConfig;
+import com.axialeaa.blockybubbles.config.CullfaceMethod;
+import com.axialeaa.blockybubbles.config.Quality;
+import com.axialeaa.blockybubbles.tint.BubbleColumnTintSource;
 import net.caffeinemc.mods.sodium.api.config.ConfigEntryPoint;
 import net.caffeinemc.mods.sodium.api.config.ConfigState;
 import net.caffeinemc.mods.sodium.api.config.option.OptionFlag;
@@ -14,14 +18,12 @@ import static com.axialeaa.blockybubbles.config.ConfigHelper.*;
  */
 public class SodiumConfigAPICompat implements ConfigEntryPoint {
 
-    private static final int THEME_COLOR = 0xFF77D9FF;
-
     @Override
     public void registerConfigLate(ConfigBuilder builder) {
         BlockyBubblesConfig config = BlockyBubbles.getConfig();
 
         builder.registerOwnModOptions()
-            .setColorTheme(builder.createColorTheme().setBaseThemeRGB(THEME_COLOR))
+            .setColorTheme(builder.createColorTheme().setBaseThemeRGB(BubbleColumnTintSource.DEFAULT_TINT))
             .setIcon(BlockyBubbles.id("textures/gui/config_icon.png"))
             .setName(BlockyBubbles.MOD_NAME)
             .addPage(builder.createOptionPage()
@@ -33,7 +35,7 @@ public class SodiumConfigAPICompat implements ConfigEntryPoint {
                         .setTooltip(optionTooltip(QUALITY))
                         .setStorageHandler(config::writeToFile)
                         .setBinding(config::setQuality, config::getQuality)
-                        .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
+                        .setFlags(BlockyBubbles.FROZENLIB_LOADED ? OptionFlag.REQUIRES_ASSET_RELOAD : OptionFlag.REQUIRES_RENDERER_RELOAD)
                         .setImpact(OptionImpact.MEDIUM)
                         .setDefaultValue(Quality.FAST)
                     )
@@ -70,6 +72,16 @@ public class SodiumConfigAPICompat implements ConfigEntryPoint {
                         .setDefaultValue(CullfaceMethod.NON_AIR)
                         .setEnabledProvider(SodiumConfigAPICompat::isFast, QUALITY)
                     )
+					.addOption(builder.createBooleanOption(BIOME_COLORS)
+						.setName(optionText(BIOME_COLORS))
+						.setTooltip(optionTooltip(BIOME_COLORS))
+						.setStorageHandler(config::writeToFile)
+						.setBinding(config::setBiomeColors, config::hasBiomeColors)
+						.setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
+						.setImpact(OptionImpact.LOW)
+						.setDefaultValue(false)
+						.setEnabledProvider(SodiumConfigAPICompat::isFast, QUALITY)
+					)
                 )
             );
     }

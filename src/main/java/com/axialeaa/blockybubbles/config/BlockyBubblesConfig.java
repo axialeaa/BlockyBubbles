@@ -25,6 +25,7 @@ public class BlockyBubblesConfig {
     @Expose @Nullable private Boolean animations = true;
     @Expose @Nullable private Boolean opaqueFaces = false;
     @Expose @Nullable private CullfaceMethod cullfaceMethod = CullfaceMethod.NON_AIR;
+	@Expose @Nullable private Boolean biomeColors = false;
 
     @Nullable private File file;
 
@@ -99,7 +100,7 @@ public class BlockyBubblesConfig {
         this.animations = animations;
     }
 
-    public void setOpaqueFaces(boolean opaqueFaces) {
+	public void setOpaqueFaces(boolean opaqueFaces) {
         this.opaqueFaces = opaqueFaces;
     }
 
@@ -110,6 +111,10 @@ public class BlockyBubblesConfig {
     public void setCullfaceMethod(@Nullable CullfaceMethod cullfaceMethod) {
         this.cullfaceMethod = cullfaceMethod;
     }
+
+	public void setBiomeColors(boolean biomeColors) {
+		this.biomeColors = biomeColors;
+	}
 
     public boolean hasAnimations() {
         return Objects.requireNonNullElse(this.animations, true);
@@ -126,5 +131,9 @@ public class BlockyBubblesConfig {
     public CullfaceMethod getCullfaceMethod() {
         return Objects.requireNonNullElse(this.cullfaceMethod, CullfaceMethod.NON_AIR);
     }
+
+	public boolean hasBiomeColors() {
+		return Objects.requireNonNullElse(this.biomeColors, false);
+	}
 
 }

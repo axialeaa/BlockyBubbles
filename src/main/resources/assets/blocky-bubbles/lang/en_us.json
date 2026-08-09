@@ -12,5 +12,6 @@
     "blocky-bubbles.options.cullface_method.standard": "Standard",
     "blocky-bubbles.options.cullface_method.standard.tooltip": "Bubble column faces cull when the adjacent block is either a bubble column or a full, solid, square side of an opaque block. This resembles how Java Edition handles face culling on most other blocks.",
     "blocky-bubbles.options.cullface_method.non_air": "Non-Air (Parity)",
-    "blocky-bubbles.options.cullface_method.non_air.tooltip": "Bubble column faces cull when the adjacent block is anything other than air, including water, glass and other bubble columns. This matches the behavior of vanilla Bedrock Edition."
+    "blocky-bubbles.options.cullface_method.non_air.tooltip": "Bubble column faces cull when the adjacent block is anything other than air, including water, glass and other bubble columns. This matches the behavior of vanilla Bedrock Edition.",
+    "resourcePack.blocky_bubbles.biome_colors.name": "Biome Colors"
 }

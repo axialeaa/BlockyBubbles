@@ -6,13 +6,18 @@
         "BubbleColumnBlockMixin",
         "EntityMixin",
         "ModelBlockRendererMixin",
-        "SpriteContentsMixin",
-        "impl.BlockBehaviourImplMixin",
+        "anim.SpriteContents$AnimatedTextureMixin",
+        "anim.SpriteContents$AnimationStateMixin",
+        "anim.SpriteContentsMixin",
+        "compat.frozenlib.BlockyBubblesSelfMixin",
+        "compat.frozenlib.WaterLikeBlockMixin",
         "config.GraphicsPresetMixin",
         "config.OptionsAccessor",
-        "config.VideoSettingsScreenMixin"
+        "config.VideoSettingsScreenMixin",
+        "impl.BlockBehaviourImplMixin"
     ],
     "injectors": {
         "defaultRequire": 1
-    }
+    },
+    "plugin": "com.axialeaa.blockybubbles.BlockyBubblesMixinConfig"
 }

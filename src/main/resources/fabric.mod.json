@@ -42,8 +42,14 @@
 			"contact": {
 				"homepage": "https://github.com/yichifauzi"
 			}
-		}
-	],
+		},
+        {
+            "name": "CallMeEcho (Rendering help + FrozenLib compat)",
+            "contact": {
+                "homepage": "https://github.com/CallMeEchoCodes"
+            }
+        }
+    ],
 	"contact": {
 		"sources": "https://github.com/${repository}",
 		"issues": "https://github.com/${repository}/issues"
@@ -56,7 +62,7 @@
 			"com.axialeaa.blockybubbles.BlockyBubbles"
 		],
 		"sodium:config_api_user": [
-			"com.axialeaa.blockybubbles.config.SodiumConfigAPICompat"
+            "com.axialeaa.blockybubbles.compat.sodium.SodiumConfigAPICompat"
 		]
 	},
 	"accessWidener" : "${id}.classtweaker",

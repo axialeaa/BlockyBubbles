@@ -1,4 +1,4 @@
-package com.axialeaa.blockybubbles.config.duck;
+package com.axialeaa.blockybubbles.duck;
 
 import com.axialeaa.blockybubbles.config.Quality;
 import net.minecraft.client.gui.components.CycleButton;

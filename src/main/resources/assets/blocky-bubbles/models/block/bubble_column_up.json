@@ -1,8 +1,10 @@
 {
-  "parent": "blocky-bubbles:block/bubble_column",
+  "parent": "blocky-bubbles:block/template_bubble_column",
   "textures": {
-    "up": "blocky-bubbles:block/bubble_column_up_top",
-    "outer": "blocky-bubbles:block/bubble_column_up_outer",
-    "inner": "blocky-bubbles:block/bubble_column_up_inner"
+    "up": "blocky-bubbles:block/tinted/bubble_column_up_top",
+    "up_tinted": "blocky-bubbles:block/tinted/bubble_column_up_top_tinted",
+    "outer": "blocky-bubbles:block/tinted/bubble_column_up_outer",
+    "outer_tinted": "blocky-bubbles:block/tinted/bubble_column_up_outer_tinted",
+    "inner_tinted": "blocky-bubbles:block/tinted/bubble_column_up_inner_tinted"
   }
 }

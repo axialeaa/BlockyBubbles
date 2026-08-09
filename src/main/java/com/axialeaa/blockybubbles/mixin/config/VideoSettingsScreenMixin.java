@@ -4,7 +4,7 @@ import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.axialeaa.blockybubbles.config.BlockyBubblesConfig;
 import com.axialeaa.blockybubbles.config.Quality;
 import com.axialeaa.blockybubbles.config.CullfaceMethod;
-import com.axialeaa.blockybubbles.config.duck.QualityButtonHolder;
+import com.axialeaa.blockybubbles.duck.QualityButtonHolder;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.CycleButton;
@@ -28,6 +28,7 @@ public abstract class VideoSettingsScreenMixin extends OptionsSubScreen implemen
     @Unique private CycleButton<Boolean> animations;
     @Unique private CycleButton<Boolean> opaqueFaces;
     @Unique private CycleButton<CullfaceMethod> topFaceCullingMethod;
+	@Unique private CycleButton<Boolean> biomeColors;
 
     public VideoSettingsScreenMixin(Screen screen, Options options, Component component) {
         super(screen, options, component);
@@ -41,10 +42,11 @@ public abstract class VideoSettingsScreenMixin extends OptionsSubScreen implemen
         BlockyBubblesConfig config = BlockyBubbles.getConfig();
 
         this.quality = createCyclingEnum(QUALITY, Quality.values(), false, config::setQuality, config::getQuality, (_, value) -> {
-            this.minecraft.levelExtractor.allChanged();
+			this.blocky_bubbles$onQualityChange();
             this.animations.active = value == Quality.FAST;
             this.opaqueFaces.active = value == Quality.FAST;
             this.topFaceCullingMethod.active = value == Quality.FAST;
+			this.biomeColors.active = value == Quality.FAST;
 
             if (this.options instanceof OptionsAccessor accessor)
                 accessor.invokeSetGraphicsPresetToCustom();
@@ -52,13 +54,15 @@ public abstract class VideoSettingsScreenMixin extends OptionsSubScreen implemen
         this.animations = createCyclingBoolean(ANIMATIONS, config::setAnimations, config::hasAnimations, reloadAssets());
         this.opaqueFaces = createCyclingBoolean(OPAQUE_FACES, config::setOpaqueFaces, config::hasOpaqueFaces, reloadRenderer());
         this.topFaceCullingMethod = createCyclingEnum(CULLFACE_METHOD, CullfaceMethod.values(), true, config::setCullfaceMethod, config::getCullfaceMethod, reloadRenderer());
+		this.biomeColors = createCyclingBoolean(BIOME_COLORS, config::setBiomeColors, config::hasBiomeColors, reloadRenderer());
 
         this.list.addHeader(OPTION_PAGE_TEXT);
         this.list.addSmall(List.of(
             this.quality,
             this.animations,
             this.opaqueFaces,
-            this.topFaceCullingMethod
+            this.topFaceCullingMethod,
+			this.biomeColors
         ));
 
         return original;
@@ -68,5 +72,12 @@ public abstract class VideoSettingsScreenMixin extends OptionsSubScreen implemen
     public CycleButton<Quality> blocky_bubbles$get() {
         return this.quality;
     }
+
+	@Unique
+	private void blocky_bubbles$onQualityChange() {
+		if (BlockyBubbles.FROZENLIB_LOADED)
+			this.minecraft.reloadResourcePacks();
+		else this.minecraft.levelExtractor.allChanged();
+	}
 
 }

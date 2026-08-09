@@ -19,14 +19,17 @@ base {
 }
 
 repositories {
-	maven {
-		name("CaffeineMC")
-		url("https://maven.caffeinemc.net/releases")
-	}
-	maven {
-		name("Terraformers")
-		url("https://maven.terraformersmc.com/")
-	}
+    maven { url = "https://maven.bawnorton.com/releases" } // MixinSquared
+	maven { url = "https://maven.caffeinemc.net/snapshots" } // Sodium
+	maven { url = "https://maven.terraformersmc.com/" } // Mod Menu
+    exclusiveContent {
+        forRepository {
+            maven { url = "https://api.modrinth.com/maven" }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 publishMods {
@@ -67,12 +70,16 @@ publishMods {
 dependencies {
 	minecraft("com.mojang:minecraft:$mcVersion")
 
-	implementation("net.fabricmc:fabric-loader:${loader_version}")
-	implementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
-	implementation("com.terraformersmc:modmenu:${modmenu_version}")
-	compileOnly("net.caffeinemc:sodium-fabric-api:${sodium_version}")
+    implementation("net.fabricmc:fabric-loader:${loader_version}")
+    implementation("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
+    implementation("com.terraformersmc:modmenu:${modmenu_version}")
 
-    runtimeOnly("net.caffeinemc:sodium-fabric:${sodium_version}")
+    compileOnly("net.caffeinemc:sodium-fabric-api:${sodium_version}")
+    compileOnly("maven.modrinth:AtHRJSUW:TVkz6cZh")
+    compileOnly("maven.modrinth:9KawNmQc:Ak4sHFuc")
+    compileOnly("maven.modrinth:9s6osm5g:Nv3xnWXd")
+
+    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${mixinsquared_version}")))
 }
 
 processResources {
@@ -116,8 +123,6 @@ loom {
             )
             jvmArguments.addAll(
                 "-XX:+UseG1GC", // cannot use ZGC for enhanced class redef
-                "-XX:+UseCompactObjectHeaders",
-                "-XX:+UseStringDeduplication",
                 "-XX:+AllowEnhancedClassRedefinition"
             )
         }

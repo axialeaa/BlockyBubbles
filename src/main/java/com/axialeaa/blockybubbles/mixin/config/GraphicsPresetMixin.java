@@ -3,7 +3,7 @@ package com.axialeaa.blockybubbles.mixin.config;
 import com.axialeaa.blockybubbles.BlockyBubbles;
 import com.axialeaa.blockybubbles.config.BlockyBubblesConfig;
 import com.axialeaa.blockybubbles.config.Quality;
-import com.axialeaa.blockybubbles.config.duck.QualityButtonHolder;
+import com.axialeaa.blockybubbles.duck.QualityButtonHolder;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
