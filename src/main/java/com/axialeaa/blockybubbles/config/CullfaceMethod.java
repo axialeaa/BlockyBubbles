@@ -1,7 +1,5 @@
 package com.axialeaa.blockybubbles.config;
 
-import com.axialeaa.blockybubbles.BlockyBubbles;
-import com.axialeaa.blockybubbles.compat.frozenlib.FrozenLibCompatModelLoadingPlugin;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
@@ -25,9 +23,6 @@ public enum CullfaceMethod implements BlockBehaviour.StateArgumentPredicate<Dire
 
         @Override
         public boolean test(BlockState stateFrom, BlockGetter world, BlockPos pos, Direction directionFrom) {
-			if (BlockyBubbles.FROZENLIB_LOADED && FrozenLibCompatModelLoadingPlugin.hasBubbleColumn(stateFrom))
-				return true;
-
             return stateFrom.is(Blocks.BUBBLE_COLUMN) || stateFrom.isFaceSturdy(world, pos, directionFrom.getOpposite()) && stateFrom.canOcclude();
         }
 

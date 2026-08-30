@@ -1,6 +1,7 @@
 package com.axialeaa.blockybubbles.compat.frozenlib;
 
 import com.axialeaa.blockybubbles.BlockyBubbles;
+import com.axialeaa.blockybubbles.config.BlockyBubblesConfig;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.frozenblock.lib.block.api.waterlike.WaterLikeBlock;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -21,11 +22,11 @@ public class FrozenLibCompatModelLoadingPlugin implements ModelLoadingPlugin {
 		pluginContext.modifyBlockModelOnLoad().register((model, blockContext) -> {
 			BlockState blockState = blockContext.state();
 
-			if (!BlockyBubbles.getConfig().isFancy() && hasBubbleColumn(blockState)) {
+			if (renderWaterLikeBubbleColumn(blockState)) {
 				Identifier id = getModelIdFor(blockState);
 
 				BlockStateModel.UnbakedRoot root = new SingleVariant.Unbaked(new Variant(id)).asRoot();
-				BlockStateModel.UnbakedRoot bubbleColumnModel = new BubbleColumnCullingBlockStateModel.UnbakedRoot(root);
+				BlockStateModel.UnbakedRoot bubbleColumnModel = new InternalBubbleColumnBlockStateModel.UnbakedRoot(root);
 
 				return new CompositeUnbakedRootBlockStateModel(List.of(model, bubbleColumnModel));
 			}
@@ -38,8 +39,9 @@ public class FrozenLibCompatModelLoadingPlugin implements ModelLoadingPlugin {
 		return WaterLikeBlock.isDraggingDownAsBubbleColumn(waterLike) ? DOWN : UP;
 	}
 
-	public static boolean hasBubbleColumn(BlockState state) {
-		return WaterLikeBlock.hasBubbleColumn(state);
+	public static boolean renderWaterLikeBubbleColumn(BlockState state) {
+		BlockyBubblesConfig config = BlockyBubbles.getConfig();
+		return !config.isFancy() && config.hasFrozenLibCompat() && WaterLikeBlock.hasBubbleColumn(state);
 	}
 
 }

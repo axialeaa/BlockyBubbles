@@ -22,10 +22,14 @@ public class BlockyBubblesConfig {
         .create();
 
     @Expose @Nullable private Quality quality = Quality.FAST;
+
     @Expose @Nullable private Boolean animations = true;
     @Expose @Nullable private Boolean opaqueFaces = false;
     @Expose @Nullable private CullfaceMethod cullfaceMethod = CullfaceMethod.NON_AIR;
 	@Expose @Nullable private Boolean biomeColors = false;
+
+	@Expose @Nullable private ResourcePackStyle resourcePackStyle = ResourcePackStyle.VANILLA;
+	@Expose @Nullable private Boolean frozenLibCompat = true;
 
     @Nullable private File file;
 
@@ -116,7 +120,15 @@ public class BlockyBubblesConfig {
 		this.biomeColors = biomeColors;
 	}
 
-    public boolean hasAnimations() {
+	public void setResourcePackStyle(ResourcePackStyle resourcePackStyle) {
+		this.resourcePackStyle = resourcePackStyle;
+	}
+
+	public void setFrozenLibCompat(boolean frozenLibCompat) {
+		this.frozenLibCompat = frozenLibCompat;
+	}
+
+	public boolean hasAnimations() {
         return Objects.requireNonNullElse(this.animations, true);
     }
 
@@ -134,6 +146,14 @@ public class BlockyBubblesConfig {
 
 	public boolean hasBiomeColors() {
 		return Objects.requireNonNullElse(this.biomeColors, false);
+	}
+
+	public ResourcePackStyle getResourcePackStyle() {
+		return Objects.requireNonNullElse(this.resourcePackStyle, ResourcePackStyle.VANILLA);
+	}
+
+	public boolean hasFrozenLibCompat() {
+		return Objects.requireNonNullElse(this.frozenLibCompat, true);
 	}
 
 }

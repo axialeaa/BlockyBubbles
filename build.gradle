@@ -78,8 +78,6 @@ dependencies {
     compileOnly("maven.modrinth:AtHRJSUW:TVkz6cZh")
     compileOnly("maven.modrinth:9KawNmQc:Ak4sHFuc")
     compileOnly("maven.modrinth:9s6osm5g:Nv3xnWXd")
-
-    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${mixinsquared_version}")))
 }
 
 processResources {

@@ -1,0 +1,39 @@
+{
+    "pack": {
+        "description": "",
+        "min_format": 88,
+        "max_format": 88
+    },
+    "fabric:overlays": {
+        "entries": [
+            {
+                "directory": "bare_bones",
+                "condition": {
+                    "condition": "blocky-bubbles:resource_pack_style",
+                    "value": "bare_bones"
+                }
+            },
+            {
+                "directory": "faithful_32",
+                "condition": {
+                    "condition": "blocky-bubbles:resource_pack_style",
+                    "value": "faithful_32"
+                }
+            },
+            {
+                "directory": "faithful_64",
+                "condition": {
+                    "condition": "blocky-bubbles:resource_pack_style",
+                    "value": "faithful_64"
+                }
+            },
+            {
+                "directory": "biome_colors",
+                "condition": {
+                    "condition": "blocky-bubbles:biome_colors",
+                    "value": true
+                }
+            }
+        ]
+    }
+}

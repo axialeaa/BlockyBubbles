@@ -1,60 +1,59 @@
-<h1 align=center>🫧 Hi there! Thank you for checking out Blocky Bubbles! 🫧</h1>
+![Bubble columns around underwater ruined portal, watermark saying "Alexia"](https://raw.githubusercontent.com/axialeaa/Axialeaa-BrandingAssets/refs/heads/main/MODS/BlockyBubbles/cover.png)
 
 <p align=center>
-  <!-- MODRINTH DOWNLOADS --->
-  <a href="https://modrinth.com/mod/blocky-bubbles/versions">
-    <img src="https://img.shields.io/modrinth/dt/blocky-bubbles?label=Modrinth Downloads&logo=modrinth&style=flat-square" alt="Modrinth Downloads">
+  <!-- FAPI -->
+  <a href=https://modrinth.com/mod/fabric-api>
+    <img alt="fabric-api" height="64" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/fabric-api_vector.svg">
   </a>
-  <!-- MODRINTH FOLLOWERS --->
-  <a href="https://modrinth.com/mod/florum-sporum">
-    <img src="https://img.shields.io/modrinth/followers/blocky-bubbles?label=Modrinth Followers&logo=modrinth&style=flat-square" alt="Modrinth Followers">
+
+  <!-- GitHub -->
+  <a href=https://github.com/axialeaa/BlockyBubbles>
+    <img alt="github" height="64" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/github_vector.svg">
   </a>
-  <!-- GITHUB DOWNLOADS --->
-  <a href="https://github.com/axialeaa/BlockyBubbles/releases">
-    <img src="https://img.shields.io/github/downloads/axialeaa/BlockyBubbles/total?label=GitHub Downloads&logo=github&style=flat-square" alt="GitHub Downloads">
+
+  <!-- Gallery -->
+  <a href=https://modrinth.com/mod/blocky-bubbles/gallery>
+    <img alt="modrinth-gallery" height="64" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/documentation/modrinth-gallery_vector.svg">
   </a>
-  <!-- GITHUB STARS --->
-  <a href="https://github.com/axialeaa/BlockyBubbles">
-    <img src="https://img.shields.io/github/stars/axialeaa/BlockyBubbles?label=GitHub Stars&logo=github&style=flat-square" alt="GitHub Stars">
+
+  <!-- Ko-Fi -->
+  <a href=https://ko-fi.com/axialeaa>
+      <img alt="kofi-singular" height="64" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/donate/kofi-singular_vector.svg">
   </a>
-  <br>
-  <!-- LICENSE --->
-  <a href="https://github.com/axialeaa/BlockyBubbles/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/axialeaa/BlockyBubbles?label=License&style=flat-square" alt="License">
+
+  <!-- Discord -->
+  <a href=https://discord.gg/hfVmpeQhe8>
+      <img alt="discord-singular" height="64" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-singular_vector.svg">
   </a>
-  <!-- VERSIONS --->
-  <img src="https://img.shields.io/modrinth/game-versions/blocky-bubbles?label=Versions&style=flat-square" alt="Versions">
 </p>
-
-![Fast bubbles around an underwater ruined portal](https://github.com/axialeaa/BlockyBubbles/assets/116074698/c8343ad4-6047-4b33-80a9-a36c667cdfa1)
-
-**Blocky Bubbles** is a [Fabric][fabric] mod that attempts to port Bedrock Edition's fast bubbles feature to Java Edition! It seamlessly integrates into [Sodium][sodium]'s video settings which allow you to configure the quality of bubble columns independently of the main graphics profile.
-
-> [!NOTE]
-> Without [Sodium][sodium] installed, **Blocky Bubbles** will use the main graphics quality setting.
-
-<h2 align=center>📝 Getting Started 📝</h2>
-
-- Make sure you're running a Fabric instance of the game. If you're playing from the vanilla launcher, follow the [Fabric installation guide][fabric-guide]. If you're playing from a third-party launcher like [Prism][prism], you'll need to follow their own instructions which you can often find on their respective websites. For example, [here][prism-guide] is Prism's guide to downloading mods.
-- If you're not using a third-party launcher with in-built mod installation, you'll need to download the latest version of **Blocky Bubbles** for your game version from the [GitHub releases][github-releases] page or on [Modrinth][modrinth-versions]. Drag the `.jar` file into your mods folder and launch the game!
-
-> [!IMPORTANT]
-> **Blocky Bubbles** requires [Fabric API][fabric-api]. Without it, the game will fail to start!
-
-<h2 align=center>🤗 Support Me! 🤗</h2>
-
-Modding takes a lot of work, so if you're enjoying what I'm doing and wish to show your gratitude, you *have the option* to give me a tip over on Ko-fi. It's entirely up to you. I would appreciate it massively!
 
 <p align=center>
-<a href='https://ko-fi.com/P5P81B1BAS' target='_blank'><img height='120' style='border:10px;height:120px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com'/></a>
+    <b>Blocky Bubbles</b> ports over the "Fancy Bubbles" toggle setting from the Bedrock Edition of the game! This can improve frame rates in some scenarios, but you might just like the way it looks! It is fully configurable through both the vanilla Video Settings menu and the <a href="https://modrinth.com/mod/sodium">Sodium</a> config screen.
 </p>
 
-[fabric]: https://fabricmc.net
-[fabric-installer]: https://fabricmc.net/use/installer
-[fabric-guide]: https://docs.fabricmc.net/players/installing-fabric
-[fabric-api]: https://modrinth.com/mod/fabric-api
-[prism]: https://prismlauncher.org
-[prism-guide]: https://prismlauncher.org/wiki/getting-started/download-mods
-[modrinth-versions]: https://modrinth.com/mod/blocky-bubbles/versions
-[github-releases]: https://github.com/axialeaa/BlockyBubbles/releases
-[sodium]: https://modrinth.com/mod/sodium
+<h2><p align=center>🤝 Compatibility</p></h2>
+
+**Blocky Bubbles** is out-of-the-box compatible with most mods and resource packs with built-in support for [Bare Bones](https://modrinth.com/resourcepack/bare-bones), [Faithful 32x](https://modrinth.com/resourcepack/faithful-32x), and [Faithful 64x](https://modrinth.com/resourcepack/faithful-64x).
+It will also show up inside mesogleas from [Wilder Wild](https://modrinth.com/mod/wilder-wild) and broadly any block implementing behaviors from [FrozenLib](https://modrinth.com/mod/frozenlib)'s `WaterLikeBlock`, as long as the config option is enabled.
+
+These are not affiliated works; I just added them in for the love of the game :)
+
+<details>
+  <summary>
+    <p align=center><b>🖌️ Faithful credits!</b></p>
+  </summary>
+  The textures for the Faithful 32x and Faithful 64x extensions have been used with permission from @miniluv73 and @HARYA_ respectively. Thank you!
+</details>
+
+<h2><p align=center>🕵️ Be a content detective...</p></h2>
+
+**Blocky Bubbles**, being the first of its kind, is rather popular. This makes it enticing for bad actors on the internet to reupload and profit off my work without permission. Be suspicious if you find a link to anywhere other than here or GitHub: it's not me!
+
+If you like what you see and want to support me directly, spread the word about **Blocky Bubbles** to your friends and donate to my [Ko-Fi](https://ko-fi.com/axialeaa)! Also, consider joining the discussion over on my [Discord server](https://discord.gg/hfVmpeQhe8). I can't wait to hear from you~ 🌺
+
+<details>
+  <summary>
+    <p align=center><b>🌐 Hey, I need translators!</b></p>
+  </summary>
+  If you speak another language that isn't accounted for yet or the current translations are inaccurate/outdated, please file a pull request on GitHub! I'm immensely grateful for all **Blocky Bubbles** contributors 💗💗
+</details>

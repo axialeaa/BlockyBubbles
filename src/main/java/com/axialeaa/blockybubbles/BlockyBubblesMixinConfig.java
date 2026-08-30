@@ -1,6 +1,7 @@
 package com.axialeaa.blockybubbles;
 
 import net.fabricmc.loader.api.FabricLoader;
+import org.jspecify.annotations.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -14,13 +15,13 @@ public class BlockyBubblesMixinConfig implements IMixinConfigPlugin {
 	public void onLoad(String mixinPackage) {}
 
 	@Override
-	public String getRefMapperConfig() {
+	public @Nullable String getRefMapperConfig() {
 		return null;
 	}
 
 	@Override
 	public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-		return isCompatibleMixin(mixinClassName, "frozenlib") && isCompatibleMixin(mixinClassName, "sodium");
+		return isCompatibleMixin(mixinClassName, "frozenlib");
 	}
 
 	private static boolean isCompatibleMixin(String mixinClassName, String modId) {
@@ -31,7 +32,7 @@ public class BlockyBubblesMixinConfig implements IMixinConfigPlugin {
 	public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {}
 
 	@Override
-	public List<String> getMixins() {
+	public @Nullable List<String> getMixins() {
 		return null;
 	}
 

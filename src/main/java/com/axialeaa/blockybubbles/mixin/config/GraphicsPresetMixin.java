@@ -10,6 +10,7 @@ import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.client.GraphicsPreset;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.client.renderer.extract.LevelExtractor;
@@ -37,24 +38,24 @@ public class GraphicsPresetMixin {
         int ordinal = ref.get();
 
         if (ordinal != CUSTOM.ordinal())
-            applyQualityValue(screen, ordinal == FAST.ordinal() ? Quality.FAST : Quality.FANCY);
+            blocky_bubbles$applyQualityValue(screen, ordinal == FAST.ordinal() ? Quality.FAST : Quality.FANCY);
     }
 
     @Unique
-    private static void applyQualityValue(OptionsSubScreen screen, Quality quality) {
+    private static void blocky_bubbles$applyQualityValue(OptionsSubScreen screen, Quality quality) {
         BlockyBubblesConfig config = BlockyBubbles.getConfig();
 
         if (config.getQuality() != quality) {
             config.setQuality(quality);
             config.writeToFile();
 
-            OptionsAccessor.invokeOperateOnLevelExtractor(LevelExtractor::allChanged);
-            forceButtonValue(screen, quality);
+            Options.operateOnLevelExtractor(LevelExtractor::allChanged);
+			blocky_bubbles$forceButtonValue(screen, quality);
         }
     }
 
     @Unique
-    private static void forceButtonValue(OptionsSubScreen screen, Quality quality) {
+    private static void blocky_bubbles$forceButtonValue(OptionsSubScreen screen, Quality quality) {
         if (screen instanceof QualityButtonHolder holder) {
             CycleButton<Quality> button = holder.blocky_bubbles$get();
 

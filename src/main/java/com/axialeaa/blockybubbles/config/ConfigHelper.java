@@ -1,11 +1,7 @@
 package com.axialeaa.blockybubbles.config;
 
-import com.axialeaa.blockybubbles.BlockyBubbles;
-import com.axialeaa.blockybubbles.mixin.config.OptionsAccessor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
@@ -14,27 +10,35 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class ConfigHelper {
+import static com.axialeaa.blockybubbles.BlockyBubbles.*;
 
-    public static final Identifier QUALITY = BlockyBubbles.id("quality");
-    public static final Identifier ANIMATIONS = BlockyBubbles.id("animations");
-	public static final Identifier SMOOTHEN_ANIMATION_FRAMES = BlockyBubbles.id("smoothen_animation_frames");
-    public static final Identifier OPAQUE_FACES = BlockyBubbles.id("opaque_faces");
-    public static final Identifier CULLFACE_METHOD = BlockyBubbles.id("cullface_method");
-	public static final Identifier BIOME_COLORS = BlockyBubbles.id("biome_colors");
+public final class ConfigHelper {
 
-    public static final Component OPTION_PAGE_TEXT = optionText(BlockyBubbles.id("page.bubble_columns"));
+    public static final Identifier QUALITY = id("quality");
+    public static final Identifier ANIMATIONS = id("animations");
+    public static final Identifier OPAQUE_FACES = id("opaque_faces");
+    public static final Identifier CULLFACE_METHOD = id("cullface_method");
+	public static final Identifier BIOME_COLORS = id("biome_colors");
+	public static final Identifier RESOURCE_PACK_STYLE = id("resource_pack_style");
+	public static final Identifier FROZENLIB_COMPAT = id("frozenlib_compat");
+
+	public static final boolean FROZENLIB_LOADED = LOADER.isModLoaded("frozenlib");
+
+    public static final Component GENERAL_PAGE_TEXT = optionText(id("page.general"));
+	public static final Component COMPATIBILITY_PAGE_TEXT = optionText(id("page.compatibility"));
 
     private static final int WIDTH = 150;
     private static final int HEIGHT = 20;
 
-    public static CycleButton<Boolean> createCyclingBoolean(Identifier option, Consumer<Boolean> setter, Supplier<Boolean> getter, CycleButton.OnValueChange<Boolean> onValueChange) {
+	private ConfigHelper() {}
+
+	public static CycleButton<Boolean> createCyclingBoolean(Identifier option, Consumer<Boolean> setter, Supplier<Boolean> getter, CycleButton.OnValueChange<Boolean> onValueChange) {
         return CycleButton.onOffBuilder(getter.get())
             .withTooltip(_ -> Tooltip.create(optionTooltip(option)))
             .create(0, 0, WIDTH, HEIGHT, optionText(option), (button, value) -> {
                 setter.accept(value);
                 onValueChange.onValueChange(button, value);
-                BlockyBubbles.getConfig().writeToFile();
+                getConfig().writeToFile();
             });
     }
 
@@ -45,7 +49,7 @@ public class ConfigHelper {
             .create(0, 0, WIDTH, HEIGHT, optionText(option), (button, value) -> {
                 setter.accept(value);
                 onValueChange.onValueChange(button, value);
-                BlockyBubbles.getConfig().writeToFile();
+                getConfig().writeToFile();
             });
     }
 
@@ -57,7 +61,7 @@ public class ConfigHelper {
         return optionText(option, "");
     }
 
-    static Component optionText(Identifier option, String suffix) {
+    public static Component optionText(Identifier option, String suffix) {
         return Component.translatable(option.withPrefix("options.").toLanguageKey() + suffix);
     }
 
@@ -67,14 +71,6 @@ public class ConfigHelper {
 
     public static <E extends Enum<?> & StringRepresentable> Function<E, Component> enumOptionTooltipProvider(Identifier option) {
         return value -> optionText(option, '.' + value.getSerializedName() + ".tooltip");
-    }
-
-    public static <T> CycleButton.OnValueChange<T> reloadRenderer() {
-        return (_, _) -> OptionsAccessor.invokeOperateOnLevelExtractor(LevelExtractor::allChanged);
-    }
-
-    public static <T> CycleButton.OnValueChange<T> reloadAssets() {
-        return (_, _) -> Minecraft.getInstance().reloadResourcePacks();
     }
 
 }

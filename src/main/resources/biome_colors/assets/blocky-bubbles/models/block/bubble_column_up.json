@@ -1,0 +1,10 @@
+{
+  "parent": "blocky-bubbles:block/template_bubble_column",
+  "textures": {
+    "up": "blocky-bubbles:block/biome_colors/bubble_column_up_top",
+    "up_tinted": "blocky-bubbles:block/biome_colors/bubble_column_up_top_tinted",
+    "outer": "blocky-bubbles:block/biome_colors/bubble_column_up_outer",
+    "outer_tinted": "blocky-bubbles:block/biome_colors/bubble_column_up_outer_tinted",
+    "inner_tinted": "blocky-bubbles:block/biome_colors/bubble_column_up_inner_tinted"
+  }
+}

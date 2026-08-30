@@ -44,9 +44,21 @@
 			}
 		},
         {
-            "name": "CallMeEcho (Rendering help + FrozenLib compat)",
+            "name": "CallMeEcho (Rendering & FrozenLib compat help)",
             "contact": {
-                "homepage": "https://github.com/CallMeEchoCodes"
+                "homepage": "https://callmeecho.dev"
+            }
+        },
+        {
+            "name": "miniluv73 (Integrated Faithful 32x assets)",
+            "contact": {
+                "homepage": "https://faithfulpack.net/user/796034552338448425"
+            }
+        },
+        {
+            "name": "HARYA_ (Integrated Faithful 64x assets)",
+            "contact": {
+                "homepage": "https://faithfulpack.net/user/340497757410295808"
             }
         }
     ],

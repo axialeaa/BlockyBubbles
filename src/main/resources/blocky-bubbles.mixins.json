@@ -10,9 +10,9 @@
         "anim.SpriteContents$AnimationStateMixin",
         "anim.SpriteContentsMixin",
         "compat.frozenlib.BlockyBubblesSelfMixin",
+        "compat.frozenlib.CullfaceMethodSelfMixin",
         "compat.frozenlib.WaterLikeBlockMixin",
         "config.GraphicsPresetMixin",
-        "config.OptionsAccessor",
         "config.VideoSettingsScreenMixin",
         "impl.BlockBehaviourImplMixin"
     ],
