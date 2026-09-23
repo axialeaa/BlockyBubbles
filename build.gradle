@@ -6,7 +6,7 @@ plugins {
 }
 
 String mcVersion = project.build_version
-String updateName = "$mod_name $mod_version ($mcVersion)$update_name_suffix"
+String updateName = "$mod_name $mod_version for Minecraft $mcVersion"
 
 JavaVersion javaVersion = JavaVersion.VERSION_25
 int javaVersionNumber = 25
@@ -19,8 +19,7 @@ base {
 }
 
 repositories {
-    maven { url = "https://maven.bawnorton.com/releases" } // MixinSquared
-	maven { url = "https://maven.caffeinemc.net/snapshots" } // Sodium
+	maven { url = "https://maven.caffeinemc.net/releases" } // Sodium
 	maven { url = "https://maven.terraformersmc.com/" } // Mod Menu
     exclusiveContent {
         forRepository {
@@ -39,13 +38,13 @@ publishMods {
 	displayName = updateName
 
 	modLoaders.add("fabric")
-	version = mod_version
+	version = "$mod_version+$mcVersion"
 
 	github {
 		accessToken = providers.gradleProperty("secrets.github_token")
 		repository = repository_url
 		commitish = "master"
-		tagName = mod_version
+		tagName = "$mod_version+$mcVersion"
 	}
 
 	modrinth {
@@ -75,9 +74,9 @@ dependencies {
     implementation("com.terraformersmc:modmenu:${modmenu_version}")
 
     compileOnly("net.caffeinemc:sodium-fabric-api:${sodium_version}")
-    compileOnly("maven.modrinth:AtHRJSUW:TVkz6cZh")
-    compileOnly("maven.modrinth:9KawNmQc:Ak4sHFuc")
-    compileOnly("maven.modrinth:9s6osm5g:Nv3xnWXd")
+    compileOnly("maven.modrinth:AtHRJSUW:Dytk25FR") // wilder wild
+    compileOnly("maven.modrinth:9KawNmQc:lcUrAjbb") // frozenlib
+    compileOnly("maven.modrinth:9s6osm5g:fg2uyxOW") // cloth config
 }
 
 processResources {
